@@ -47,7 +47,7 @@ const Sidebar = ({ menuItems = [], logo, onOpenChange }) => {
             {/* Logo */}
             <div
                 style={{ borderBottomColor: sidebarColors.border }}
-                className="flex items-center justify-center border-b-2 p-4 relative"
+                className="flex items-center justify-center border-b-2 p-3 relative"
             >
                 {logo && (
                     <img
