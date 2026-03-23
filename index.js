@@ -1,6 +1,53 @@
-// Export all design wrapper components
+/**
+ * Design System - Central Export
+ * Import everything you need from here to ensure consistency
+ *
+ * Usage:
+ * import { Button, sidebarColors, spacing, fontStyles } from 'design-wrapper-component';
+ */
+
+// Components
 export { default as Button } from './Button';
 export { default as Sidebar } from './Sidebar';
+
+// Color Tokens
+export { default as sidebarColors, chartColors, fontStyles, sidebarClasses } from './colors';
+
+// Spacing & Layout Tokens
+export { spacing, componentSpacing, borderRadius, layout, zIndex } from './spacing';
+
+// Common Styles (pre-built style objects)
+export { default as commonStyles } from './commonStyles';
+export {
+  // Typography
+  widgetTitleStyles,
+  sectionTitleStyles,
+  subtitleStyles,
+  bodyTextStyles,
+  smallTextStyles,
+  labelStyles,
+  metricStyles,
+  // Cards
+  cardStyles,
+  gradientCardStyles,
+  compactCardStyles,
+  // Buttons
+  primaryButtonStyles,
+  secondaryButtonStyles,
+  iconButtonStyles,
+  // Inputs
+  inputStyles,
+  selectStyles,
+  // Badges
+  successBadgeStyles,
+  warningBadgeStyles,
+  errorBadgeStyles,
+  infoBadgeStyles,
+  // Others
+  dividerStyles,
+  hoverBackgroundColor,
+  hoverTextColor,
+} from './commonStyles';
 
 
 

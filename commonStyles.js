@@ -3,11 +3,12 @@
  * Import and use these styles throughout the application for consistency
  *
  * Usage:
- * import { widgetTitleStyles, cardStyles } from '@/styles/commonStyles';
+ * import { widgetTitleStyles, cardStyles } from 'design-wrapper-component';
  * <h3 style={widgetTitleStyles}>My Title</h3>
  */
 
-import sidebarColors, { fontStyles } from './colors.js';
+import sidebarColors, { fontStyles, chartColors } from './colors.js';
+import { spacing, componentSpacing, borderRadius } from './spacing.js';
 
 // ===== TYPOGRAPHY STYLES =====
 // Using font styles from design wrapper (colors.js)
@@ -60,8 +61,8 @@ export const metricStyles = {
 export const cardStyles = {
   backgroundColor: sidebarColors.background,
   border: `1px solid ${sidebarColors.border}`,
-  borderRadius: '12px',
-  padding: '16px',
+  borderRadius: borderRadius.xl,
+  padding: componentSpacing.card.default,
   boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'
 };
 
@@ -69,8 +70,8 @@ export const cardStyles = {
 export const gradientCardStyles = {
   background: `linear-gradient(to bottom right, ${sidebarColors.background}, ${sidebarColors.background}f5)`,
   border: `1px solid ${sidebarColors.border}`,
-  borderRadius: '12px',
-  padding: '16px',
+  borderRadius: borderRadius.xl,
+  padding: componentSpacing.card.default,
   boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'
 };
 
@@ -78,8 +79,8 @@ export const gradientCardStyles = {
 export const compactCardStyles = {
   backgroundColor: sidebarColors.background,
   border: `1px solid ${sidebarColors.border}`,
-  borderRadius: '8px',
-  padding: '12px'
+  borderRadius: borderRadius.lg,
+  padding: componentSpacing.card.compact
 };
 
 // ===== BUTTON STYLES =====
@@ -90,8 +91,8 @@ export const primaryButtonStyles = {
   backgroundImage: `linear-gradient(to right, ${sidebarColors.primaryFrom}, ${sidebarColors.primaryTo})`,
   color: sidebarColors.textPrimary,
   border: 'none',
-  padding: '10px 20px',
-  borderRadius: '8px',
+  ...componentSpacing.button.md,
+  borderRadius: borderRadius.lg,
   cursor: 'pointer',
   transition: 'all 0.2s'
 };
@@ -102,8 +103,8 @@ export const secondaryButtonStyles = {
   backgroundColor: 'transparent',
   color: sidebarColors.primaryFrom,
   border: `1px solid ${sidebarColors.primaryFrom}`,
-  padding: '10px 20px',
-  borderRadius: '8px',
+  ...componentSpacing.button.md,
+  borderRadius: borderRadius.lg,
   cursor: 'pointer',
   transition: 'all 0.2s'
 };
@@ -113,8 +114,8 @@ export const iconButtonStyles = {
   backgroundColor: 'transparent',
   color: sidebarColors.textSecondary,
   border: 'none',
-  padding: '8px',
-  borderRadius: '6px',
+  padding: spacing.sm,
+  borderRadius: borderRadius.md,
   cursor: 'pointer',
   transition: 'all 0.2s'
 };
@@ -127,8 +128,8 @@ export const inputStyles = {
   backgroundColor: sidebarColors.background,
   color: sidebarColors.textPrimary,
   border: `1px solid ${sidebarColors.border}`,
-  borderRadius: '6px',
-  padding: '8px 12px',
+  borderRadius: borderRadius.md,
+  ...componentSpacing.input.md,
   outline: 'none',
   transition: 'border-color 0.2s'
 };
@@ -139,8 +140,8 @@ export const selectStyles = {
   backgroundColor: sidebarColors.background,
   color: sidebarColors.textPrimary,
   border: `1px solid ${sidebarColors.border}`,
-  borderRadius: '6px',
-  padding: '8px 12px',
+  borderRadius: borderRadius.md,
+  ...componentSpacing.input.md,
   outline: 'none',
   cursor: 'pointer',
   transition: 'border-color 0.2s'
@@ -152,30 +153,30 @@ export const selectStyles = {
 export const successBadgeStyles = {
   ...fontStyles.caption,
   fontWeight: '600',
-  backgroundColor: '#22c55e20',
-  color: '#22c55e',
-  padding: '4px 12px',
-  borderRadius: '12px'
+  backgroundColor: `${chartColors.severity.info}20`,
+  color: chartColors.severity.info,
+  padding: `${spacing.xs} ${spacing.md}`,
+  borderRadius: borderRadius.full
 };
 
 // Warning badge
 export const warningBadgeStyles = {
   ...fontStyles.caption,
   fontWeight: '600',
-  backgroundColor: '#fbbf2420',
-  color: '#fbbf24',
-  padding: '4px 12px',
-  borderRadius: '12px'
+  backgroundColor: `${chartColors.severity.medium}20`,
+  color: chartColors.severity.medium,
+  padding: `${spacing.xs} ${spacing.md}`,
+  borderRadius: borderRadius.full
 };
 
 // Error badge
 export const errorBadgeStyles = {
   ...fontStyles.caption,
   fontWeight: '600',
-  backgroundColor: '#ef444420',
-  color: '#ef4444',
-  padding: '4px 12px',
-  borderRadius: '12px'
+  backgroundColor: `${chartColors.severity.critical}20`,
+  color: chartColors.severity.critical,
+  padding: `${spacing.xs} ${spacing.md}`,
+  borderRadius: borderRadius.full
 };
 
 // Info badge (emerald theme)
@@ -184,8 +185,8 @@ export const infoBadgeStyles = {
   fontWeight: '600',
   backgroundColor: `${sidebarColors.primaryFrom}20`,
   color: sidebarColors.primaryFrom,
-  padding: '4px 12px',
-  borderRadius: '12px'
+  padding: `${spacing.xs} ${spacing.md}`,
+  borderRadius: borderRadius.full
 };
 
 // ===== DIVIDER/SEPARATOR =====
@@ -194,7 +195,7 @@ export const dividerStyles = {
   height: '1px',
   backgroundColor: sidebarColors.border,
   border: 'none',
-  margin: '16px 0'
+  margin: `${spacing.lg} 0`
 };
 
 // ===== HOVER STATE HELPERS =====

@@ -212,7 +212,17 @@ export const chartColors = {
     axis: "rgba(255, 255, 255, 0.3)",      // Axis lines
     label: "rgba(255, 255, 255, 0.6)",     // Labels
     tooltip: "rgba(0, 0, 0, 0.95)",        // Tooltip background
-    tooltipBorder: "rgba(16, 185, 129, 0.5)" // Tooltip border
+    tooltipBorder: "rgba(16, 185, 129, 0.5)", // Tooltip border
+    border: "rgba(255, 255, 255, 0.2)"     // General border color
+  },
+
+  // Connection/Edge flow colors (for geolocation maps, network diagrams)
+  edges: {
+    critical: "#ef4444",      // red-500 - High volume/critical flows
+    high: "#f87171",          // red-400 - Medium-high flows
+    medium: "#fca5a5",        // red-300 - Medium flows
+    low: "#fecaca",           // red-200 - Low volume flows
+    default: "#dc2626"        // red-600 - Default edge color
   },
 
   // Default fallback color

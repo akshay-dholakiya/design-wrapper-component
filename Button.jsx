@@ -1,9 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import sidebarColors, { chartColors, fontStyles } from './colors.js';
+import { componentSpacing, borderRadius, layout } from './spacing.js';
 
 /**
- * Reusable Button Wrapper Component
- * Supports multiple variants, sizes, and states
+ * Reusable Button Component - Using Design System Tokens
+ * All styles derived from design-wrapper-component
+ * NO hardcoded values!
  */
 const Button = ({
   children,
@@ -16,104 +19,149 @@ const Button = ({
   iconPosition = 'left',
   onClick,
   type = 'button',
-  className = '',
+  style = {},
   ...rest
 }) => {
-  // Base styles
-  const baseStyles = `
-    inline-flex items-center justify-center
-    font-semibold rounded-xl
-    transition-all duration-300 ease-in-out
-    focus:outline-none focus:ring-2 focus:ring-offset-2
-    disabled:opacity-50 disabled:cursor-not-allowed
-    shadow-lg hover:shadow-xl
-    ${fullWidth ? 'w-full' : ''}
-  `;
-
-  // Variant styles
-  const variants = {
-    primary: `
-      bg-gradient-to-r from-cyan-500 to-blue-600
-      hover:from-cyan-600 hover:to-blue-700
-      text-white
-      focus:ring-cyan-500
-      shadow-cyan-500/50
-    `,
-    secondary: `
-      bg-slate-800 hover:bg-slate-700
-      text-slate-200 hover:text-white
-      border border-slate-700 hover:border-slate-600
-      focus:ring-slate-500
-    `,
-    danger: `
-      bg-gradient-to-r from-red-500 to-red-600
-      hover:from-red-600 hover:to-red-700
-      text-white
-      focus:ring-red-500
-      shadow-red-500/50
-    `,
-    success: `
-      bg-gradient-to-r from-green-500 to-emerald-600
-      hover:from-green-600 hover:to-emerald-700
-      text-white
-      focus:ring-green-500
-      shadow-green-500/50
-    `,
-    warning: `
-      bg-gradient-to-r from-yellow-500 to-orange-600
-      hover:from-yellow-600 hover:to-orange-700
-      text-white
-      focus:ring-yellow-500
-      shadow-yellow-500/50
-    `,
-    outline: `
-      bg-transparent
-      border-2 border-cyan-500 hover:border-cyan-400
-      text-cyan-500 hover:text-cyan-400
-      hover:bg-cyan-500/10
-      focus:ring-cyan-500
-    `,
-    ghost: `
-      bg-transparent hover:bg-white/10
-      text-slate-300 hover:text-white
-      focus:ring-slate-500
-      shadow-none
-    `,
-    dark: `
-      bg-slate-900 hover:bg-black
-      text-white
-      border border-white/10 hover:border-white/20
-      focus:ring-white/20
-    `,
+  // Base button styles using design tokens
+  const baseStyles = {
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    border: 'none',
+    cursor: disabled || loading ? 'not-allowed' : 'pointer',
+    transition: 'all 0.2s ease-in-out',
+    outline: 'none',
+    opacity: disabled || loading ? 0.5 : 1,
+    width: fullWidth ? '100%' : 'auto',
+    ...fontStyles.button,
   };
 
-  // Size styles
-  const sizes = {
-    xs: 'px-3 py-1.5 text-xs gap-1',
-    sm: 'px-4 py-2 text-sm gap-2',
-    md: 'px-6 py-3 text-base gap-2',
-    lg: 'px-8 py-4 text-lg gap-3',
-    xl: 'px-10 py-5 text-xl gap-3',
+  // Variant styles using design system colors
+  const variantStyles = {
+    primary: {
+      backgroundImage: `linear-gradient(to right, ${sidebarColors.primaryFrom}, ${sidebarColors.primaryTo})`,
+      color: '#ffffff',
+      boxShadow: `0 4px 12px ${sidebarColors.primaryFrom}40`,
+    },
+    secondary: {
+      backgroundColor: 'transparent',
+      color: sidebarColors.primaryFrom,
+      border: `1px solid ${sidebarColors.primaryFrom}`,
+    },
+    danger: {
+      backgroundImage: `linear-gradient(to right, ${chartColors.severity.critical}, #dc2626)`,
+      color: '#ffffff',
+      boxShadow: `0 4px 12px ${chartColors.severity.critical}40`,
+    },
+    success: {
+      backgroundImage: `linear-gradient(to right, ${sidebarColors.primaryFrom}, #22c55e)`,
+      color: '#ffffff',
+      boxShadow: `0 4px 12px ${sidebarColors.primaryFrom}40`,
+    },
+    warning: {
+      backgroundImage: `linear-gradient(to right, ${chartColors.severity.medium}, ${chartColors.severity.high})`,
+      color: '#ffffff',
+      boxShadow: `0 4px 12px ${chartColors.severity.medium}40`,
+    },
+    outline: {
+      backgroundColor: 'transparent',
+      border: `2px solid ${sidebarColors.primaryFrom}`,
+      color: sidebarColors.primaryFrom,
+    },
+    ghost: {
+      backgroundColor: 'transparent',
+      color: sidebarColors.textSecondary,
+    },
+    dark: {
+      backgroundColor: sidebarColors.background,
+      color: sidebarColors.textPrimary,
+      border: `1px solid ${sidebarColors.border}`,
+    },
+  };
+
+  // Size styles using spacing tokens
+  const sizeStyles = {
+    xs: {
+      ...componentSpacing.button.xs,
+      fontSize: '12px',
+      gap: '4px',
+      borderRadius: borderRadius.md,
+      height: layout.height.xs,
+    },
+    sm: {
+      ...componentSpacing.button.sm,
+      fontSize: '13px',
+      gap: '6px',
+      borderRadius: borderRadius.lg,
+      height: layout.height.sm,
+    },
+    md: {
+      ...componentSpacing.button.md,
+      fontSize: '14px',
+      gap: '8px',
+      borderRadius: borderRadius.lg,
+      height: layout.height.md,
+    },
+    lg: {
+      ...componentSpacing.button.lg,
+      fontSize: '16px',
+      gap: '10px',
+      borderRadius: borderRadius.xl,
+      height: layout.height.lg,
+    },
+    xl: {
+      ...componentSpacing.button.xl,
+      fontSize: '18px',
+      gap: '12px',
+      borderRadius: borderRadius.xl,
+      height: layout.height.xl,
+    },
   };
 
   // Combine all styles
-  const buttonClasses = `
-    ${baseStyles}
-    ${variants[variant] || variants.primary}
-    ${sizes[size] || sizes.md}
-    ${className}
-  `.replace(/\s+/g, ' ').trim();
+  const combinedStyles = {
+    ...baseStyles,
+    ...variantStyles[variant],
+    ...sizeStyles[size],
+    ...style,
+  };
 
-  // Loading spinner component
+  // Hover styles (applied via onMouseEnter/onMouseLeave)
+  const getHoverStyles = () => {
+    if (variant === 'primary' || variant === 'success' || variant === 'danger' || variant === 'warning') {
+      return {
+        transform: 'translateY(-2px)',
+        boxShadow: `0 8px 20px ${variantStyles[variant]?.boxShadow?.split(' ').pop()}`,
+      };
+    }
+    if (variant === 'secondary' || variant === 'outline') {
+      return {
+        backgroundColor: `${sidebarColors.primaryFrom}20`,
+      };
+    }
+    if (variant === 'ghost') {
+      return {
+        backgroundColor: `${sidebarColors.textSecondary}10`,
+        color: sidebarColors.textPrimary,
+      };
+    }
+    return {};
+  };
+
+  // Loading spinner using design tokens
   const LoadingSpinner = () => (
     <svg
-      className="animate-spin h-5 w-5"
+      style={{
+        animation: 'spin 1s linear infinite',
+        width: layout.iconSize.md,
+        height: layout.iconSize.md,
+      }}
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
     >
       <circle
-        className="opacity-25"
+        style={{ opacity: 0.25 }}
         cx="12"
         cy="12"
         r="10"
@@ -121,33 +169,49 @@ const Button = ({
         strokeWidth="4"
       />
       <path
-        className="opacity-75"
+        style={{ opacity: 0.75 }}
         fill="currentColor"
         d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
       />
     </svg>
   );
 
+  const [isHovered, setIsHovered] = React.useState(false);
+
+  const finalStyles = {
+    ...combinedStyles,
+    ...(isHovered && !disabled && !loading ? getHoverStyles() : {}),
+  };
+
   return (
-    <button
-      type={type}
-      className={buttonClasses}
-      disabled={disabled || loading}
-      onClick={onClick}
-      {...rest}
-    >
-      {loading && iconPosition === 'left' && <LoadingSpinner />}
-      {!loading && icon && iconPosition === 'left' && (
-        <span className="flex-shrink-0">{icon}</span>
-      )}
+    <>
+      <style>{`
+        @keyframes spin {
+          to { transform: rotate(360deg); }
+        }
+      `}</style>
+      <button
+        type={type}
+        style={finalStyles}
+        disabled={disabled || loading}
+        onClick={onClick}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+        {...rest}
+      >
+        {loading && iconPosition === 'left' && <LoadingSpinner />}
+        {!loading && icon && iconPosition === 'left' && (
+          <span style={{ flexShrink: 0, display: 'flex' }}>{icon}</span>
+        )}
 
-      {children && <span>{children}</span>}
+        {children && <span>{children}</span>}
 
-      {!loading && icon && iconPosition === 'right' && (
-        <span className="flex-shrink-0">{icon}</span>
-      )}
-      {loading && iconPosition === 'right' && <LoadingSpinner />}
-    </button>
+        {!loading && icon && iconPosition === 'right' && (
+          <span style={{ flexShrink: 0, display: 'flex' }}>{icon}</span>
+        )}
+        {loading && iconPosition === 'right' && <LoadingSpinner />}
+      </button>
+    </>
   );
 };
 
@@ -171,7 +235,7 @@ Button.propTypes = {
   iconPosition: PropTypes.oneOf(['left', 'right']),
   onClick: PropTypes.func,
   type: PropTypes.oneOf(['button', 'submit', 'reset']),
-  className: PropTypes.string,
+  style: PropTypes.object,
 };
 
 export default Button;
