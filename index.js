@@ -9,6 +9,7 @@
 // Components
 export { default as Button } from './Button';
 export { default as Sidebar } from './Sidebar';
+export { default as PageLoader } from './PageLoader';
 
 // Color Tokens
 export { default as sidebarColors, chartColors, fontStyles, sidebarClasses } from './colors';
