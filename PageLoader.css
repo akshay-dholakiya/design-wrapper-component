@@ -184,14 +184,10 @@
   font-weight: 500;
   letter-spacing: 2px;
   text-transform: uppercase;
+  animation: fadeSlide 2s ease-in-out infinite;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
     'Helvetica Neue', Arial, sans-serif;
-  display: inline-block;
-  border-right: 2px solid rgba(16, 185, 129, 1);
-  animation: typing 3s steps(8, end) infinite, blink 0.7s step-end infinite;
-  overflow: hidden;
-  white-space: nowrap;
 }
 
 /* Loading dots animation */
