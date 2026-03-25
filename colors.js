@@ -139,6 +139,24 @@ export const fontStyles = {
     ...fontSmoothing,
   },
 
+  // 30px metric — used in medium-sized KPI / stat cards
+  metricMedium: {
+    fontSize: "30px",
+    fontWeight: "700",
+    lineHeight: "1.1",
+    fontVariantNumeric: "tabular-nums",
+    ...fontSmoothing,
+  },
+
+  // 32px metric — used in severity-card count values
+  metric2xl: {
+    fontSize: "32px",
+    fontWeight: "700",
+    lineHeight: "1",
+    fontVariantNumeric: "tabular-nums",
+    ...fontSmoothing,
+  },
+
   metricLarge: {
     fontSize: "48px",
     fontWeight: "700",
