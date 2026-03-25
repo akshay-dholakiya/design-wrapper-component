@@ -50,5 +50,8 @@ export {
   hoverTextColor,
 } from './commonStyles';
 
+// Side panel tokens
+export { sidePanelTheme, summaryTone, severityBadgeStyle } from './sidePanelTheme';
+
 
 

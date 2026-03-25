@@ -111,6 +111,33 @@ export const layout = {
     xl: '32px',
     '2xl': '40px',
   },
+
+  width: {
+    xs: '80px',
+    sm: '130px',
+    md: '180px',
+    lg: '240px',
+    xl: '320px',
+    '2xl': '400px',
+    full: '100%',
+  },
+
+  modal: {
+    maxHeightViewport: '95vh',
+    minFilterWidth: '140px',
+    listMinHeight: '400px',
+    listMaxHeight: '600px',
+  },
+
+  dropdown: {
+    width: '288px',
+    maxHeightViewport: '70vh',
+  },
+
+  chart: {
+    sankeyMinHeight: '560px',
+    sankeyHeight: '720px',
+  },
 };
 
 // Z-index scale
@@ -125,11 +152,4 @@ export const zIndex = {
   tooltip: 700,
 };
 
-export default {
-  spacing,
-  componentSpacing,
-  borderRadius,
-  layout,
-  zIndex,
-};
 
