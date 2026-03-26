@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+    import React, { useState, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import { Link, useLocation } from "react-router-dom";
 import sidebarColors from "./colors";
@@ -342,7 +342,7 @@ const MenuItem = ({ item, open, cssVariables }) => {
                     onMouseEnter={openFloatingMenu}
                     onMouseLeave={closeFloatingMenu}
                 >
-                    <div className={`floating-submenu-title ${isParentActive ? 'active' : ''}`}>{item.title}</div>
+                    <div className={`floating-submenu-title`}>{item.title}</div>
                     <div className="floating-submenu-items">
                         {item.children.map((child, i) => {
                             const childActive = child.path ? location.pathname === child.path : false;
