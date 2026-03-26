@@ -88,7 +88,9 @@ export const fontStyles = {
     letterSpacing: "0.01em",
     ...fontSmoothing,
   },
-
+  sidebarIcon: {
+    fontSize: "1.25rem",
+  },
   body: {
     fontSize: "14px",
     fontWeight: "400",
