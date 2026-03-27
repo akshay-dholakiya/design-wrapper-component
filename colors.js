@@ -1,29 +1,20 @@
 // ===== SIDEBAR COLOR PALETTE =====
 
 const sidebarColors = {
-  // Background Colors
   background: "#000000",
-
-  // Border Colors
   border: "rgba(255, 255, 255, 0.2)",
-
-  // Text Colors
   textPrimary: "#ffffff",
   textSecondary: "rgba(255, 255, 255, 0.6)",
 
-  // 🔵 Primary Brand Colors (BLUE THEME)
-  primaryFrom: "#3b82f6",   // blue-500
-  primaryTo: "#60a5fa",     // blue-400
+  primaryFrom: "#3b82f6",
+  primaryTo: "#60a5fa",
 
-  // Hover States
   hoverBorder: "rgba(59, 130, 246, 0.5)",
   hoverShadow: "rgba(59, 130, 246, 0.7)",
   hoverShadowSpread: "0 0 20px",
 
-  // Active/Selected State
   activeShadow: "rgba(59, 130, 246, 0.5)",
 
-  // Button Colors
   buttonBackground: "#000000",
   buttonIconColor: "#ffffff",
 };
@@ -41,154 +32,40 @@ const fontSmoothing = {
 export const fontStyles = {
   smoothing: fontSmoothing,
 
-  heading1: {
-    fontSize: "32px",
-    fontWeight: "800",
-    lineHeight: "1.1",
-    letterSpacing: "-0.02em",
-    ...fontSmoothing,
-  },
+  heading1: { fontSize: "32px", fontWeight: "800", lineHeight: "1.1", letterSpacing: "-0.02em", ...fontSmoothing },
+  heading2: { fontSize: "24px", fontWeight: "700", lineHeight: "1.2", letterSpacing: "-0.015em", ...fontSmoothing },
+  heading3: { fontSize: "20px", fontWeight: "700", lineHeight: "1.3", letterSpacing: "-0.01em", ...fontSmoothing },
+  heading4: { fontSize: "18px", fontWeight: "700", lineHeight: "1.4", letterSpacing: "-0.005em", ...fontSmoothing },
+  heading5: { fontSize: "16px", fontWeight: "700", lineHeight: "1.4", ...fontSmoothing },
+  heading6: { fontSize: "14px", fontWeight: "700", lineHeight: "1.5", letterSpacing: "0.01em", ...fontSmoothing },
 
-  heading2: {
-    fontSize: "24px",
-    fontWeight: "700",
-    lineHeight: "1.2",
-    letterSpacing: "-0.015em",
-    ...fontSmoothing,
-  },
+  sidebarIcon: { fontSize: "1.25rem" },
 
-  heading3: {
-    fontSize: "20px",
-    fontWeight: "700",
-    lineHeight: "1.3",
-    letterSpacing: "-0.01em",
-    ...fontSmoothing,
-  },
+  body: { fontSize: "14px", fontWeight: "400", lineHeight: "1.6", ...fontSmoothing },
+  bodyLarge: { fontSize: "16px", fontWeight: "400", lineHeight: "1.6", ...fontSmoothing },
+  bodySmall: { fontSize: "12px", fontWeight: "400", lineHeight: "1.5", ...fontSmoothing },
 
-  heading4: {
-    fontSize: "18px",
-    fontWeight: "700",
-    lineHeight: "1.4",
-    letterSpacing: "-0.005em",
-    ...fontSmoothing,
-  },
+  caption: { fontSize: "12px", fontWeight: "400", lineHeight: "1.4", ...fontSmoothing },
+  label: { fontSize: "13px", fontWeight: "500", letterSpacing: "0.01em", ...fontSmoothing },
+  button: { fontSize: "14px", fontWeight: "600", letterSpacing: "0.02em", ...fontSmoothing },
 
-  heading5: {
-    fontSize: "16px",
-    fontWeight: "700",
-    lineHeight: "1.4",
-    letterSpacing: "0em",
-    ...fontSmoothing,
-  },
-
-  heading6: {
-    fontSize: "14px",
-    fontWeight: "700",
-    lineHeight: "1.5",
-    letterSpacing: "0.01em",
-    ...fontSmoothing,
-  },
-  sidebarIcon: {
-    fontSize: "1.25rem",
-  },
-  body: {
-    fontSize: "14px",
-    fontWeight: "400",
-    lineHeight: "1.6",
-    ...fontSmoothing,
-  },
-
-  bodyLarge: {
-    fontSize: "16px",
-    fontWeight: "400",
-    lineHeight: "1.6",
-    ...fontSmoothing,
-  },
-
-  bodySmall: {
-    fontSize: "12px",
-    fontWeight: "400",
-    lineHeight: "1.5",
-    ...fontSmoothing,
-  },
-
-  caption: {
-    fontSize: "12px",
-    fontWeight: "400",
-    lineHeight: "1.4",
-    ...fontSmoothing,
-  },
-
-  label: {
-    fontSize: "13px",
-    fontWeight: "500",
-    letterSpacing: "0.01em",
-    ...fontSmoothing,
-  },
-
-  button: {
-    fontSize: "14px",
-    fontWeight: "600",
-    letterSpacing: "0.02em",
-    ...fontSmoothing,
-  },
-
-  metric: {
-    fontSize: "24px",
-    fontWeight: "700",
-    lineHeight: "1.2",
-    fontVariantNumeric: "tabular-nums",
-    ...fontSmoothing,
-  },
-
-  // 30px metric — used in medium-sized KPI / stat cards
-  metricMedium: {
-    fontSize: "30px",
-    fontWeight: "700",
-    lineHeight: "1.1",
-    fontVariantNumeric: "tabular-nums",
-    ...fontSmoothing,
-  },
-
-  // 32px metric — used in severity-card count values
-  metric2xl: {
-    fontSize: "32px",
-    fontWeight: "700",
-    lineHeight: "1",
-    fontVariantNumeric: "tabular-nums",
-    ...fontSmoothing,
-  },
-
-  metricLarge: {
-    fontSize: "48px",
-    fontWeight: "700",
-    lineHeight: "1.1",
-    fontVariantNumeric: "tabular-nums",
-    ...fontSmoothing,
-  },
-
-  metricXL: {
-    fontSize: "60px",
-    fontWeight: "700",
-    lineHeight: "1.1",
-    fontVariantNumeric: "tabular-nums",
-    ...fontSmoothing,
-  },
+  metric: { fontSize: "24px", fontWeight: "700", lineHeight: "1.2", fontVariantNumeric: "tabular-nums", ...fontSmoothing },
+  metricMedium: { fontSize: "30px", fontWeight: "700", lineHeight: "1.1", fontVariantNumeric: "tabular-nums", ...fontSmoothing },
+  metric2xl: { fontSize: "32px", fontWeight: "700", lineHeight: "1", fontVariantNumeric: "tabular-nums", ...fontSmoothing },
+  metricLarge: { fontSize: "48px", fontWeight: "700", lineHeight: "1.1", fontVariantNumeric: "tabular-nums", ...fontSmoothing },
+  metricXL: { fontSize: "60px", fontWeight: "700", lineHeight: "1.1", fontVariantNumeric: "tabular-nums", ...fontSmoothing },
 
   code: {
     fontSize: "13px",
     fontWeight: "400",
     fontFamily: '"Fira Code", "Consolas", "Monaco", monospace',
     lineHeight: "1.6",
-    WebkitFontSmoothing: "antialiased",
-    MozOsxFontSmoothing: "grayscale",
   },
 };
 
 // ===== CHART COLOR PALETTE =====
 
 export const chartColors = {
-  // 🔵 Primary chart colors (BLUE)
   primary: ["#3b82f6", "#60a5fa", "#2563eb", "#93c5fd", "#dbeafe"],
 
   severity: {
@@ -205,7 +82,7 @@ export const chartColors = {
     "#f59e0b",
     "#ec4899",
     "#06b6d4",
-    "#84cc16",
+    "#22c55e", // ✅ UPDATED GREEN
     "#f97316",
     "#6366f1",
     "#14b8a6",
@@ -222,7 +99,7 @@ export const chartColors = {
     "#f59e0b",
     "#fbbf24",
     "#6366f1",
-    "#818cf8",
+    "#22c55e", // ✅ UPDATED GREEN
   ],
 
   gradients: {
@@ -245,7 +122,7 @@ export const chartColors = {
     critical: "#ef4444",
     high: "#f87171",
     medium: "#fca5a5",
-    low: "#fecaca",
+    low: "#bbf7d0", // ✅ softer green edge
     default: "#dc2626",
   },
 
@@ -268,6 +145,7 @@ export const chartColors = {
       hubBorder: "#3b82f6",
       statBorder: "#06b6d4",
     },
+
     light: {
       background: "transparent",
       surface: "#f8fafc",
@@ -286,6 +164,7 @@ export const chartColors = {
       hubBorder: "#3b82f6",
       statBorder: "#0891b2",
     },
+
     cyber: {
       background: "transparent",
       surface: "#0d0d1a",
@@ -313,12 +192,12 @@ export const chartColors = {
     panelGradientTo: "#060b11",
     input: "#a78bfa",
     inputGlow: "#7c3aed",
-    output: "#34d399",
+    output: "#10b981", // ✅ UPDATED GREEN
     outputGlow: "#059669",
     cyan: "#06b6d4",
     textInput: "#c4b5fd",
     textPanel: "#d4e5f7",
-    textOutput: "#d1fae5",
+    textOutput: "#bbf7d0", // ✅ UPDATED
   },
 
   default: "#3b82f6",
