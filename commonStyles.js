@@ -59,7 +59,7 @@ export const metricStyles = {
 
 // Standard card/widget container
 export const cardStyles = {
-  backgroundColor: sidebarColors.background,
+  backgroundColor: sidebarColors.backgroundSoft,
   border: `1px solid ${sidebarColors.border}`,
   borderRadius: borderRadius.xl,
   padding: componentSpacing.card.default,
@@ -68,7 +68,7 @@ export const cardStyles = {
 
 // Card with gradient background
 export const gradientCardStyles = {
-  background: `linear-gradient(to bottom right, ${sidebarColors.background}, ${sidebarColors.background}f5)`,
+  background: `linear-gradient(to bottom right, ${sidebarColors.backgroundSoft}, ${sidebarColors.backgroundSoft}f5)`,
   border: `1px solid ${sidebarColors.border}`,
   borderRadius: borderRadius.xl,
   padding: componentSpacing.card.default,
@@ -77,7 +77,7 @@ export const gradientCardStyles = {
 
 // Compact card (less padding)
 export const compactCardStyles = {
-  backgroundColor: sidebarColors.background,
+  backgroundColor: sidebarColors.backgroundSoft,
   border: `1px solid ${sidebarColors.border}`,
   borderRadius: borderRadius.lg,
   padding: componentSpacing.card.compact

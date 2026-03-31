@@ -1,7 +1,7 @@
     import React, { useState, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import { Link, useLocation } from "react-router-dom";
-import sidebarColors, { fontStyles } from "./colors";
+import sidebarColors from "./colors";
 import "./Sidebar.css";
 
 const isExternalLink = (path = "") => /^https?:\/\//i.test(path);
@@ -46,17 +46,13 @@ const Sidebar = ({ menuItems = [], bottomMenuItems = [], logo, onOpenChange, sho
         '--sidebar-hover-shadow': sidebarColors.hoverShadow,
         '--sidebar-hover-shadow-spread': sidebarColors.hoverShadowSpread,
         '--sidebar-active-shadow': sidebarColors.activeShadow,
+        '--sidebar-hover-background': sidebarColors.hoverBackground,
+        '--sidebar-hover-text': sidebarColors.hoverText,
+        '--sidebar-active-background': sidebarColors.activeBackground,
+        '--sidebar-active-text': sidebarColors.activeText,
+        '--sidebar-active-border': sidebarColors.activeBorder,
         '--sidebar-button-background': sidebarColors.buttonBackground,
         '--sidebar-button-icon-color': sidebarColors.buttonIconColor,
-        // Font styles
-        '--font-family': fontStyles.body.fontFamily,
-        '--font-size-body': fontStyles.body.fontSize,
-        '--font-size-icon': fontStyles.sidebarIcon.fontSize,
-        '--font-weight-body': fontStyles.body.fontWeight,
-        '--font-line-height-body': fontStyles.body.lineHeight,
-        '--font-size-heading6': fontStyles.heading6.fontSize,
-        '--font-weight-heading6': fontStyles.heading6.fontWeight,
-        '--font-line-height-heading6': fontStyles.heading6.lineHeight,
     };
 
     const canLogout = showLogout && typeof onLogout === "function";
