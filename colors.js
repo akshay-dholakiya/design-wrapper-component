@@ -648,9 +648,9 @@ export const chartColors = {
 
     // ── CYBER (Neon Cyber — kept + tuned) ───────────────────
     cyber: {
-      background:      "#020812",                        // ← CHANGED: absolute deep
-      backgroundSoft:  "#040f1e",
-      surface:         "#071628",
+      background:      DEFAULT_COLORS.background,       // #050d1a
+      backgroundSoft:  DEFAULT_COLORS.backgroundSoft,   // #0a1628
+      surface:         DEFAULT_COLORS.surface,           // #0f1f38
       surfaceElevated: "#0a1f38",
 
       border:          "#0e3a5c",
@@ -698,7 +698,13 @@ export const chartColors = {
   default: "#0ea5e9",                  // ← CHANGED: sky-500
 };
 
-
+export const panelSummaryColors = {
+  primary: "#3b82f6",
+  info: "#06b6d4",
+  warning: "#f97316",
+  success: "#14b8a6",
+  overlay: "#000000",
+};
 // ===== TAILWIND CLASSES =====
 export { DEFAULT_COLORS };
 
