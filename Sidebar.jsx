@@ -272,7 +272,7 @@ const MenuItem = ({ item, open, cssVariables }) => {
 
             {/* Text (hidden when collapsed) */}
             {open && (
-                <div >
+                <div className={'flex justify-between items-center w-full'} >
                     <span className="menu-item-text">
                         {item.title}
                     </span>
