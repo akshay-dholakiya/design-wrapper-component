@@ -1,7 +1,7 @@
 // Import all themes statically (no await needed)
 import * as theam1 from "./theam/theam1.jsx";
 import * as theam2 from "./theam/theam2.jsx";
-import * as theam3 from "./theam/theam4.jsx";
+import * as theam3 from "./theam/theam3.jsx";
 import * as theam4 from "./theam/theam4.jsx";
 // add more theme imports here as needed...
 
