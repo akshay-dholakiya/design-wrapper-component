@@ -74,15 +74,15 @@ const FOCUS = {
 };
 
 const ERROR_FOCUS = {
-  borderColor: '#ef4444',
+  borderColor: sidebarColors.errorcolor,
   boxShadow: '0 0 0 3px rgba(239,68,68,0.2)',
 };
 
 const MENU_BASE = {
-  backgroundColor: `${sidebarColors.backgroundSoft}f5`,
+  backgroundColor: `${sidebarColors.backgroundSoft}`,
   border: `1px solid ${sidebarColors.border}`,
   borderRadius: borderRadius.lg,
-  boxShadow: `0 16px 40px -8px rgba(0,0,0,0.5), 0 0 0 1px ${sidebarColors.primaryFrom}15`,
+  boxShadow: `0 16px 40px -8px rgba(0,0,0,0.5), 0 0 0 1px ${sidebarColors.primaryFrom}`,
   overflow: 'hidden',
   zIndex: 9999,
 };
@@ -107,7 +107,7 @@ function NativeSelect({ value, onChange, options, placeholder, disabled, style, 
   const base = size === 'sm' ? BASE_SM : BASE_MD;
   const computed = {
     ...base,
-    borderColor: error ? '#ef4444' : focused ? sidebarColors.primaryFrom : sidebarColors.border,
+    borderColor: error ? sidebarColors.errorcolor : focused ? sidebarColors.primaryFrom : sidebarColors.border,
     boxShadow: focused ? (error ? ERROR_FOCUS.boxShadow : FOCUS.boxShadow) : 'none',
     opacity: disabled ? 0.5 : 1,
     cursor: disabled ? 'not-allowed' : 'pointer',
@@ -261,7 +261,7 @@ function CustomSelect({ value, onChange, options, placeholder, disabled, style, 
 
   const triggerStyle = {
     ...base,
-    borderColor: error ? '#ef4444' : focused || open ? sidebarColors.primaryFrom : sidebarColors.border,
+    borderColor: error ? sidebarColors.errorcolor : focused || open ? sidebarColors.primaryFrom : sidebarColors.border,
     boxShadow: (focused || open) ? (error ? ERROR_FOCUS.boxShadow : FOCUS.boxShadow) : 'none',
     opacity: disabled ? 0.5 : 1,
     cursor: disabled ? 'not-allowed' : 'pointer',
@@ -290,7 +290,7 @@ function CustomSelect({ value, onChange, options, placeholder, disabled, style, 
         }}
         onMouseLeave={(e) => {
           if (!open && !focused && !disabled) {
-            e.currentTarget.style.borderColor = error ? '#ef4444' : sidebarColors.border;
+            e.currentTarget.style.borderColor = error ? sidebarColors.errorcolor : sidebarColors.border;
           }
         }}
         aria-haspopup="listbox"

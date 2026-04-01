@@ -87,7 +87,7 @@ const VARIANT_COLORS = {
   low:      chartColors.severity.low,         // #3b82f6
   info:     chartColors.series[4],            // cyan-ish from chartColors palette
   primary:  sidebarColors.primaryFrom,        // #3b82f6
-  success:  '#22c55e',                        // green-500 (no semantic token exists)
+  success:  sidebarColors.successcolor,        // green-500 (no semantic token exists)
 };
 
 // ─── metric font sizes ────────────────────────────────────────────────────────
