@@ -102,7 +102,7 @@ export const ThemeSelection = () => {
 
 
                                 localStorage.setItem("theme", t.key);
-                                setSelected(t.name)
+                                setSelected(t.key)
                                 window.location.reload();
 
 
