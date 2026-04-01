@@ -272,7 +272,7 @@ const MenuItem = ({ item, open, cssVariables }) => {
 
             {/* Text (hidden when collapsed) */}
             {open && (
-                <>
+                <div >
                     <span className="menu-item-text">
                         {item.title}
                     </span>
@@ -294,7 +294,7 @@ const MenuItem = ({ item, open, cssVariables }) => {
                             </svg>
                         </span>
                     )}
-                </>
+                </div>
             )}
         </div>
     );
@@ -302,7 +302,8 @@ const MenuItem = ({ item, open, cssVariables }) => {
     return (
         <div
             ref={wrapperRef}
-            className={`menu-item-wrapper ${showFloatingSubmenu ? 'floating-open' : ''}`}
+            className={`menu-item-wrapper ${!showFloatingSubmenu ? 'floating-open' : ''}`}
+
             onMouseEnter={openFloatingMenu}
             onMouseLeave={closeFloatingMenu}
         >
@@ -315,13 +316,13 @@ const MenuItem = ({ item, open, cssVariables }) => {
 
             {/* Expanded submenu */}
             {hasChildren && subOpen && open && (
-                <div className="submenu-container">
+                <div className="submenu-container"  >
                     {item.children.map((child, i) => {
                         const childActive = child.path ? location.pathname === child.path : false;
 
                         return renderMenuTarget(
                             child,
-                            <div className={`submenu-item ${childActive ? 'active' : ''}`}>
+                            <div className={`submenu-item ${childActive ? 'active' : ''}`} >
                                 {child.icon && (
                                     <span className="submenu-item-icon">
                                         {child.icon}
