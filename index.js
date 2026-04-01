@@ -15,7 +15,7 @@ export { default as AppInput } from './AppInput';
 export { default as StatsCard } from './StatsCard';
 
 // Color Tokens
-export { default as sidebarColors, chartColors, fontStyles, sidebarClasses } from './colors';
+export { default as sidebarColors, chartColors, fontStyles, sidebarClasses ,panelSummaryColors} from './colors';
 
 // Spacing & Layout Tokens
 export { spacing, componentSpacing, borderRadius, layout, zIndex } from './spacing';
