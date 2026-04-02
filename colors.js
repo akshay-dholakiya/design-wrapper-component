@@ -12,7 +12,12 @@ const themeMap = {
     theam4
 };
 
-const themeKey = localStorage.getItem("theme") || "theam1";
+let themeKey =  "theam1";
+
+if (typeof window !== 'undefined') {
+     themeKey = localStorage.getItem("theme") || "theam1";
+}
+
 const theme = themeMap[themeKey] ?? themeMap["theam1"]; // fallback to default
 
 const sidebarColors      = theme.default;
