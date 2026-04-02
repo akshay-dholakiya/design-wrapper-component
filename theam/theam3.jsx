@@ -2,7 +2,7 @@
 // theme3.jsx — Violet Purple  (violet-500 accent)
 // ============================================================
 
- const DEFAULT_COLORS = {
+const DEFAULT_COLORS = {
   background:      "#050d1a",
   backgroundSoft:  "#0a1628",
   surface:         "#16102e",
@@ -20,10 +20,10 @@
 const sidebarColors = {
 
   // ── BACKGROUNDS ──────────────────────────────────────────────
-  background:       DEFAULT_COLORS.background,
-  backgroundSoft:   DEFAULT_COLORS.backgroundSoft,
-  surface:          DEFAULT_COLORS.surface,
-  surfaceElevated:  DEFAULT_COLORS.surfaceElevated,
+  background:       "#050d1a",
+  backgroundSoft:   "#0a1628",
+  surface:          "#16102e",
+  surfaceElevated:  "#1e1640",
 
   // ── EXTENDED SURFACES ────────────────────────────────────────
   surfaceMuted:     "#110d22",
@@ -33,18 +33,18 @@ const sidebarColors = {
   backgroundDeep:   "#030210",
 
   // ── BORDERS ──────────────────────────────────────────────────
-  border:           DEFAULT_COLORS.border,
-  borderSoft:       DEFAULT_COLORS.borderSoft,
+  border:           "#3b2a6e",
+  borderSoft:       "rgba(167, 139, 250, 0.06)",
   borderSubtle:     "rgba(167, 139, 250, 0.08)",
   borderStrong:     "rgba(167, 139, 250, 0.45)",
   borderAccent:     "rgba(167, 139, 250, 0.20)",
 
   // ── TEXT ─────────────────────────────────────────────────────
-  textPrimary:      DEFAULT_COLORS.textPrimary,
-  textSecondary:    DEFAULT_COLORS.textSecondary,
-  textMuted:        DEFAULT_COLORS.textMuted,
-  textInverse:      DEFAULT_COLORS.textInverse,
-  textAccent:       DEFAULT_COLORS.secondary,
+  textPrimary:      "#f0ecff",
+  textSecondary:    "rgba(240, 236, 255, 0.55)",
+  textMuted:        "rgba(240, 236, 255, 0.30)",
+  textInverse:      "#0a0714",
+  textAccent:       "#a78bfa",
   textDim:          "#3b2a6e",
   textDisabled:     "#2a1a52",
   textLighter:      "#ddd6fe",    // violet-200
@@ -52,10 +52,10 @@ const sidebarColors = {
   textTertiary:     "#c4b5fd",    // violet-300
 
   // ── PRIMARY BRAND ────────────────────────────────────────────
-  primaryFrom:      DEFAULT_COLORS.primary,
-  primaryTo:        DEFAULT_COLORS.secondary,
-  primary:          DEFAULT_COLORS.primary,
-  accent:           DEFAULT_COLORS.secondary,
+  primaryFrom:      "#8b5cf6",
+  primaryTo:        "#a78bfa",
+  primary:          "#8b5cf6",
+  accent:           "#a78bfa",
   primaryMuted:     "#c4b5fd",    // violet-300
 
   // ── STATUS — DANGER ──────────────────────────────────────────
@@ -80,8 +80,8 @@ const sidebarColors = {
   warningOrange:    "#ea580c",
 
   // ── STATUS — INFO ────────────────────────────────────────────
-  info:             DEFAULT_COLORS.primary,
-  infoSoft:         DEFAULT_COLORS.secondary,
+  info:             "#8b5cf6",
+  infoSoft:         "#a78bfa",
 
   // ── NEUTRAL / ERROR ──────────────────────────────────────────
   neutral:          "#6b7280",
@@ -117,21 +117,21 @@ const sidebarColors = {
   stoneDark900:     "#050412",
 
   // ── HOVER STATES ─────────────────────────────────────────────
-  hoverBackground:   DEFAULT_COLORS.surface,
-  hoverBorder:       DEFAULT_COLORS.surface,
+  hoverBackground:   "#16102e",
+  hoverBorder:       "#16102e",
   hoverShadow:       "rgba(167, 139, 250, 0.55)",
   hoverShadowSpread: "0 0 20px",
-  hoverText:         DEFAULT_COLORS.secondary,
+  hoverText:         "#a78bfa",
 
   // ── ACTIVE STATES ────────────────────────────────────────────
-  activeBackground:  DEFAULT_COLORS.surface,
-  activeBorder:      DEFAULT_COLORS.surface,
+  activeBackground:  "#16102e",
+  activeBorder:      "#16102e",
   activeShadow:      "rgba(167, 139, 250, 0.45)",
-  activeText:        DEFAULT_COLORS.primary,
+  activeText:        "#8b5cf6",
 
   // ── BUTTON ───────────────────────────────────────────────────
-  buttonBackground:  DEFAULT_COLORS.background,
-  buttonIconColor:   DEFAULT_COLORS.textPrimary,
+  buttonBackground:  "#050d1a",
+  buttonIconColor:   "#f0ecff",
 
   // ── TAILWIND CLASSES ─────────────────────────────────────────
   primaryGradient:   "from-violet-500 to-violet-400",
@@ -183,8 +183,8 @@ export const chartColors = {
   series:      ["#8b5cf6","#a78bfa","#7c3aed","#c4b5fd","#6d28d9","#ef4444","#ec4899","#f59e0b","#14b8a6","#84cc16"],
   categorical: ["#8b5cf6","#a78bfa","#7c3aed","#c4b5fd","#6d28d9","#ddd6fe","#ef4444","#f87171","#ec4899","#f472b6"],
   gradients: {
-    violet: ["#8b5cf6", "#a78bfa"],
-    purple: ["#7c3aed", "#c4b5fd"],
+    orange: ["#8b5cf6", "#a78bfa"],
+    amber:  ["#7c3aed", "#c4b5fd"],
     red:    ["#ef4444", "#f87171"],
     pink:   ["#ec4899", "#f472b6"],
   },
@@ -199,19 +199,19 @@ export const chartColors = {
   edges: { critical: "#ef4444", high: "#f87171", medium: "#fca5a5", low: "#fecaca", default: "#dc2626" },
   themes: {
     dark: {
-      background:      DEFAULT_COLORS.background,
-      backgroundSoft:  DEFAULT_COLORS.backgroundSoft,
-      surface:         DEFAULT_COLORS.surface,
-      surfaceElevated: DEFAULT_COLORS.surfaceElevated,
-      border:          DEFAULT_COLORS.border,
-      borderSoft:      DEFAULT_COLORS.borderSoft,
+      background:      "#050d1a",
+      backgroundSoft:  "#0a1628",
+      surface:         "#16102e",
+      surfaceElevated: "#1e1640",
+      border:          "#3b2a6e",
+      borderSoft:      "rgba(167, 139, 250, 0.06)",
       borderSubtle:    "rgba(167, 139, 250, 0.08)",
       borderStrong:    "rgba(167, 139, 250, 0.45)",
       borderAccent:    "rgba(167, 139, 250, 0.20)",
-      textPrimary:     DEFAULT_COLORS.textPrimary,
-      textSecondary:   DEFAULT_COLORS.textSecondary,
-      textMuted:       DEFAULT_COLORS.textMuted,
-      textInverse:     DEFAULT_COLORS.textInverse,
+      textPrimary:     "#f0ecff",
+      textSecondary:   "rgba(240, 236, 255, 0.55)",
+      textMuted:       "rgba(240, 236, 255, 0.30)",
+      textInverse:     "#0a0714",
       textAccent:      "#a78bfa",
       primaryFrom:     "#8b5cf6",
       primaryTo:       "#a78bfa",
@@ -255,9 +255,9 @@ export const chartColors = {
       statBorder:      "#8b5cf6",
     },
     cyber: {
-      background:      DEFAULT_COLORS.background,
-      backgroundSoft:  DEFAULT_COLORS.backgroundSoft,
-      surface:         DEFAULT_COLORS.surface,
+      background:      "#050d1a",
+      backgroundSoft:  "#0a1628",
+      surface:         "#16102e",
       surfaceElevated: "#130e28",
       border:          "#2a1a5e",
       borderSoft:      "rgba(192, 132, 252, 0.06)",

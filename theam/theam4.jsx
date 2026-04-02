@@ -2,7 +2,7 @@
 // theme4.jsx — Emerald Green  (emerald-500 accent)
 // ============================================================
 
- const DEFAULT_COLORS = {
+const DEFAULT_COLORS = {
   background:      "#050d1a",
   backgroundSoft:  "#0c0c0c",
   surface:         "#0f1f38",
@@ -20,10 +20,10 @@
 const sidebarColors = {
 
   // ── BACKGROUNDS ──────────────────────────────────────────────
-  background:       DEFAULT_COLORS.background,
-  backgroundSoft:   DEFAULT_COLORS.backgroundSoft,
-  surface:          DEFAULT_COLORS.surface,
-  surfaceElevated:  DEFAULT_COLORS.surfaceElevated,
+  background:       "#050d1a",
+  backgroundSoft:   "#0c0c0c",
+  surface:          "#0f1f38",
+  surfaceElevated:  "#003320",
 
   // ── EXTENDED SURFACES ────────────────────────────────────────
   surfaceMuted:     "#001a0e",
@@ -33,18 +33,18 @@ const sidebarColors = {
   backgroundDeep:   "#000402",
 
   // ── BORDERS ──────────────────────────────────────────────────
-  border:           DEFAULT_COLORS.border,
-  borderSoft:       DEFAULT_COLORS.borderSoft,
+  border:           "#005c2e",
+  borderSoft:       "rgba(52, 211, 153, 0.06)",
   borderSubtle:     "rgba(52, 211, 153, 0.08)",
   borderStrong:     "rgba(52, 211, 153, 0.45)",
   borderAccent:     "rgba(52, 211, 153, 0.20)",
 
   // ── TEXT ─────────────────────────────────────────────────────
-  textPrimary:      DEFAULT_COLORS.textPrimary,
-  textSecondary:    DEFAULT_COLORS.textSecondary,
-  textMuted:        DEFAULT_COLORS.textMuted,
-  textInverse:      DEFAULT_COLORS.textInverse,
-  textAccent:       DEFAULT_COLORS.secondary,
+  textPrimary:      "#edfff6",
+  textSecondary:    "rgba(237, 255, 246, 0.55)",
+  textMuted:        "rgba(237, 255, 246, 0.30)",
+  textInverse:      "#00110a",
+  textAccent:       "#34d399",
   textDim:          "#005c2e",
   textDisabled:     "#003d1f",
   textLighter:      "#a7f3d0",    // emerald-200
@@ -52,10 +52,10 @@ const sidebarColors = {
   textTertiary:     "#6ee7b7",    // emerald-300
 
   // ── PRIMARY BRAND ────────────────────────────────────────────
-  primaryFrom:      DEFAULT_COLORS.primary,
-  primaryTo:        DEFAULT_COLORS.secondary,
-  primary:          DEFAULT_COLORS.primary,
-  accent:           DEFAULT_COLORS.secondary,
+  primaryFrom:      "#10b981",
+  primaryTo:        "#34d399",
+  primary:          "#10b981",
+  accent:           "#34d399",
   primaryMuted:     "#6ee7b7",    // emerald-300
 
   // ── STATUS — DANGER ──────────────────────────────────────────
@@ -80,8 +80,8 @@ const sidebarColors = {
   warningOrange:    "#ea580c",
 
   // ── STATUS — INFO ────────────────────────────────────────────
-  info:             DEFAULT_COLORS.primary,
-  infoSoft:         DEFAULT_COLORS.secondary,
+  info:             "#10b981",
+  infoSoft:         "#34d399",
 
   // ── NEUTRAL / ERROR ──────────────────────────────────────────
   neutral:          "#6b7280",
@@ -117,28 +117,28 @@ const sidebarColors = {
   stoneDark900:     "#000904",
 
   // ── HOVER STATES ─────────────────────────────────────────────
-  hoverBackground:   DEFAULT_COLORS.surface,
-  hoverBorder:       DEFAULT_COLORS.surface,
+  hoverBackground:   "#0f1f38",
+  hoverBorder:       "#0f1f38",
   hoverShadow:       "rgba(52, 211, 153, 0.55)",
   hoverShadowSpread: "0 0 20px",
-  hoverText:         DEFAULT_COLORS.secondary,
+  hoverText:         "#34d399",
 
   // ── ACTIVE STATES ────────────────────────────────────────────
-  activeBackground:  DEFAULT_COLORS.surface,
-  activeBorder:      DEFAULT_COLORS.surface,
+  activeBackground:  "#0f1f38",
+  activeBorder:      "#0f1f38",
   activeShadow:      "rgba(52, 211, 153, 0.45)",
-  activeText:        DEFAULT_COLORS.primary,
+  activeText:        "#10b981",
 
   // ── BUTTON ───────────────────────────────────────────────────
-  buttonBackground:  DEFAULT_COLORS.background,
-  buttonIconColor:   DEFAULT_COLORS.textPrimary,
+  buttonBackground:  "#050d1a",
+  buttonIconColor:   "#edfff6",
 
   // ── TAILWIND CLASSES ─────────────────────────────────────────
   primaryGradient:   "from-emerald-500 to-emerald-400",
   primaryShadow:     "shadow-emerald-500/50",
 };
 
-// ===== FONT STYLES ===== (identical structure across all themes)
+// ===== FONT STYLES =====
 
 const fontSmoothing = {
   fontFamily:          '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
@@ -183,10 +183,10 @@ export const chartColors = {
   series:      ["#10b981","#34d399","#059669","#6ee7b7","#047857","#ef4444","#ec4899","#f59e0b","#a78bfa","#84cc16"],
   categorical: ["#10b981","#34d399","#059669","#6ee7b7","#047857","#a7f3d0","#ef4444","#f87171","#ec4899","#f472b6"],
   gradients: {
-    emerald: ["#10b981", "#34d399"],
-    green:   ["#059669", "#6ee7b7"],
-    red:     ["#ef4444", "#f87171"],
-    pink:    ["#ec4899", "#f472b6"],
+    orange: ["#10b981", "#34d399"],
+    amber:  ["#059669", "#6ee7b7"],
+    red:    ["#ef4444", "#f87171"],
+    pink:   ["#ec4899", "#f472b6"],
   },
   ui: {
     grid:          "rgba(52, 211, 153, 0.08)",
@@ -199,19 +199,19 @@ export const chartColors = {
   edges: { critical: "#ef4444", high: "#f87171", medium: "#fca5a5", low: "#fecaca", default: "#dc2626" },
   themes: {
     dark: {
-      background:      DEFAULT_COLORS.background,
-      backgroundSoft:  DEFAULT_COLORS.backgroundSoft,
-      surface:         DEFAULT_COLORS.surface,
-      surfaceElevated: DEFAULT_COLORS.surfaceElevated,
-      border:          DEFAULT_COLORS.border,
-      borderSoft:      DEFAULT_COLORS.borderSoft,
+      background:      "#050d1a",
+      backgroundSoft:  "#0c0c0c",
+      surface:         "#0f1f38",
+      surfaceElevated: "#003320",
+      border:          "#005c2e",
+      borderSoft:      "rgba(52, 211, 153, 0.06)",
       borderSubtle:    "rgba(52, 211, 153, 0.08)",
       borderStrong:    "rgba(52, 211, 153, 0.45)",
       borderAccent:    "rgba(52, 211, 153, 0.20)",
-      textPrimary:     DEFAULT_COLORS.textPrimary,
-      textSecondary:   DEFAULT_COLORS.textSecondary,
-      textMuted:       DEFAULT_COLORS.textMuted,
-      textInverse:     DEFAULT_COLORS.textInverse,
+      textPrimary:     "#edfff6",
+      textSecondary:   "rgba(237, 255, 246, 0.55)",
+      textMuted:       "rgba(237, 255, 246, 0.30)",
+      textInverse:     "#00110a",
       textAccent:      "#34d399",
       primaryFrom:     "#10b981",
       primaryTo:       "#34d399",
@@ -255,9 +255,9 @@ export const chartColors = {
       statBorder:      "#10b981",
     },
     cyber: {
-      background:      DEFAULT_COLORS.background,
-      backgroundSoft:  DEFAULT_COLORS.backgroundSoft,
-      surface:         DEFAULT_COLORS.surface,
+      background:      "#050d1a",
+      backgroundSoft:  "#0c0c0c",
+      surface:         "#0f1f38",
       surfaceElevated: "#001f12",
       border:          "#003d1a",
       borderSoft:      "rgba(74, 222, 128, 0.06)",

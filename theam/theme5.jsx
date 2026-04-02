@@ -2,7 +2,7 @@
 // theme5.jsx — Rose Pink  (rose-500 accent)
 // ============================================================
 
- const DEFAULT_COLORS = {
+const DEFAULT_COLORS = {
   background:      "#1a0510",
   backgroundSoft:  "#250a18",
   surface:         "#381228",
@@ -20,10 +20,10 @@
 const sidebarColors = {
 
   // ── BACKGROUNDS ──────────────────────────────────────────────
-  background:       DEFAULT_COLORS.background,
-  backgroundSoft:   DEFAULT_COLORS.backgroundSoft,
-  surface:          DEFAULT_COLORS.surface,
-  surfaceElevated:  DEFAULT_COLORS.surfaceElevated,
+  background:       "#1a0510",
+  backgroundSoft:   "#250a18",
+  surface:          "#381228",
+  surfaceElevated:  "#4a1a36",
 
   // ── EXTENDED SURFACES ────────────────────────────────────────
   surfaceMuted:     "#2e0e1e",
@@ -33,18 +33,18 @@ const sidebarColors = {
   backgroundDeep:   "#0d0208",
 
   // ── BORDERS ──────────────────────────────────────────────────
-  border:           DEFAULT_COLORS.border,
-  borderSoft:       DEFAULT_COLORS.borderSoft,
+  border:           "#7a1f4e",
+  borderSoft:       "rgba(251, 113, 133, 0.06)",
   borderSubtle:     "rgba(251, 113, 133, 0.08)",
   borderStrong:     "rgba(251, 113, 133, 0.45)",
   borderAccent:     "rgba(251, 113, 133, 0.20)",
 
   // ── TEXT ─────────────────────────────────────────────────────
-  textPrimary:      DEFAULT_COLORS.textPrimary,
-  textSecondary:    DEFAULT_COLORS.textSecondary,
-  textMuted:        DEFAULT_COLORS.textMuted,
-  textInverse:      DEFAULT_COLORS.textInverse,
-  textAccent:       DEFAULT_COLORS.secondary,
+  textPrimary:      "#fff0f5",
+  textSecondary:    "rgba(255, 240, 245, 0.55)",
+  textMuted:        "rgba(255, 240, 245, 0.30)",
+  textInverse:      "#1a0510",
+  textAccent:       "#fb7185",
   textDim:          "#7a1f4e",
   textDisabled:     "#55153a",
   textLighter:      "#fecdd3",    // rose-200
@@ -52,10 +52,10 @@ const sidebarColors = {
   textTertiary:     "#fda4af",    // rose-300
 
   // ── PRIMARY BRAND ────────────────────────────────────────────
-  primaryFrom:      DEFAULT_COLORS.primary,
-  primaryTo:        DEFAULT_COLORS.secondary,
-  primary:          DEFAULT_COLORS.primary,
-  accent:           DEFAULT_COLORS.secondary,
+  primaryFrom:      "#f43f5e",
+  primaryTo:        "#fb7185",
+  primary:          "#f43f5e",
+  accent:           "#fb7185",
   primaryMuted:     "#fda4af",    // rose-300
 
   // ── STATUS — DANGER ──────────────────────────────────────────
@@ -80,8 +80,8 @@ const sidebarColors = {
   warningOrange:    "#ea580c",
 
   // ── STATUS — INFO ────────────────────────────────────────────
-  info:             DEFAULT_COLORS.primary,
-  infoSoft:         DEFAULT_COLORS.secondary,
+  info:             "#f43f5e",
+  infoSoft:         "#fb7185",
 
   // ── NEUTRAL / ERROR ──────────────────────────────────────────
   neutral:          "#6b7280",
@@ -117,21 +117,21 @@ const sidebarColors = {
   stoneDark900:     "#1a0510",
 
   // ── HOVER STATES ─────────────────────────────────────────────
-  hoverBackground:   DEFAULT_COLORS.surface,
-  hoverBorder:       DEFAULT_COLORS.surface,
+  hoverBackground:   "#381228",
+  hoverBorder:       "#381228",
   hoverShadow:       "rgba(251, 113, 133, 0.55)",
   hoverShadowSpread: "0 0 20px",
-  hoverText:         DEFAULT_COLORS.secondary,
+  hoverText:         "#fb7185",
 
   // ── ACTIVE STATES ────────────────────────────────────────────
-  activeBackground:  DEFAULT_COLORS.surface,
-  activeBorder:      DEFAULT_COLORS.surface,
+  activeBackground:  "#381228",
+  activeBorder:      "#381228",
   activeShadow:      "rgba(251, 113, 133, 0.45)",
-  activeText:        DEFAULT_COLORS.primary,
+  activeText:        "#f43f5e",
 
   // ── BUTTON ───────────────────────────────────────────────────
-  buttonBackground:  DEFAULT_COLORS.background,
-  buttonIconColor:   DEFAULT_COLORS.textPrimary,
+  buttonBackground:  "#1a0510",
+  buttonIconColor:   "#fff0f5",
 
   // ── TAILWIND CLASSES ─────────────────────────────────────────
   primaryGradient:   "from-rose-500 to-rose-400",
@@ -183,10 +183,10 @@ export const chartColors = {
   series:      ["#f43f5e","#fb7185","#e11d48","#fda4af","#be123c","#f97316","#a78bfa","#06b6d4","#14b8a6","#84cc16"],
   categorical: ["#f43f5e","#fb7185","#e11d48","#fda4af","#be123c","#fecdd3","#ef4444","#f87171","#ec4899","#f472b6"],
   gradients: {
-    rose:   ["#f43f5e", "#fb7185"],
-    pink:   ["#ec4899", "#f472b6"],
+    orange: ["#f43f5e", "#fb7185"],
+    amber:  ["#ec4899", "#f472b6"],
     red:    ["#ef4444", "#f87171"],
-    purple: ["#8b5cf6", "#a78bfa"],
+    pink:   ["#8b5cf6", "#a78bfa"],
   },
   ui: {
     grid:          "rgba(251, 113, 133, 0.08)",
@@ -199,19 +199,19 @@ export const chartColors = {
   edges: { critical: "#ef4444", high: "#f87171", medium: "#fca5a5", low: "#fecaca", default: "#dc2626" },
   themes: {
     dark: {
-      background:      DEFAULT_COLORS.background,
-      backgroundSoft:  DEFAULT_COLORS.backgroundSoft,
-      surface:         DEFAULT_COLORS.surface,
-      surfaceElevated: DEFAULT_COLORS.surfaceElevated,
-      border:          DEFAULT_COLORS.border,
-      borderSoft:      DEFAULT_COLORS.borderSoft,
+      background:      "#1a0510",
+      backgroundSoft:  "#250a18",
+      surface:         "#381228",
+      surfaceElevated: "#4a1a36",
+      border:          "#7a1f4e",
+      borderSoft:      "rgba(251, 113, 133, 0.06)",
       borderSubtle:    "rgba(251, 113, 133, 0.08)",
       borderStrong:    "rgba(251, 113, 133, 0.45)",
       borderAccent:    "rgba(251, 113, 133, 0.20)",
-      textPrimary:     DEFAULT_COLORS.textPrimary,
-      textSecondary:   DEFAULT_COLORS.textSecondary,
-      textMuted:       DEFAULT_COLORS.textMuted,
-      textInverse:     DEFAULT_COLORS.textInverse,
+      textPrimary:     "#fff0f5",
+      textSecondary:   "rgba(255, 240, 245, 0.55)",
+      textMuted:       "rgba(255, 240, 245, 0.30)",
+      textInverse:     "#1a0510",
       textAccent:      "#fb7185",
       primaryFrom:     "#f43f5e",
       primaryTo:       "#fb7185",
