@@ -4,7 +4,7 @@
 
 const DEFAULT_COLORS = {
   background:      "#050d1a",
-  backgroundSoft:  "#0c0c0c",
+  backgroundSoft:  "#091710",
   surface:         "#0f1f38",
   surfaceElevated: "#003320",
   border:          "#005c2e",
@@ -21,7 +21,7 @@ const sidebarColors = {
 
   // ── BACKGROUNDS ──────────────────────────────────────────────
   background:       "#050d1a",
-  backgroundSoft:   "#0c0c0c",
+  backgroundSoft:   "#091710",
   surface:          "#0f1f38",
   surfaceElevated:  "#003320",
 
@@ -200,7 +200,7 @@ export const chartColors = {
   themes: {
     dark: {
       background:      "#050d1a",
-      backgroundSoft:  "#0c0c0c",
+      backgroundSoft:  "#091710",
       surface:         "#0f1f38",
       surfaceElevated: "#003320",
       border:          "#005c2e",
@@ -256,7 +256,7 @@ export const chartColors = {
     },
     cyber: {
       background:      "#050d1a",
-      backgroundSoft:  "#0c0c0c",
+      backgroundSoft:  "#091710",
       surface:         "#0f1f38",
       surfaceElevated: "#001f12",
       border:          "#003d1a",
