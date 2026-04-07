@@ -1,62 +1,70 @@
 // ============================================================
-// theme5.jsx — Rose Pink  (rose-500 accent)
+// theme6.jsx — Cyber Neon  (cyan-400 / magenta accent)
 // ============================================================
 
+
 const DEFAULT_COLORS = {
-  background:      "#1a0510",
-  backgroundSoft:  "#250a18",
-  surface:         "#381228",
-  surfaceElevated: "#4a1a36",
-  border:          "#7a1f4e",
-  borderSoft:      "rgba(251, 113, 133, 0.06)",
-  textPrimary:     "#fff0f5",
-  textSecondary:   "rgba(255, 240, 245, 0.55)",
-  textMuted:       "rgba(255, 240, 245, 0.30)",
-  textInverse:     "#1a0510",
-  primary:         "#f43f5e",    // rose-500
-  secondary:       "#fb7185",    // rose-400
+  background:      "#020a10",
+  backgroundSoft:  "#061420",
+  surface:         "#0a1f30",
+  surfaceElevated: "#102840",
+  border:          "#0a4a6e",
+  borderSoft:      "rgba(0, 229, 255, 0.06)",
+  textPrimary:     "#e0faff",
+  textSecondary:   "rgba(224, 250, 255, 0.55)",
+  textMuted:       "rgba(224, 250, 255, 0.30)",
+  textInverse:     "#020a10",
+  primary:         "#00e5ff",    // neon cyan
+  secondary:       "#ff0090",    // hot magenta
 };
+
 
 const sidebarColors = {
 
+
   // ── BACKGROUNDS ──────────────────────────────────────────────
-  background:       "#1a0510",
-  backgroundSoft:   "#250a18",
-  surface:          "#381228",
-  surfaceElevated:  "#4a1a36",
+  background:       "#020a10",
+  backgroundSoft:   "#061420",
+  surface:          "#0a1f30",
+  surfaceElevated:  "#102840",
+
 
   // ── EXTENDED SURFACES ────────────────────────────────────────
-  surfaceMuted:     "#2e0e1e",
-  surfaceTint:      "#33122a",
-  surfaceMutedDeep: "#1e0816",
-  surfaceTintDark:  "#250a18",
-  backgroundDeep:   "#0d0208",
+  surfaceMuted:     "#071828",
+  surfaceTint:      "#0c2035",
+  surfaceMutedDeep: "#040d18",
+  surfaceTintDark:  "#061420",
+  backgroundDeep:   "#010508",
+
 
   // ── BORDERS ──────────────────────────────────────────────────
-  border:           "#7a1f4e",
-  borderSoft:       "rgba(251, 113, 133, 0.06)",
-  borderSubtle:     "rgba(251, 113, 133, 0.08)",
-  borderStrong:     "rgba(251, 113, 133, 0.45)",
-  borderAccent:     "rgba(251, 113, 133, 0.20)",
+  border:           "#0a4a6e",
+  borderSoft:       "rgba(0, 229, 255, 0.06)",
+  borderSubtle:     "rgba(0, 229, 255, 0.08)",
+  borderStrong:     "rgba(0, 229, 255, 0.45)",
+  borderAccent:     "rgba(0, 229, 255, 0.20)",
+
 
   // ── TEXT ─────────────────────────────────────────────────────
-  textPrimary:      "#fff0f5",
-  textSecondary:    "rgba(255, 240, 245, 0.55)",
-  textMuted:        "rgba(255, 240, 245, 0.30)",
-  textInverse:      "#1a0510",
-  textAccent:       "#fb7185",
-  textDim:          "#7a1f4e",
-  textDisabled:     "#55153a",
-  textLighter:      "#fecdd3",    // rose-200
-  textOffWhite:     "#fff0f5",
-  textTertiary:     "#fda4af",    // rose-300
+  textPrimary:      "#e0faff",
+  textSecondary:    "rgba(224, 250, 255, 0.55)",
+  textMuted:        "rgba(224, 250, 255, 0.30)",
+  textInverse:      "#020a10",
+  textAccent:       "#00e5ff",
+  textDim:          "#0a4a6e",
+  textDisabled:     "#083a55",
+  textLighter:      "#99f6ff",    // cyan-200
+  textOffWhite:     "#e0faff",
+  textTertiary:     "#67e8f9",    // cyan-300
+
 
   // ── PRIMARY BRAND ────────────────────────────────────────────
-  primaryFrom:      "#f43f5e",
-  primaryTo:        "#fb7185",
-  primary:          "#f43f5e",
-  accent:           "#fb7185",
-  primaryMuted:     "#fda4af",    // rose-300
+  primaryFrom:      "#00e5ff",
+  primaryTo:        "#00b4d8",
+  primary:          "#00e5ff",
+  accent:           "#ff0090",
+  primaryMuted:     "#67e8f9",    // cyan-300
+
 
   // ── STATUS — DANGER ──────────────────────────────────────────
   danger:           "#ff2d2d",
@@ -67,10 +75,12 @@ const sidebarColors = {
   dangerDark2:      "#b91c1c",
   dangerDarker:     "#991b1b",
 
+
   // ── STATUS — SUCCESS ─────────────────────────────────────────
   success:          "#10b981",
   successSoft:      "#34d399",
   successGreen:     "#22c55e",
+
 
   // ── STATUS — WARNING ─────────────────────────────────────────
   warning:          "#f59e0b",
@@ -79,24 +89,28 @@ const sidebarColors = {
   warningSoft:      "#fde68a",
   warningOrange:    "#ea580c",
 
+
   // ── STATUS — INFO ────────────────────────────────────────────
-  info:             "#f43f5e",
-  infoSoft:         "#fb7185",
+  info:             "#00e5ff",
+  infoSoft:         "#67e8f9",
+
 
   // ── NEUTRAL / ERROR ──────────────────────────────────────────
   neutral:          "#6b7280",
   errorcolor:       "#ef4444",
   sucesscolor:      "#22c55e",
 
+
   // ── LOGIN PAGE ───────────────────────────────────────────────
-  loginBgFrom:      "#1a0510",
-  loginBgTo:        "#381228",
+  loginBgFrom:      "#020a10",
+  loginBgTo:        "#0a1f30",
+
 
   // ── EXTENDED ACCENT PALETTE ──────────────────────────────────
   accentPurple:     "#a78bfa",
-  accentCyan:       "#06b6d4",
+  accentCyan:       "#00e5ff",
   accentIndigo:     "#6366f1",
-  accentPink:       "#ec4899",
+  accentPink:       "#ff0090",
   accentBlue:       "#38bdf8",
   accentTeal:       "#14b8a6",
   accentViolet:     "#8b5cf6",
@@ -107,38 +121,45 @@ const sidebarColors = {
   accentVioletDark: "#7c3aed",
   accentPurple600:  "#9333ea",
 
+
   // ── EXTENDED DARK SHADES ─────────────────────────────────────
   orangeDark700:    "#c2410c",
   orangeDark800:    "#9a3412",
   orangeDark900:    "#7c2d12",
   amberDark900:     "#78350f",
   orangeDark950:    "#451a03",
-  stoneDark800:     "#250a18",
-  stoneDark900:     "#1a0510",
+  stoneDark800:     "#061420",
+  stoneDark900:     "#020a10",
+
 
   // ── HOVER STATES ─────────────────────────────────────────────
-  hoverBackground:   "#381228",
-  hoverBorder:       "#381228",
-  hoverShadow:       "rgba(251, 113, 133, 0.55)",
+  hoverBackground:   "#0a1f30",
+  hoverBorder:       "#0a1f30",
+  hoverShadow:       "rgba(0, 229, 255, 0.55)",
   hoverShadowSpread: "0 0 20px",
-  hoverText:         "#fb7185",
+  hoverText:         "#00e5ff",
+
 
   // ── ACTIVE STATES ────────────────────────────────────────────
-  activeBackground:  "#381228",
-  activeBorder:      "#381228",
-  activeShadow:      "rgba(251, 113, 133, 0.45)",
-  activeText:        "#f43f5e",
+  activeBackground:  "#0a1f30",
+  activeBorder:      "#0a1f30",
+  activeShadow:      "rgba(0, 229, 255, 0.45)",
+  activeText:        "#00e5ff",
+
 
   // ── BUTTON ───────────────────────────────────────────────────
-  buttonBackground:  "#1a0510",
-  buttonIconColor:   "#fff0f5",
+  buttonBackground:  "#020a10",
+  buttonIconColor:   "#e0faff",
+
 
   // ── TAILWIND CLASSES ─────────────────────────────────────────
-  primaryGradient:   "from-rose-500 to-rose-400",
-  primaryShadow:     "shadow-rose-500/50",
+  primaryGradient:   "from-cyan-400 to-cyan-300",
+  primaryShadow:     "shadow-cyan-400/50",
 };
 
+
 // ===== FONT STYLES =====
+
 
 const fontSmoothing = {
   fontFamily:          '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
@@ -146,6 +167,7 @@ const fontSmoothing = {
   MozOsxFontSmoothing: "grayscale",
   textRendering:       "optimizeLegibility",
 };
+
 
 export const fontStyles = {
   smoothing:    fontSmoothing,
@@ -175,142 +197,147 @@ export const fontStyles = {
   },
 };
 
+
 // ===== CHART COLORS =====
 
+
 export const chartColors = {
-  primary:     ["#f43f5e", "#fb7185", "#e11d48", "#fda4af", "#fecdd3"],
-  severity:    { critical: "#ef4444", high: "#f43f5e", medium: "#fb7185", low: "#f43f5e", info: "#fb7185" },
-  series:      ["#f43f5e","#fb7185","#e11d48","#fda4af","#be123c","#f97316","#a78bfa","#06b6d4","#14b8a6","#84cc16"],
-  categorical: ["#f43f5e","#fb7185","#e11d48","#fda4af","#be123c","#fecdd3","#ef4444","#f87171","#ec4899","#f472b6"],
+  primary:     ["#00e5ff", "#67e8f9", "#00b4d8", "#99f6ff", "#cffafe"],
+  severity:    { critical: "#ef4444", high: "#ff0090", medium: "#00e5ff", low: "#67e8f9", info: "#00b4d8" },
+  series:      ["#00e5ff","#ff0090","#67e8f9","#a78bfa","#00b4d8","#f97316","#14b8a6","#38bdf8","#eab308","#84cc16"],
+  categorical: ["#00e5ff","#ff0090","#67e8f9","#a78bfa","#00b4d8","#99f6ff","#8b5cf6","#38bdf8","#06b6d4","#22d3ee"],
   gradients: {
-    orange: ["#f43f5e", "#fb7185"],
-    amber:  ["#ec4899", "#f472b6"],
-    red:    ["#ef4444", "#f87171"],
-    pink:   ["#8b5cf6", "#a78bfa"],
+    cyan:    ["#00e5ff", "#00b4d8"],
+    magenta: ["#ff0090", "#ff4da6"],
+    blue:    ["#38bdf8", "#0284c7"],
+    purple:  ["#8b5cf6", "#a78bfa"],
   },
   ui: {
-    grid:          "rgba(251, 113, 133, 0.08)",
-    axis:          "rgba(255, 240, 245, 0.30)",
-    label:         "rgba(255, 240, 245, 0.60)",
-    tooltip:       "rgba(26, 5, 16, 0.97)",
-    tooltipBorder: "rgba(251, 113, 133, 0.50)",
-    border:        "rgba(251, 113, 133, 0.15)",
+    grid:          "rgba(0, 229, 255, 0.08)",
+    axis:          "rgba(224, 250, 255, 0.30)",
+    label:         "rgba(224, 250, 255, 0.60)",
+    tooltip:       "rgba(2, 10, 16, 0.97)",
+    tooltipBorder: "rgba(0, 229, 255, 0.50)",
+    border:        "rgba(0, 229, 255, 0.15)",
   },
-  edges: { critical: "#ef4444", high: "#f87171", medium: "#fca5a5", low: "#fecaca", default: "#dc2626" },
+  edges: { critical: "#ef4444", high: "#ff0090", medium: "#00e5ff", low: "#67e8f9", default: "#00b4d8" },
   themes: {
     dark: {
-      background:      "#1a0510",
-      backgroundSoft:  "#250a18",
-      surface:         "#381228",
-      surfaceElevated: "#4a1a36",
-      border:          "#7a1f4e",
-      borderSoft:      "rgba(251, 113, 133, 0.06)",
-      borderSubtle:    "rgba(251, 113, 133, 0.08)",
-      borderStrong:    "rgba(251, 113, 133, 0.45)",
-      borderAccent:    "rgba(251, 113, 133, 0.20)",
-      textPrimary:     "#fff0f5",
-      textSecondary:   "rgba(255, 240, 245, 0.55)",
-      textMuted:       "rgba(255, 240, 245, 0.30)",
-      textInverse:     "#1a0510",
-      textAccent:      "#fb7185",
-      primaryFrom:     "#f43f5e",
-      primaryTo:       "#fb7185",
-      primary:         "#f43f5e",
-      accent:          "#fb7185",
-      nodeBg:          "#210614",
-      nodeStroke:      "#fb7185",
-      edge:            "#fff0f5",
-      edgeGlow:        "#f43f5e",
-      hubRing1:        "#fb7185",
-      hubRing2:        "#ec4899",
-      hubCore:         "#120310",
-      hubBorder:       "#f43f5e",
-      statBorder:      "#ec4899",
+      background:      "#020a10",
+      backgroundSoft:  "#061420",
+      surface:         "#0a1f30",
+      surfaceElevated: "#102840",
+      border:          "#0a4a6e",
+      borderSoft:      "rgba(0, 229, 255, 0.06)",
+      borderSubtle:    "rgba(0, 229, 255, 0.08)",
+      borderStrong:    "rgba(0, 229, 255, 0.45)",
+      borderAccent:    "rgba(0, 229, 255, 0.20)",
+      textPrimary:     "#e0faff",
+      textSecondary:   "rgba(224, 250, 255, 0.55)",
+      textMuted:       "rgba(224, 250, 255, 0.30)",
+      textInverse:     "#020a10",
+      textAccent:      "#00e5ff",
+      primaryFrom:     "#00e5ff",
+      primaryTo:       "#00b4d8",
+      primary:         "#00e5ff",
+      accent:          "#ff0090",
+      nodeBg:          "#030f1a",
+      nodeStroke:      "#00e5ff",
+      edge:            "#e0faff",
+      edgeGlow:        "#00e5ff",
+      hubRing1:        "#00e5ff",
+      hubRing2:        "#ff0090",
+      hubCore:         "#010508",
+      hubBorder:       "#00e5ff",
+      statBorder:      "#ff0090",
     },
     light: {
-      background:      "#fff1f2",
-      backgroundSoft:  "#ffe4e6",
-      surface:         "#fecdd3",
+      background:      "#f0feff",
+      backgroundSoft:  "#cffafe",
+      surface:         "#a5f3fc",
       surfaceElevated: "#ffffff",
-      border:          "#fda4af",
-      borderSoft:      "rgba(244, 63, 94, 0.08)",
-      borderSubtle:    "rgba(244, 63, 94, 0.10)",
-      borderStrong:    "rgba(244, 63, 94, 0.35)",
-      borderAccent:    "rgba(244, 63, 94, 0.18)",
-      textPrimary:     "#4c0519",
-      textSecondary:   "#881337",
-      textMuted:       "#be123c",
-      textInverse:     "#fff1f2",
-      textAccent:      "#e11d48",
-      primary:         "#e11d48",
-      accent:          "#f43f5e",
-      nodeBg:          "#ffe4e6",
-      nodeStroke:      "#e11d48",
-      edge:            "#fda4af",
-      edgeGlow:        "rgba(244, 63, 94, 0.4)",
-      hubRing1:        "#f43f5e",
-      hubRing2:        "#ec4899",
-      hubCore:         "#fff1f2",
-      hubBorder:       "#e11d48",
-      statBorder:      "#f43f5e",
+      border:          "#67e8f9",
+      borderSoft:      "rgba(0, 180, 216, 0.08)",
+      borderSubtle:    "rgba(0, 180, 216, 0.10)",
+      borderStrong:    "rgba(0, 180, 216, 0.35)",
+      borderAccent:    "rgba(0, 180, 216, 0.18)",
+      textPrimary:     "#083344",
+      textSecondary:   "#164e63",
+      textMuted:       "#0e7490",
+      textInverse:     "#f0feff",
+      textAccent:      "#0891b2",
+      primary:         "#0891b2",
+      accent:          "#06b6d4",
+      nodeBg:          "#cffafe",
+      nodeStroke:      "#0891b2",
+      edge:            "#a5f3fc",
+      edgeGlow:        "rgba(8, 145, 178, 0.4)",
+      hubRing1:        "#06b6d4",
+      hubRing2:        "#ff0090",
+      hubCore:         "#f0feff",
+      hubBorder:       "#0891b2",
+      statBorder:      "#06b6d4",
     },
     cyber: {
-      background:      "#120310",
-      backgroundSoft:  "#1e0518",
-      surface:         "#2a0822",
-      surfaceElevated: "#380a2e",
-      border:          "#6d1245",
-      borderSoft:      "rgba(255, 0, 128, 0.06)",
-      borderSubtle:    "rgba(255, 0, 128, 0.10)",
-      borderStrong:    "rgba(255, 0, 128, 0.40)",
-      borderAccent:    "rgba(255, 0, 128, 0.20)",
-      textPrimary:     "#fff0f5",
-      textSecondary:   "rgba(255, 240, 245, 0.55)",
-      textMuted:       "rgba(255, 240, 245, 0.30)",
-      textInverse:     "#060108",
-      textAccent:      "#ff0080",
-      primary:         "#ff0080",
-      accent:          "#ff4da6",
-      nodeBg:          "#0c0210",
-      nodeStroke:      "#ff0080",
-      edge:            "#fff0f5",
-      edgeGlow:        "#ff0080",
-      hubRing1:        "#ff0080",
-      hubRing2:        "#ff4da6",
-      hubCore:         "#060108",
-      hubBorder:       "#f43f5e",
-      statBorder:      "#ff0080",
+      background:      "#000d14",
+      backgroundSoft:  "#001a26",
+      surface:         "#002438",
+      surfaceElevated: "#003050",
+      border:          "#004a6e",
+      borderSoft:      "rgba(0, 255, 255, 0.06)",
+      borderSubtle:    "rgba(0, 255, 255, 0.10)",
+      borderStrong:    "rgba(0, 255, 255, 0.50)",
+      borderAccent:    "rgba(0, 255, 255, 0.22)",
+      textPrimary:     "#dfffff",
+      textSecondary:   "rgba(220, 255, 255, 0.55)",
+      textMuted:       "rgba(220, 255, 255, 0.30)",
+      textInverse:     "#000d14",
+      textAccent:      "#00ffff",
+      primary:         "#00ffff",
+      accent:          "#ff0090",
+      nodeBg:          "#000d14",
+      nodeStroke:      "#00ffff",
+      edge:            "#dfffff",
+      edgeGlow:        "#00ffff",
+      hubRing1:        "#00ffff",
+      hubRing2:        "#ff0090",
+      hubCore:         "#000508",
+      hubBorder:       "#00e5ff",
+      statBorder:      "#ff0090",
     },
   },
   networkSankey: {
-    hubGradientFrom:   "#280818",
-    hubGradientTo:     "#160410",
-    panelGradientFrom: "#1e0614",
-    panelGradientTo:   "#10030c",
-    input:             "#fb7185",
-    inputGlow:         "#f43f5e",
+    hubGradientFrom:   "#001a26",
+    hubGradientTo:     "#000d14",
+    panelGradientFrom: "#001520",
+    panelGradientTo:   "#000a10",
+    input:             "#00e5ff",
+    inputGlow:         "#00b4d8",
     output:            "#34d399",
     outputGlow:        "#059669",
-    cyan:              "#ec4899",
-    textInput:         "#fecdd3",
-    textPanel:         "#ffe0e8",
+    cyan:              "#ff0090",
+    textInput:         "#99f6ff",
+    textPanel:         "#cffafe",
     textOutput:        "#d1fae5",
   },
-  default: "#f43f5e",
+  default: "#00e5ff",
 };
 
+
 export const panelSummaryColors = {
-  primary: "#f43f5e",
-  info:    "#ec4899",
+  primary: "#00e5ff",
+  info:    "#ff0090",
   warning: "#f97316",
   success: "#14b8a6",
   overlay: "#000000",
 };
 
+
 export const sidebarClasses = {
-  primaryGradient: "from-rose-500 to-rose-400",
-  primaryShadow:   "shadow-rose-500/50",
+  primaryGradient: "from-cyan-400 to-cyan-300",
+  primaryShadow:   "shadow-cyan-400/50",
 };
+
 
 export { DEFAULT_COLORS };
 export default sidebarColors;

@@ -11,12 +11,12 @@ const themeMap = {
     theam3,
     theam4
 };
-
 let themeKey =  "theam1";
 
 if (typeof window !== 'undefined') {
-     themeKey = localStorage.getItem("theme") || "theam1";
+    themeKey = localStorage.getItem("theme") || "theam1";
 }
+
 
 const theme = themeMap[themeKey] ?? themeMap["theam1"]; // fallback to default
 

@@ -93,7 +93,7 @@ const Sidebar = ({ menuItems = [], bottomMenuItems = [], logo, onOpenChange, sho
                 className={`sidebar-menu ${
                     resolvedMenuItems.length > 5 
                         ? 'scrollable sidebar-menu-scroll' 
-                        : 'centered'
+                        : 'mt-4'
                 }`}
             >
                 {resolvedMenuItems.map((item, i) => (
