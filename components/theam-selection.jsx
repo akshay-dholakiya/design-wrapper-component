@@ -115,7 +115,7 @@ export const ThemeSelection = () => {
       >
         <div style={{ width: PANEL_W, padding: "20px 16px", fontFamily: "sans-serif" }}>
           <p style={{ margin: "0 0 14px", fontWeight: 700, fontSize: 15, color: sidebarColors.textPrimary }}>
-            \uD83C\uDFA8 Theme
+             Theme
           </p>
           <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
             {themes.map((t) => (
@@ -159,9 +159,7 @@ export const ThemeSelection = () => {
                   }}
                 />
                 {t.name}
-                {selected === t.key && (
-                  <span style={{ marginLeft: "auto" }}>\u2713</span>
-                )}
+
               </button>
             ))}
           </div>
@@ -195,7 +193,7 @@ export const ThemeSelection = () => {
           gap:            2,
         }}
       >
-        <span style={{ fontSize: 18, lineHeight: 1 }}>{isOpen ? "\u203A" : "\u2039"}</span>
+        {/*<span style={{ fontSize: 18, lineHeight: 1 }}>{isOpen ? "\u203A" : "\u2039"}</span>*/}
         <span style={{ display: "flex", flexDirection: "column", gap: 3 }}>
           {[0, 1, 2].map(i => (
             <span key={i} style={{
