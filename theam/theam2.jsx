@@ -4,7 +4,7 @@
 
  const DEFAULT_COLORS = {
   background:      "#0f0a00",
-  backgroundSoft:  "#1a1000",
+  backgroundSoft:  "#0E0A02",
   surface:         "#261800",
   surfaceElevated: "#332200",
   border:          "#5c3a00",
