@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect, useCallback } from "react";
-import { sidebarColors } from "@design-pattern/colors.js";
+import { sidebarColors as _sidebarColors, getLiveSidebarColors } from "@design-pattern/colors.js";
     // import { applyTheme } from "@/lib/colors";
 
 const themes = [
@@ -15,6 +15,9 @@ const BTN_H   = 64;
 const BTN_W   = 32;
 
 export const ThemeSelection = () => {
+  // Read theme fresh on every render — bypasses module cache
+  const sidebarColors = getLiveSidebarColors();
+
   // ── mounted guard — ensures no server/client state mismatch ───────────────
   const [mounted,  setMounted]  = useState(false);
   const [isOpen,   setIsOpen]   = useState(false);
