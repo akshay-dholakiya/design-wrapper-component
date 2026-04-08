@@ -7,7 +7,7 @@ const themes = [
   { name: "Sunset", bg: "#e76f51", key: "theam2" },
   { name: "Purple", bg: "#8b5cf6", key: "theam3" },
   { name: "Forest", bg: "#2d6a4f", key: "theam4" },
-  { name: "Rose",   bg: "#f43f5e", key: "theam5" },
+  { name: "Amber",   bg: "#fbbf24", key: "theam5" },
 ];
 
 const PANEL_W = 260;
@@ -25,12 +25,22 @@ export const ThemeSelection = () => {
   const startY      = useRef(0);
   const startBtnY   = useRef(0);
   const moved       = useRef(false);
+  const btnYRef     = useRef(0); // always mirrors btnY for use inside event-handler closures
+
+  // Keep ref in sync with state so stale-closure handlers can read the latest Y
+  btnYRef.current = btnY;
 
   // Patch to real client values after first paint — runs only on client
   useEffect(() => {
     setMounted(true);
     setSelected(localStorage.getItem("theme") || "theam1");
-    setBtnY(window.innerHeight - BTN_H);
+    const savedY = localStorage.getItem("themeBtnY");
+    if (savedY !== null) {
+      const parsed = parseFloat(savedY);
+      setBtnY(Math.max(0, Math.min(window.innerHeight - BTN_H, parsed)));
+    } else {
+      setBtnY(window.innerHeight - BTN_H);
+    }
   }, []);
 
   // clamp is only ever called inside event handlers — always client-side
@@ -71,7 +81,12 @@ export const ThemeSelection = () => {
       if (Math.abs(delta) > 4) moved.current = true;
       setBtnY(clamp(startBtnY.current + delta));
     };
-    const onEnd = () => { dragging.current = false; };
+    const onEnd = () => {
+      if (dragging.current) {
+        localStorage.setItem("themeBtnY", String(btnYRef.current));
+      }
+      dragging.current = false;
+    };
     const mm = (e) => onMove(e.clientY);
     const tm = (e) => onMove(e.touches[0].clientY);
     window.addEventListener("mousemove",  mm);

@@ -3,13 +3,15 @@ import * as theam1 from "./theam/theam1.jsx";
 import * as theam2 from "./theam/theam2.jsx";
 import * as theam3 from "./theam/theam3.jsx";
 import * as theam4 from "./theam/theam4.jsx";
+import * as theam5 from "./theam/theme5.jsx";
 // add more theme imports here as needed...
 
 const themeMap = {
     theam1,
     theam2,
     theam3,
-    theam4
+    theam4,
+    theam5
 };
 let themeKey =  "theam1";
 
