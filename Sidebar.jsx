@@ -5,6 +5,7 @@ import sidebarColors from "./colors";
 import "./Sidebar.css";
 
 const isExternalLink = (path = "") => /^https?:\/\//i.test(path);
+
 const logoutIcon = (
     <svg
         className="logout-item-icon"
@@ -261,7 +262,6 @@ const MenuItem = ({ item, open, cssVariables }) => {
         <div
             onClick={handleItemClick}
             className={`menu-item-content ${open ? 'expanded' : 'collapsed'} ${active ? 'active' : ''} ${item.variant === 'danger' ? 'danger' : ''}`}
-            title={!open ? item.title : undefined}
         >
             {/* Icon (always visible) */}
             <span className="menu-item-icon">
