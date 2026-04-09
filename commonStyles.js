@@ -16,43 +16,43 @@ import { spacing, componentSpacing, borderRadius } from './spacing.js';
 // Widget/Card Title - Large heading
 export const widgetTitleStyles = {
   ...fontStyles.heading4,
-  color: sidebarColors.textPrimary
+  color: sidebarColors.textPrimary,
 };
 
 // Section Title - Medium heading
 export const sectionTitleStyles = {
   ...fontStyles.heading5,
-  color: sidebarColors.textPrimary
+  color: sidebarColors.textPrimary,
 };
 
 // Subtitle - Secondary heading
 export const subtitleStyles = {
   ...fontStyles.heading6,
-  color: sidebarColors.textSecondary
+  color: sidebarColors.textSecondary,
 };
 
 // Body Text - Normal paragraph text
 export const bodyTextStyles = {
   ...fontStyles.body,
-  color: sidebarColors.textPrimary
+  color: sidebarColors.textPrimary,
 };
 
 // Small Text - Helper/caption text
 export const smallTextStyles = {
   ...fontStyles.bodySmall,
-  color: sidebarColors.textSecondary
+  color: sidebarColors.textSecondary,
 };
 
 // Label Text - Form labels
 export const labelStyles = {
   ...fontStyles.label,
-  color: sidebarColors.textPrimary
+  color: sidebarColors.textPrimary,
 };
 
 // Value/Metric Text - Large numbers/metrics
 export const metricStyles = {
   ...fontStyles.metric,
-  color: sidebarColors.textPrimary
+  color: sidebarColors.textPrimary,
 };
 
 // ===== CARD/CONTAINER STYLES =====
@@ -63,7 +63,7 @@ export const cardStyles = {
   border: `1px solid ${sidebarColors.border}`,
   borderRadius: borderRadius.xl,
   padding: componentSpacing.card.default,
-  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'
+  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
 };
 
 // Card with gradient background
@@ -72,7 +72,7 @@ export const gradientCardStyles = {
   border: `1px solid ${sidebarColors.border}`,
   borderRadius: borderRadius.xl,
   padding: componentSpacing.card.default,
-  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'
+  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
 };
 
 // Compact card (less padding)
@@ -80,7 +80,7 @@ export const compactCardStyles = {
   backgroundColor: sidebarColors.backgroundSoft,
   border: `1px solid ${sidebarColors.border}`,
   borderRadius: borderRadius.lg,
-  padding: componentSpacing.card.compact
+  padding: componentSpacing.card.compact,
 };
 
 // ===== BUTTON STYLES =====
@@ -94,7 +94,7 @@ export const primaryButtonStyles = {
   ...componentSpacing.button.md,
   borderRadius: borderRadius.lg,
   cursor: 'pointer',
-  transition: 'all 0.2s'
+  transition: 'all 0.2s',
 };
 
 // Secondary button (outline)
@@ -106,7 +106,7 @@ export const secondaryButtonStyles = {
   ...componentSpacing.button.md,
   borderRadius: borderRadius.lg,
   cursor: 'pointer',
-  transition: 'all 0.2s'
+  transition: 'all 0.2s',
 };
 
 // Icon button
@@ -117,7 +117,7 @@ export const iconButtonStyles = {
   padding: spacing.sm,
   borderRadius: borderRadius.md,
   cursor: 'pointer',
-  transition: 'all 0.2s'
+  transition: 'all 0.2s',
 };
 
 // ===== INPUT STYLES =====
@@ -131,7 +131,7 @@ export const inputStyles = {
   borderRadius: borderRadius.md,
   ...componentSpacing.input.md,
   outline: 'none',
-  transition: 'border-color 0.2s'
+  transition: 'border-color 0.2s',
 };
 
 // Select dropdown
@@ -144,7 +144,7 @@ export const selectStyles = {
   ...componentSpacing.input.md,
   outline: 'none',
   cursor: 'pointer',
-  transition: 'border-color 0.2s'
+  transition: 'border-color 0.2s',
 };
 
 // ===== BADGE/TAG STYLES =====
@@ -156,7 +156,7 @@ export const successBadgeStyles = {
   backgroundColor: `${chartColors.severity.info}20`,
   color: chartColors.severity.info,
   padding: `${spacing.xs} ${spacing.md}`,
-  borderRadius: borderRadius.full
+  borderRadius: borderRadius.full,
 };
 
 // Warning badge
@@ -166,7 +166,7 @@ export const warningBadgeStyles = {
   backgroundColor: `${chartColors.severity.medium}20`,
   color: chartColors.severity.medium,
   padding: `${spacing.xs} ${spacing.md}`,
-  borderRadius: borderRadius.full
+  borderRadius: borderRadius.full,
 };
 
 // Error badge
@@ -176,7 +176,7 @@ export const errorBadgeStyles = {
   backgroundColor: `${chartColors.severity.critical}20`,
   color: chartColors.severity.critical,
   padding: `${spacing.xs} ${spacing.md}`,
-  borderRadius: borderRadius.full
+  borderRadius: borderRadius.full,
 };
 
 // Info badge (emerald theme)
@@ -186,7 +186,7 @@ export const infoBadgeStyles = {
   backgroundColor: `${sidebarColors.primaryFrom}20`,
   color: sidebarColors.primaryFrom,
   padding: `${spacing.xs} ${spacing.md}`,
-  borderRadius: borderRadius.full
+  borderRadius: borderRadius.full,
 };
 
 // ===== DIVIDER/SEPARATOR =====
@@ -195,7 +195,7 @@ export const dividerStyles = {
   height: '1px',
   backgroundColor: sidebarColors.border,
   border: 'none',
-  margin: `${spacing.lg} 0`
+  margin: `${spacing.lg} 0`,
 };
 
 // ===== HOVER STATE HELPERS =====
@@ -213,8 +213,8 @@ export const getHoverStyles = (baseStyles) => ({
   ...baseStyles,
   ':hover': {
     backgroundColor: hoverBackgroundColor,
-    color: hoverTextColor
-  }
+    color: hoverTextColor,
+  },
 });
 
 // Get focus styles for inputs
@@ -222,8 +222,8 @@ export const getFocusStyles = (baseStyles) => ({
   ...baseStyles,
   ':focus': {
     borderColor: sidebarColors.primaryFrom,
-    boxShadow: `0 0 0 1px ${sidebarColors.primaryFrom}`
-  }
+    boxShadow: `0 0 0 1px ${sidebarColors.primaryFrom}`,
+  },
 });
 
 // ===== EXPORT ALL =====
@@ -264,6 +264,5 @@ export default {
   hoverBackgroundColor,
   hoverTextColor,
   getHoverStyles,
-  getFocusStyles
+  getFocusStyles,
 };
-

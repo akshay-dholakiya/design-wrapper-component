@@ -102,13 +102,31 @@ const OPTION_BASE = {
 
 // ─── Native select (simple) ───────────────────────────────────────────────────
 
-function NativeSelect({ value, onChange, options, placeholder, disabled, style, className, error, size }) {
+function NativeSelect({
+  value,
+  onChange,
+  options,
+  placeholder,
+  disabled,
+  style,
+  className,
+  error,
+  size,
+}) {
   const [focused, setFocused] = useState(false);
   const base = size === 'sm' ? BASE_SM : BASE_MD;
   const computed = {
     ...base,
-    borderColor: error ? sidebarColors.errorcolor : focused ? sidebarColors.primaryFrom : sidebarColors.border,
-    boxShadow: focused ? (error ? ERROR_FOCUS.boxShadow : FOCUS.boxShadow) : 'none',
+    borderColor: error
+      ? sidebarColors.errorcolor
+      : focused
+        ? sidebarColors.primaryFrom
+        : sidebarColors.border,
+    boxShadow: focused
+      ? error
+        ? ERROR_FOCUS.boxShadow
+        : FOCUS.boxShadow
+      : 'none',
     opacity: disabled ? 0.5 : 1,
     cursor: disabled ? 'not-allowed' : 'pointer',
     // Override browser default arrow styling
@@ -134,12 +152,21 @@ function NativeSelect({ value, onChange, options, placeholder, disabled, style, 
         }}
         onMouseLeave={(e) => {
           if (!focused && !disabled) {
-            e.currentTarget.style.borderColor = error ? '#ef4444' : sidebarColors.border;
+            e.currentTarget.style.borderColor = error
+              ? '#ef4444'
+              : sidebarColors.border;
           }
         }}
       >
         {placeholder && (
-          <option value="" disabled style={{ color: sidebarColors.textSecondary, backgroundColor: sidebarColors.backgroundSoft }}>
+          <option
+            value=""
+            disabled
+            style={{
+              color: sidebarColors.textSecondary,
+              backgroundColor: sidebarColors.backgroundSoft,
+            }}
+          >
             {placeholder}
           </option>
         )}
@@ -147,24 +174,42 @@ function NativeSelect({ value, onChange, options, placeholder, disabled, style, 
           <option
             key={opt.value}
             value={opt.value}
-            style={{ backgroundColor: sidebarColors.backgroundSoft, color: sidebarColors.textPrimary }}
+            style={{
+              backgroundColor: sidebarColors.backgroundSoft,
+              color: sidebarColors.textPrimary,
+            }}
           >
             {opt.label}
           </option>
         ))}
       </select>
       {/* Custom chevron */}
-      <span style={{
-        position: 'absolute',
-        right: '0.6rem',
-        top: '50%',
-        transform: 'translateY(-50%)',
-        pointerEvents: 'none',
-        color: focused ? sidebarColors.primaryFrom : sidebarColors.textSecondary,
-        transition: 'color 0.2s',
-      }}>
-        <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
+      <span
+        style={{
+          position: 'absolute',
+          right: '0.6rem',
+          top: '50%',
+          transform: 'translateY(-50%)',
+          pointerEvents: 'none',
+          color: focused
+            ? sidebarColors.primaryFrom
+            : sidebarColors.textSecondary,
+          transition: 'color 0.2s',
+        }}
+      >
+        <svg
+          width="14"
+          height="14"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2.5}
+            d="M19 9l-7 7-7-7"
+          />
         </svg>
       </span>
     </div>
@@ -173,7 +218,19 @@ function NativeSelect({ value, onChange, options, placeholder, disabled, style, 
 
 // ─── Custom dropdown (searchable) ────────────────────────────────────────────
 
-function CustomSelect({ value, onChange, options, placeholder, disabled, style, menuStyle, className, error, size, searchable }) {
+function CustomSelect({
+  value,
+  onChange,
+  options,
+  placeholder,
+  disabled,
+  style,
+  menuStyle,
+  className,
+  error,
+  size,
+  searchable,
+}) {
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState('');
   const [highlighted, setHighlighted] = useState(-1);
@@ -185,9 +242,12 @@ function CustomSelect({ value, onChange, options, placeholder, disabled, style, 
   const normalised = normalise(options);
   const selected = normalised.find((o) => o.value === value) ?? null;
 
-  const filtered = searchable && search
-    ? normalised.filter((o) => o.label.toLowerCase().includes(search.toLowerCase()))
-    : normalised;
+  const filtered =
+    searchable && search
+      ? normalised.filter((o) =>
+          o.label.toLowerCase().includes(search.toLowerCase())
+        )
+      : normalised;
 
   const base = size === 'sm' ? BASE_SM : BASE_MD;
 
@@ -226,43 +286,55 @@ function CustomSelect({ value, onChange, options, placeholder, disabled, style, 
     }
   }, [highlighted]);
 
-  const handleKeyDown = useCallback((e) => {
-    if (!open) {
-      if (e.key === 'Enter' || e.key === ' ' || e.key === 'ArrowDown') {
-        e.preventDefault();
-        setOpen(true);
-        setHighlighted(0);
-      }
-      return;
-    }
-    switch (e.key) {
-      case 'ArrowDown':
-        e.preventDefault();
-        setHighlighted((h) => Math.min(h + 1, filtered.length - 1));
-        break;
-      case 'ArrowUp':
-        e.preventDefault();
-        setHighlighted((h) => Math.max(h - 1, 0));
-        break;
-      case 'Enter':
-        e.preventDefault();
-        if (highlighted >= 0 && filtered[highlighted]) {
-          onChange(filtered[highlighted].value);
-          setOpen(false);
+  const handleKeyDown = useCallback(
+    (e) => {
+      if (!open) {
+        if (e.key === 'Enter' || e.key === ' ' || e.key === 'ArrowDown') {
+          e.preventDefault();
+          setOpen(true);
+          setHighlighted(0);
         }
-        break;
-      case 'Escape':
-        setOpen(false);
-        break;
-      default:
-        break;
-    }
-  }, [open, highlighted, filtered, onChange]);
+        return;
+      }
+      switch (e.key) {
+        case 'ArrowDown':
+          e.preventDefault();
+          setHighlighted((h) => Math.min(h + 1, filtered.length - 1));
+          break;
+        case 'ArrowUp':
+          e.preventDefault();
+          setHighlighted((h) => Math.max(h - 1, 0));
+          break;
+        case 'Enter':
+          e.preventDefault();
+          if (highlighted >= 0 && filtered[highlighted]) {
+            onChange(filtered[highlighted].value);
+            setOpen(false);
+          }
+          break;
+        case 'Escape':
+          setOpen(false);
+          break;
+        default:
+          break;
+      }
+    },
+    [open, highlighted, filtered, onChange]
+  );
 
   const triggerStyle = {
     ...base,
-    borderColor: error ? sidebarColors.errorcolor : focused || open ? sidebarColors.primaryFrom : sidebarColors.border,
-    boxShadow: (focused || open) ? (error ? ERROR_FOCUS.boxShadow : FOCUS.boxShadow) : 'none',
+    borderColor: error
+      ? sidebarColors.errorcolor
+      : focused || open
+        ? sidebarColors.primaryFrom
+        : sidebarColors.border,
+    boxShadow:
+      focused || open
+        ? error
+          ? ERROR_FOCUS.boxShadow
+          : FOCUS.boxShadow
+        : 'none',
     opacity: disabled ? 0.5 : 1,
     cursor: disabled ? 'not-allowed' : 'pointer',
     display: 'flex',
@@ -273,13 +345,19 @@ function CustomSelect({ value, onChange, options, placeholder, disabled, style, 
   };
 
   return (
-    <div ref={containerRef} style={{ position: 'relative', width: '100%' }} className={className}>
+    <div
+      ref={containerRef}
+      style={{ position: 'relative', width: '100%' }}
+      className={className}
+    >
       {/* Trigger button */}
       <button
         type="button"
         disabled={disabled}
         style={triggerStyle}
-        onClick={() => { if (!disabled) setOpen((o) => !o); }}
+        onClick={() => {
+          if (!disabled) setOpen((o) => !o);
+        }}
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
         onKeyDown={handleKeyDown}
@@ -290,25 +368,49 @@ function CustomSelect({ value, onChange, options, placeholder, disabled, style, 
         }}
         onMouseLeave={(e) => {
           if (!open && !focused && !disabled) {
-            e.currentTarget.style.borderColor = error ? sidebarColors.errorcolor : sidebarColors.border;
+            e.currentTarget.style.borderColor = error
+              ? sidebarColors.errorcolor
+              : sidebarColors.border;
           }
         }}
         aria-haspopup="listbox"
         aria-expanded={open}
       >
-        <span style={{ color: selected ? sidebarColors.textPrimary : sidebarColors.textSecondary, flex: 1, textAlign: 'left', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-          {selected ? selected.label : (placeholder || 'Select…')}
+        <span
+          style={{
+            color: selected
+              ? sidebarColors.textPrimary
+              : sidebarColors.textSecondary,
+            flex: 1,
+            textAlign: 'left',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            whiteSpace: 'nowrap',
+          }}
+        >
+          {selected ? selected.label : placeholder || 'Select…'}
         </span>
         <svg
-          width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+          width="14"
+          height="14"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
           style={{
-            color: open ? sidebarColors.primaryFrom : sidebarColors.textSecondary,
+            color: open
+              ? sidebarColors.primaryFrom
+              : sidebarColors.textSecondary,
             transform: open ? 'rotate(180deg)' : 'rotate(0deg)',
             transition: 'transform 0.2s, color 0.2s',
             flexShrink: 0,
           }}
         >
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2.5}
+            d="M19 9l-7 7-7-7"
+          />
         </svg>
       </button>
 
@@ -330,15 +432,20 @@ function CustomSelect({ value, onChange, options, placeholder, disabled, style, 
         >
           {/* Search input */}
           {searchable && (
-            <div style={{
-              padding: `${spacing.sm} ${spacing.md}`,
-              borderBottom: `1px solid ${sidebarColors.border}`,
-            }}>
+            <div
+              style={{
+                padding: `${spacing.sm} ${spacing.md}`,
+                borderBottom: `1px solid ${sidebarColors.border}`,
+              }}
+            >
               <input
                 ref={searchRef}
                 type="text"
                 value={search}
-                onChange={(e) => { setSearch(e.target.value); setHighlighted(0); }}
+                onChange={(e) => {
+                  setSearch(e.target.value);
+                  setHighlighted(0);
+                }}
                 onKeyDown={handleKeyDown}
                 placeholder="Search…"
                 style={{
@@ -365,53 +472,72 @@ function CustomSelect({ value, onChange, options, placeholder, disabled, style, 
 
           {/* Options */}
           {filtered.length === 0 ? (
-            <div style={{ ...OPTION_BASE, color: sidebarColors.textSecondary, cursor: 'default' }}>
+            <div
+              style={{
+                ...OPTION_BASE,
+                color: sidebarColors.textSecondary,
+                cursor: 'default',
+              }}
+            >
               {search ? 'No matches found' : 'No options'}
             </div>
-          ) : filtered.map((opt, idx) => {
-            const isSelected = opt.value === value;
-            const isHighlighted = idx === highlighted;
-            return (
-              <div
-                key={opt.value}
-                data-option
-                role="option"
-                aria-selected={isSelected}
-                style={{
-                  ...OPTION_BASE,
-                  backgroundColor: isSelected
-                    ? `${sidebarColors.primaryFrom}20`
-                    : isHighlighted
-                    ? sidebarColors.hoverBackground
-                    : 'transparent',
-                  color: isSelected
-                    ? sidebarColors.activeText
-                    : isHighlighted
-                    ? sidebarColors.hoverText
-                    : sidebarColors.textPrimary,
-                  fontWeight: isSelected ? 600 : 400,
-                  borderLeft: isSelected
-                    ? `3px solid ${sidebarColors.activeBorder}`
-                    : '3px solid transparent',
-                }}
-                onMouseEnter={() => setHighlighted(idx)}
-                onMouseLeave={() => setHighlighted(-1)}
-                onMouseDown={(e) => {
-                  e.preventDefault();
-                  onChange(opt.value);
-                  setOpen(false);
-                }}
-              >
-                {isSelected && (
-                  <svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                    style={{ color: sidebarColors.activeText, flexShrink: 0 }}>
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-                  </svg>
-                )}
-                <span style={{ flex: 1 }}>{opt.label}</span>
-              </div>
-            );
-          })}
+          ) : (
+            filtered.map((opt, idx) => {
+              const isSelected = opt.value === value;
+              const isHighlighted = idx === highlighted;
+              return (
+                <div
+                  key={opt.value}
+                  data-option
+                  role="option"
+                  aria-selected={isSelected}
+                  style={{
+                    ...OPTION_BASE,
+                    backgroundColor: isSelected
+                      ? `${sidebarColors.primaryFrom}20`
+                      : isHighlighted
+                        ? sidebarColors.hoverBackground
+                        : 'transparent',
+                    color: isSelected
+                      ? sidebarColors.activeText
+                      : isHighlighted
+                        ? sidebarColors.hoverText
+                        : sidebarColors.textPrimary,
+                    fontWeight: isSelected ? 600 : 400,
+                    borderLeft: isSelected
+                      ? `3px solid ${sidebarColors.activeBorder}`
+                      : '3px solid transparent',
+                  }}
+                  onMouseEnter={() => setHighlighted(idx)}
+                  onMouseLeave={() => setHighlighted(-1)}
+                  onMouseDown={(e) => {
+                    e.preventDefault();
+                    onChange(opt.value);
+                    setOpen(false);
+                  }}
+                >
+                  {isSelected && (
+                    <svg
+                      width="12"
+                      height="12"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      style={{ color: sidebarColors.activeText, flexShrink: 0 }}
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={3}
+                        d="M5 13l4 4L19 7"
+                      />
+                    </svg>
+                  )}
+                  <span style={{ flex: 1 }}>{opt.label}</span>
+                </div>
+              );
+            })
+          )}
         </div>
       )}
     </div>
