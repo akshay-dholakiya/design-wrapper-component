@@ -125,7 +125,7 @@ export const ThemeSelection = () => {
                   // Event handlers are browser-only — localStorage/window are safe here
                   localStorage.setItem("theme", t.key);
                   setSelected(t.key);
-                  // applyTheme(t.key); // apply all CSS vars instantly before reload
+                  applyTheme(t.key); // apply all CSS vars instantly before reload
                   window.location.reload();
                 }}
                 style={{
