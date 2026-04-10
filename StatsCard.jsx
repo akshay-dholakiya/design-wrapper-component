@@ -88,6 +88,8 @@ const VARIANT_COLORS = {
   info:     chartColors.series[4],            // cyan-ish from chartColors palette
   primary:  sidebarColors.primaryFrom,        // #3b82f6
   success:  sidebarColors.successcolor,        // green-500 (no semantic token exists)
+  warning:  sidebarColors.warning,            // amber/warning color
+  default:  sidebarColors.primary,            // default brand color
 };
 
 // ─── metric font sizes ────────────────────────────────────────────────────────
