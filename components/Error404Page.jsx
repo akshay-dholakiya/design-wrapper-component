@@ -84,7 +84,8 @@ export default function ErrorPage() {
   };
 
   const isRouteError = isRouteErrorResponse(error);
-  const status = isRouteError ? error.status : 500;
+  const isDirectNotFound = error == null;
+  const status = isRouteError ? error.status : isDirectNotFound ? 404 : 500;
 
   let title = "Something went wrong";
   let message = "Unexpected error occurred.";
@@ -96,6 +97,9 @@ export default function ErrorPage() {
       title = `${error.status} Error`;
       message = error.statusText || "Something went wrong while loading this page.";
     }
+  } else if (isDirectNotFound) {
+    title = "Page Not Found";
+    message = "The route may have moved, or the link may be outdated.";
   } else if (error instanceof Error && error.message) {
     message = error.message;
   }
