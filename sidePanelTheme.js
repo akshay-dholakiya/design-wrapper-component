@@ -1,15 +1,19 @@
-import sidebarColors, { chartColors, fontStyles } from "./colors";
-import { borderRadius, componentSpacing, spacing } from "./spacing";
+import sidebarColors, { chartColors, fontStyles } from './colors';
+import { borderRadius, componentSpacing, spacing } from './spacing';
 
 const toAlpha = (hexColor, alpha) => {
-  if (typeof hexColor !== "string" || !hexColor.startsWith("#")) {
+  if (typeof hexColor !== 'string' || !hexColor.startsWith('#')) {
     return hexColor;
   }
 
-  const clean = hexColor.replace("#", "");
-  const expanded = clean.length === 3
-    ? clean.split("").map((c) => `${c}${c}`).join("")
-    : clean;
+  const clean = hexColor.replace('#', '');
+  const expanded =
+    clean.length === 3
+      ? clean
+          .split('')
+          .map((c) => `${c}${c}`)
+          .join('')
+      : clean;
 
   const int = Number.parseInt(expanded, 16);
   if (Number.isNaN(int)) return hexColor;
@@ -31,9 +35,9 @@ export const sidePanelTheme = {
   accent: chartColors.default,
   shadow: `0 18px 40px ${toAlpha(sidebarColors.background, 0.45)}`,
   backdropBackground: toAlpha(sidebarColors.background, 0.48),
-  backdropBlur: "blur(6px)",
+  backdropBlur: 'blur(6px)',
   radius: borderRadius.xl,
-  radiusLg: borderRadius["2xl"],
+  radiusLg: borderRadius['2xl'],
   cardPadding: componentSpacing.card.default,
   compactPadding: componentSpacing.card.compact,
   sectionGap: spacing.lg,
@@ -42,7 +46,7 @@ export const sidePanelTheme = {
   dangerBorder: toAlpha(chartColors.severity.critical, 0.3),
   dangerBackground: toAlpha(chartColors.severity.critical, 0.12),
   dangerText: chartColors.severity.high,
-  maxLogListHeight: "520px",
+  maxLogListHeight: '520px',
   title: {
     ...fontStyles.heading4,
     color: sidebarColors.textPrimary,
@@ -50,8 +54,8 @@ export const sidePanelTheme = {
   subtitle: {
     ...fontStyles.caption,
     color: chartColors.ui.label,
-    textTransform: "uppercase",
-    letterSpacing: "0.08em",
+    textTransform: 'uppercase',
+    letterSpacing: '0.08em',
     fontWeight: 700,
   },
 };
@@ -75,11 +79,29 @@ export const summaryTone = {
 };
 
 export const severityBadgeStyle = (severity) => {
-  const sev = String(severity || "").toLowerCase();
-  if (sev === "critical") return { backgroundColor: chartColors.severity.critical, color: sidebarColors.textPrimary };
-  if (sev === "high") return { backgroundColor: chartColors.severity.high, color: sidebarColors.textPrimary };
-  if (sev === "medium") return { backgroundColor: chartColors.severity.medium, color: sidebarColors.background };
-  if (sev === "low") return { backgroundColor: chartColors.severity.info, color: sidebarColors.textPrimary };
-  return { backgroundColor: chartColors.ui.axis, color: sidebarColors.textPrimary };
+  const sev = String(severity || '').toLowerCase();
+  if (sev === 'critical')
+    return {
+      backgroundColor: chartColors.severity.critical,
+      color: sidebarColors.textPrimary,
+    };
+  if (sev === 'high')
+    return {
+      backgroundColor: chartColors.severity.high,
+      color: sidebarColors.textPrimary,
+    };
+  if (sev === 'medium')
+    return {
+      backgroundColor: chartColors.severity.medium,
+      color: sidebarColors.background,
+    };
+  if (sev === 'low')
+    return {
+      backgroundColor: chartColors.severity.info,
+      color: sidebarColors.textPrimary,
+    };
+  return {
+    backgroundColor: chartColors.ui.axis,
+    color: sidebarColors.textPrimary,
+  };
 };
-

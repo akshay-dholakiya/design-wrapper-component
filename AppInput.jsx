@@ -116,10 +116,18 @@ const AppInput = forwardRef(function AppInput(
     cursor: disabled ? 'not-allowed' : 'text',
     transition: 'border-color 150ms ease, box-shadow 150ms ease',
     // Apply padding from size, overriddable by style
-    paddingTop:    sizeStyles.padding ? undefined : spacing.md,
+    paddingTop: sizeStyles.padding ? undefined : spacing.md,
     paddingBottom: sizeStyles.padding ? undefined : spacing.md,
-    paddingLeft:   prefix ? spacing.sm : (sizeStyles.padding ? undefined : spacing.lg),
-    paddingRight:  suffix ? spacing.sm : (sizeStyles.padding ? undefined : spacing.lg),
+    paddingLeft: prefix
+      ? spacing.sm
+      : sizeStyles.padding
+        ? undefined
+        : spacing.lg,
+    paddingRight: suffix
+      ? spacing.sm
+      : sizeStyles.padding
+        ? undefined
+        : spacing.lg,
     ...sizeStyles,
     padding: undefined, // break out from shorthand to handle prefix/suffix spacing
     ...style,
@@ -131,10 +139,10 @@ const AppInput = forwardRef(function AppInput(
   } else {
     const pad = sizeStyles.padding || `${spacing.md} ${spacing.lg}`;
     const [pt, pr, pb, pl] = parsePadding(pad);
-    wrapperStyle.paddingTop    = pt;
+    wrapperStyle.paddingTop = pt;
     wrapperStyle.paddingBottom = pb;
-    wrapperStyle.paddingLeft   = prefix  ? spacing.sm : pl;
-    wrapperStyle.paddingRight  = suffix  ? spacing.sm : pr;
+    wrapperStyle.paddingLeft = prefix ? spacing.sm : pl;
+    wrapperStyle.paddingRight = suffix ? spacing.sm : pr;
   }
 
   // ─── inner input ────────────────────────────────────────────────────────────
