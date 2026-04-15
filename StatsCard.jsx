@@ -85,13 +85,15 @@ function withAlpha(color, alpha) {
 
 // ─── variant → design-token color mapping ────────────────────────────────────
 const VARIANT_COLORS = {
-  critical: chartColors.severity.critical, // #ef4444
-  high: chartColors.severity.high, // #f97316
-  medium: chartColors.severity.medium, // #eab308
-  low: chartColors.severity.low, // #3b82f6
-  info: chartColors.series[4], // cyan-ish from chartColors palette
-  primary: sidebarColors.primaryFrom, // #3b82f6
-  success: sidebarColors.successcolor, // green-500 (no semantic token exists)
+  critical: chartColors.severity.critical,    // #ef4444
+  high:     chartColors.severity.high,        // #f97316
+  medium:   chartColors.severity.medium,      // #eab308
+  low:      chartColors.severity.low,         // #3b82f6
+  info:     chartColors.series[4],            // cyan-ish from chartColors palette
+  primary:  sidebarColors.primaryFrom,        // #3b82f6
+  success:  sidebarColors.successcolor,        // green-500 (no semantic token exists)
+  warning:  sidebarColors.warning,            // amber/warning color
+  default:  sidebarColors.primary,            // default brand color
 };
 
 // ─── metric font sizes ────────────────────────────────────────────────────────

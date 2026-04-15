@@ -166,28 +166,29 @@
   color: var(--sidebar-hover-text);
 }
 
+/* ─────────────────────────────────────────────────────────────
+   DANGER ITEMS  (logout, etc.)
+   No hardcoded colors — all values from CSS variables
+   ───────────────────────────────────────────────────────────── */
+
+/* Danger items — text color */
 .menu-item-content.danger,
 .menu-item-content.danger .menu-item-text,
 .menu-item-content.danger .menu-item-icon,
 .menu-item-content.danger .menu-item-icon-inner {
-  color: #ef4444;
+color: var(--sidebar-danger);
 }
 
+/* ✅ Simple flat background + color override — no gradients, no shadow bleed */
 .menu-item-content.danger:hover:not(.active) {
-  background-image: linear-gradient(
-    to right,
-    rgba(239, 68, 68, 0.16),
-    rgba(220, 38, 38, 0.16)
-  );
-  box-shadow:
-    0 10px 15px -3px rgba(239, 68, 68, 0.22),
-    0 4px 6px -2px rgba(239, 68, 68, 0.18);
+    background: rgba(var(--sidebar-danger-rgb), 0.12);   /* flat, single layer */
+    color: var(--sidebar-danger);                         /* blocks cyan bleed from base hover */
+    box-shadow: none;                                     /* no glow mixing with toggle button */
 }
 
 .menu-item-trigger:focus-visible .menu-item-content.danger {
-  box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.45);
+    box-shadow: 0 0 0 2px rgba(var(--sidebar-danger-rgb), 0.45);
 }
-
 /* Menu Item Icon */
 .menu-item-icon {
   width: 2rem;
@@ -254,21 +255,27 @@
   margin-top: 0.25rem;
 }
 
+/* ─────────────────────────────────────────────────────────────
+   FLOATING SUBMENU  (portal)
+   Replaced hardcoded emerald glow with theme primary glow
+   ───────────────────────────────────────────────────────────── */
+
 .floating-submenu {
-  position: fixed;
-  min-width: 240px;
-  max-width: 280px;
-  margin-left: 0;
-  margin-top: 0;
-  padding: 0.75rem;
-  border-radius: 0.875rem;
-  border: 1px solid var(--sidebar-hover-border);
-  background-color: var(--sidebar-background);
-  box-shadow:
-    0 16px 32px rgba(0, 0, 0, 0.35),
-    0 0 24px rgba(16, 185, 129, 0.15);
-  backdrop-filter: blur(14px);
-  z-index: 1200;
+    position: fixed;
+    min-width: 240px;
+    max-width: 280px;
+    margin-left: 0;
+    margin-top: 0;
+    padding: 0.75rem;
+    border-radius: 0.875rem;
+    border: 1px solid var(--sidebar-hover-border);
+    background-color: var(--sidebar-background);
+    /* ✅ FIX: was rgba(16, 185, 129, 0.15) — wrong green, now uses theme primary */
+    box-shadow:
+        0 16px 32px rgba(0, 0, 0, 0.35),
+        0 0 24px rgba(var(--sidebar-primary-rgb), 0.15);
+    backdrop-filter: blur(14px);
+    z-index: 1200;
 }
 
 .floating-submenu::before {
@@ -383,51 +390,58 @@
   color: white;
 }
 
-/* Expand/Collapse Button */
+
+/* ─────────────────────────────────────────────────────────────
+   TOGGLE BUTTON
+   Isolated hover so its glow doesn't bleed toward bottom menu
+   ───────────────────────────────────────────────────────────── */
+
 .toggle-button-container {
-  position: relative;
-  padding: 1rem;
+    position: relative;
+    padding: 1rem;
+    /* Clip the toggle button's glow so it can't bleed upward */
+    isolation: isolate;
 }
 
 .toggle-button {
-  position: absolute;
-  bottom: 20px;
-  right: -20px;
-  width: 2.5rem;
-  height: 2.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 2px solid var(--sidebar-border);
-  border-radius: 50%;
-  box-shadow:
-    0 10px 15px -3px rgba(0, 0, 0, 0.1),
-    0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  transition: all 300ms;
-  cursor: pointer;
-  background-color: var(--sidebar-button-background);
-  color: var(--sidebar-button-icon-color);
-  overflow: hidden;
+    position: absolute;
+    bottom: 20px;
+    right: -20px;
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--sidebar-border);
+    border-radius: 50%;
+    box-shadow:
+        0 4px 8px -2px rgba(0, 0, 0, 0.25),
+        0 2px 4px -1px rgba(0, 0, 0, 0.15);
+    transition: all 300ms;
+    cursor: pointer;
+    background-color: var(--sidebar-button-background);
+    color: var(--sidebar-button-icon-color);
+    overflow: hidden;
 }
 
 .toggle-button:hover {
-  background-image: linear-gradient(
-    to right,
-    var(--sidebar-primary-from),
-    var(--sidebar-primary-to)
-  );
-  border-color: var(--sidebar-hover-border);
-  box-shadow: var(--sidebar-hover-shadow-spread) var(--sidebar-hover-shadow);
+    background-image: linear-gradient(
+        to right,
+        var(--sidebar-primary-from),
+        var(--sidebar-primary-to)
+    );
+    border-color: var(--sidebar-hover-border);
+    /* Tighter, directional shadow — less likely to bleed toward logout */
+    box-shadow:
+        0 0 10px 1px rgba(var(--sidebar-primary-rgb), 0.35),
+        0 4px 8px -2px rgba(0, 0, 0, 0.3);
 }
 
 .toggle-button svg {
   transition: all 300ms;
 }
 
-.toggle-button.expanded svg {
-  transform: rotate(0deg);
-}
+.toggle-button.expanded svg { transform: rotate(0deg); }
+.toggle-button.collapsed svg { transform: rotate(180deg); }
 
-.toggle-button.collapsed svg {
-  transform: rotate(180deg);
-}
+
