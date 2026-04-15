@@ -65,7 +65,7 @@ function BrokenCompass({ colors }) {
   );
 }
 
-export default function ErrorPage() {
+export default function Error404Page() {
   const error = useRouteError();
   const navigate = useNavigate();
 
