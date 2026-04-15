@@ -1,5 +1,6 @@
 import React from 'react';
 import { sidebarColors, chartColors } from '@design-pattern';
+import { getLiveSidebarColors } from '@design-pattern/colors.js';
 
 /* ─── keyframe injector ─────────────────────────────────────────────── */
 function injectKeyframes() {
@@ -38,16 +39,17 @@ function injectKeyframes() {
 
 /* ─── Desk Illustration SVG ─────────────────────────────────────────── */
 function DeskIllustration() {
-  // Pull live theme colours (with dark-theme fallbacks)
-  const surf   = sidebarColors?.surfaceElevated ?? '#162844';
-  const surf2  = sidebarColors?.surface         ?? '#0f1f38';
-  const bdr    = sidebarColors?.border          ?? '#1e3a5f';
-  const pFrom  = sidebarColors?.primaryFrom     ?? '#0ea5e9';
-  const pTo    = sidebarColors?.primaryTo       ?? '#38bdf8';
+  // Pull live theme colours on every render — bypasses module-level cache
+  const live   = getLiveSidebarColors();
+  const surf   = live?.surfaceElevated ?? '#162844';
+  const surf2  = live?.surface         ?? '#0f1f38';
+  const bdr    = live?.border          ?? '#1e3a5f';
+  const pFrom  = live?.primaryFrom     ?? '#0ea5e9';
+  const pTo    = live?.primaryTo       ?? '#38bdf8';
 
   return (
     <svg
-      width="320" height="200" viewBox="0 0 320 200"
+      width="260" height="160" viewBox="0 0 320 200"
       fill="none" xmlns="http://www.w3.org/2000/svg"
       style={{ animation: 'eb-float 3.5s ease-in-out infinite', overflow: 'visible' }}
     >
@@ -125,8 +127,9 @@ function DeskIllustration() {
 
 /* ─── Decorative corner shapes ───────────────────────────────────────── */
 function CornerDeco() {
-  const pFrom = sidebarColors?.primaryFrom ?? '#0ea5e9';
-  const pTo   = sidebarColors?.primaryTo   ?? '#38bdf8';
+  const live  = getLiveSidebarColors();
+  const pFrom = live?.primaryFrom ?? '#0ea5e9';
+  const pTo   = live?.primaryTo   ?? '#38bdf8';
 
   return (
     <>
@@ -191,27 +194,28 @@ class ErrorBoundary extends React.Component {
     }
 
     // ── live theme tokens ──────────────────────────────────────────
-    const bg        = sidebarColors?.background        ?? '#050d1a';
-    const card      = sidebarColors?.surface           ?? '#0f1f38';
-    const cardBdr   = sidebarColors?.border            ?? '#1e3a5f';
-    const txt1      = sidebarColors?.textPrimary       ?? '#e2f4ff';
-    const txt2      = sidebarColors?.textSecondary     ?? 'rgba(226,244,255,0.55)';
-    const txtMuted  = sidebarColors?.textMuted         ?? 'rgba(226,244,255,0.30)';
-    const pFrom     = sidebarColors?.primaryFrom       ?? '#0ea5e9';
-    const pTo       = sidebarColors?.primaryTo         ?? '#38bdf8';
+    const live      = getLiveSidebarColors();
+    const bg        = live?.background        ?? '#050d1a';
+    const card      = live?.surface           ?? '#0f1f38';
+    const cardBdr   = live?.border            ?? '#1e3a5f';
+    const txt1      = live?.textPrimary       ?? '#e2f4ff';
+    const txt2      = live?.textSecondary     ?? 'rgba(226,244,255,0.55)';
+    const txtMuted  = live?.textMuted         ?? 'rgba(226,244,255,0.30)';
+    const pFrom     = live?.primaryFrom       ?? '#0ea5e9';
+    const pTo       = live?.primaryTo         ?? '#38bdf8';
     const danger    = chartColors?.severity?.critical  ?? '#ef4444';
 
     return (
       <div style={{
-        minHeight: '100vh',
+        height: '100vh',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        background: bg,
+        background: `radial-gradient(circle at 18% 18%, ${pFrom}24 0%, transparent 34%), radial-gradient(circle at 85% 80%, ${pTo}22 0%, transparent 28%), ${bg}`,
         fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
         position: 'relative',
         overflow: 'hidden',
-        padding: '24px',
+        padding: '20px',
       }}>
         <CornerDeco />
 
@@ -219,11 +223,11 @@ class ErrorBoundary extends React.Component {
         <div style={{
           position: 'relative',
           zIndex: 10,
-          background: card,
+          background: `linear-gradient(170deg, ${card}f5 0%, ${card}d9 100%)`,
           border: `1px solid ${cardBdr}`,
-          borderRadius: '20px',
-          boxShadow: `0 8px 40px rgba(0,0,0,0.45), 0 0 0 1px ${pFrom}18`,
-          padding: '48px 40px 40px',
+          borderRadius: '24px',
+          boxShadow: `0 24px 70px rgba(0,0,0,0.45), 0 0 0 1px ${pFrom}20`,
+          padding: '26px 32px 20px',
           maxWidth: '520px',
           width: '100%',
           textAlign: 'center',
@@ -238,7 +242,7 @@ class ErrorBoundary extends React.Component {
           }}/>
 
           {/* ── Illustration ── */}
-          <div style={{ marginBottom: '28px', display: 'flex', justifyContent: 'center' }}>
+          <div style={{ marginBottom: '14px', display: 'flex', justifyContent: 'center' }}>
             <DeskIllustration />
           </div>
 
@@ -246,13 +250,30 @@ class ErrorBoundary extends React.Component {
           <div style={{
             height: '1px',
             background: `linear-gradient(90deg, transparent, ${cardBdr}, ${pFrom}55, ${cardBdr}, transparent)`,
-            marginBottom: '28px',
+            marginBottom: '14px',
           }}/>
+
+          {/* ── Status badge ── */}
+          <p style={{
+            margin: '0 auto 8px',
+            width: 'fit-content',
+            borderRadius: '999px',
+            border: `1px solid ${cardBdr}`,
+            background: `${danger}1e`,
+            color: txt2,
+            fontSize: '11px',
+            fontWeight: 600,
+            letterSpacing: '0.06em',
+            padding: '4px 10px',
+            textTransform: 'uppercase',
+          }}>
+            Runtime Error
+          </p>
 
           {/* ── Heading ── */}
           <h1 style={{
-            margin: '0 0 10px',
-            fontSize: '28px',
+            margin: '0 0 6px',
+            fontSize: '22px',
             fontWeight: 700,
             color: txt1,
             letterSpacing: '-0.01em',
@@ -263,10 +284,10 @@ class ErrorBoundary extends React.Component {
 
           {/* ── Subtitle ── */}
           <p style={{
-            margin: '0 0 14px',
-            fontSize: '15px',
+            margin: '0 0 8px',
+            fontSize: '13px',
             color: txt2,
-            lineHeight: 1.55,
+            lineHeight: 1.45,
             fontWeight: 400,
           }}>
             Sorry, something went wrong there. Try again.
@@ -307,10 +328,10 @@ class ErrorBoundary extends React.Component {
 
           {/* ── Description ── */}
           <p style={{
-            margin: '0 0 28px',
-            fontSize: '12.5px',
+            margin: '0 0 16px',
+            fontSize: '11.5px',
             color: txtMuted,
-            lineHeight: 1.65,
+            lineHeight: 1.5,
           }}>
             An unexpected error occurred in the application. Your data is safe and all other
             services are running normally. If this issue persists, please contact support.
