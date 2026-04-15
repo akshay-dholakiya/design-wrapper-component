@@ -139,19 +139,25 @@ export default function HorizontalBarChartWrapper({
 
     const isSingleSeries = seriesFields.length === 1;
 
-    const series = seriesFields.map((field, index) => {
+    const seriesValueMap = {};
+
+    const baseSeries = seriesFields.map((field, index) => {
         const seriesColor = colorMap[field] || chartColors.series[index % chartColors.series.length];
+        const values = data.map((item) => {
+            const rawValue = item?.[field];
+            if (rawValue === null || rawValue === undefined || rawValue === '') {
+                return fillMissingWithZero ? 0 : null;
+            }
+            const value = Number(rawValue);
+            return Number.isFinite(value) ? value : (fillMissingWithZero ? 0 : null);
+        });
+
+        seriesValueMap[field] = values;
+
         return {
             name: field,
             type: 'bar',
-            data: data.map((item) => {
-                const rawValue = item?.[field];
-                if (rawValue === null || rawValue === undefined || rawValue === '') {
-                    return fillMissingWithZero ? 0 : null;
-                }
-                const value = Number(rawValue);
-                return Number.isFinite(value) ? value : (fillMissingWithZero ? 0 : null);
-            }),
+            data: values,
             itemStyle: {
                 color: seriesColor,
                 borderRadius: chartTokens.barBorderRadius,
@@ -173,8 +179,140 @@ export default function HorizontalBarChartWrapper({
         };
     });
 
-    const numericValues = series.flatMap((item) =>
-        (Array.isArray(item.data) ? item.data : []).filter((v) => typeof v === 'number' && Number.isFinite(v)),
+    const series = isSingleSeries
+        ? (() => {
+            const field = seriesFields[0];
+            const seriesColor = colorMap[field] || chartColors.series[0];
+            const values = seriesValueMap[field] || [];
+            const prismData = values.map((value, idx) => [idx, Number(value) || 0]);
+
+            return [
+                {
+                    name: field,
+                    type: 'bar',
+                    data: values,
+                    barWidth: chartTokens.singleBarWidth,
+                    barMaxWidth: chartTokens.singleBarMaxWidth,
+                    barGap: '0%',
+                    barCategoryGap: '42%',
+                    itemStyle: {
+                        borderRadius: [0, 4, 4, 0],
+                        borderColor: withAlpha(seriesColor, 0.88),
+                        borderWidth: 1,
+                        color: {
+                            type: 'linear',
+                            x: 0,
+                            y: 0,
+                            x2: 1,
+                            y2: 0,
+                            colorStops: [
+                                { offset: 0, color: withAlpha(seriesColor, 0.48) },
+                                { offset: 0.55, color: withAlpha(seriesColor, 0.66) },
+                                { offset: 1, color: withAlpha(seriesColor, 0.9) },
+                            ],
+                        },
+                    },
+                    label: {
+                        show: true,
+                        position: 'right',
+                        formatter: ({ value }) => `${value}`,
+                        distance: 12,
+                        color: withAlpha(seriesColor, 0.98),
+                        fontSize: 16,
+                        fontWeight: 800,
+                        ...fontStyles.smoothing,
+                    },
+                    emphasis: {
+                        focus: 'series',
+                        itemStyle: {
+                            shadowColor: withAlpha(seriesColor, 0.28),
+                            shadowBlur: 4,
+                        },
+                    },
+                    z: 2,
+                },
+                {
+                    name: `${field}-right-face`,
+                    type: 'custom',
+                    data: prismData,
+                    renderItem: (params, api) => {
+                        const categoryIndex = api.value(0);
+                        const value = api.value(1);
+                        if (!Number.isFinite(value) || value <= 0) return null;
+
+                        const right = api.coord([value, categoryIndex]);
+                        const categorySize = api.size([0, 1])[1];
+                        const halfBar = Math.min(categorySize * 0.17, 24);
+                        const depthX = Math.max(6, Math.min(10, categorySize * 0.1));
+                        const depthY = Math.max(4, Math.min(8, categorySize * 0.08));
+                        const topY = right[1] - halfBar;
+                        const bottomY = right[1] + halfBar;
+
+                        return {
+                            type: 'polygon',
+                            shape: {
+                                points: [
+                                    [right[0], topY],
+                                    [right[0] + depthX, topY - depthY],
+                                    [right[0] + depthX, bottomY - depthY],
+                                    [right[0], bottomY],
+                                ],
+                            },
+                            style: {
+                                fill: withAlpha(seriesColor, 0.28),
+                                stroke: withAlpha(seriesColor, 0.55),
+                                lineWidth: 1,
+                            },
+                        };
+                    },
+                    silent: true,
+                    tooltip: { show: false },
+                    z: 3,
+                },
+                {
+                    name: `${field}-top-face`,
+                    type: 'custom',
+                    data: prismData,
+                    renderItem: (params, api) => {
+                        const categoryIndex = api.value(0);
+                        const value = api.value(1);
+                        if (!Number.isFinite(value) || value <= 0) return null;
+
+                        const left = api.coord([0, categoryIndex]);
+                        const right = api.coord([value, categoryIndex]);
+                        const categorySize = api.size([0, 1])[1];
+                        const halfBar = Math.min(categorySize * 0.17, 24);
+                        const depthX = Math.max(6, Math.min(10, categorySize * 0.1));
+                        const depthY = Math.max(4, Math.min(8, categorySize * 0.08));
+                        const topY = right[1] - halfBar;
+
+                        return {
+                            type: 'polygon',
+                            shape: {
+                                points: [
+                                    [left[0], topY],
+                                    [right[0], topY],
+                                    [right[0] + depthX, topY - depthY],
+                                    [left[0] + depthX, topY - depthY],
+                                ],
+                            },
+                            style: {
+                                fill: withAlpha(seriesColor, 0.5),
+                                stroke: withAlpha(seriesColor, 0.78),
+                                lineWidth: 1,
+                            },
+                        };
+                    },
+                    silent: true,
+                    tooltip: { show: false },
+                    z: 4,
+                },
+            ];
+        })()
+        : baseSeries;
+
+    const numericValues = Object.values(seriesValueMap).flatMap((values) =>
+        (Array.isArray(values) ? values : []).filter((v) => typeof v === 'number' && Number.isFinite(v)),
     );
     const maxValue = numericValues.length > 0 ? Math.max(...numericValues) : 1;
     const smartInterval = maxValue <= 10 ? 1 : maxValue <= 100 ? 5 : maxValue <= 1000 ? 50 : yAxisInterval;
@@ -186,6 +324,9 @@ export default function HorizontalBarChartWrapper({
 
     const option = {
         backgroundColor: sidebarColors.backgroundSoft,
+        animationDuration: 850,
+        animationEasing: 'cubicOut',
+        animationDurationUpdate: 500,
         tooltip: {
             trigger: 'axis',
             confine: true,
