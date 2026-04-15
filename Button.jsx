@@ -128,7 +128,12 @@ const Button = ({
 
   // Hover styles (applied via onMouseEnter/onMouseLeave)
   const getHoverStyles = () => {
-    if (variant === 'primary' || variant === 'success' || variant === 'danger' || variant === 'warning') {
+    if (
+      variant === 'primary' ||
+      variant === 'success' ||
+      variant === 'danger' ||
+      variant === 'warning'
+    ) {
       return {
         transform: 'translateY(-2px)',
         boxShadow: `0 8px 20px ${variantStyles[variant]?.boxShadow?.split(' ').pop()}`,
@@ -239,4 +244,3 @@ Button.propTypes = {
 };
 
 export default Button;
-

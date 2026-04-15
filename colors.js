@@ -19,23 +19,22 @@ const getThemeKey = () => {
 
 const themeKey = getThemeKey();
 
+const theme = themeMap[themeKey] ?? themeMap['theam1']; // fallback to default
 
-const theme = themeMap[themeKey] ?? themeMap["theam1"]; // fallback to default
-
-const sidebarColors      = theme.default;
-const DEFAULT_COLORS     = theme.DEFAULT_COLORS;
-const fontStyles         = theme.fontStyles;
-const chartColors        = theme.chartColors;
+const sidebarColors = theme.default;
+const DEFAULT_COLORS = theme.DEFAULT_COLORS;
+const fontStyles = theme.fontStyles;
+const chartColors = theme.chartColors;
 const panelSummaryColors = theme.panelSummaryColors;
-const sidebarClasses     = theme.sidebarClasses;
+const sidebarClasses = theme.sidebarClasses;
 
 export {
-    DEFAULT_COLORS,
-    fontStyles,
-    chartColors,
-    panelSummaryColors,
-    sidebarClasses,
-    sidebarColors,
+  DEFAULT_COLORS,
+  fontStyles,
+  chartColors,
+  panelSummaryColors,
+  sidebarClasses,
+  sidebarColors,
 };
 
 export default sidebarColors;

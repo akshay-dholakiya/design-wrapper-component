@@ -68,9 +68,13 @@ function withAlpha(color, alpha) {
   }
   if (color.startsWith('#')) {
     const hex = color.replace('#', '');
-    const full = hex.length === 3
-      ? hex.split('').map((c) => c + c).join('')
-      : hex;
+    const full =
+      hex.length === 3
+        ? hex
+            .split('')
+            .map((c) => c + c)
+            .join('')
+        : hex;
     const r = parseInt(full.slice(0, 2), 16);
     const g = parseInt(full.slice(2, 4), 16);
     const b = parseInt(full.slice(4, 6), 16);
@@ -94,9 +98,9 @@ const VARIANT_COLORS = {
 
 // ─── metric font sizes ────────────────────────────────────────────────────────
 const METRIC_SIZE = {
-  sm: fontStyles.metric,        // ~24px
-  md: fontStyles.metric2xl,     // component-defined 2xl metric
-  lg: fontStyles.metricLarge,   // ~48px
+  sm: fontStyles.metric, // ~24px
+  md: fontStyles.metric2xl, // component-defined 2xl metric
+  lg: fontStyles.metricLarge, // ~48px
 };
 
 // ─── component ───────────────────────────────────────────────────────────────
@@ -144,7 +148,7 @@ export default function StatsCard({
           ...style,
         }}
         onClick={onClick}
-        onMouseEnter={isClickable ? () => setHovered(true)  : undefined}
+        onMouseEnter={isClickable ? () => setHovered(true) : undefined}
         onMouseLeave={isClickable ? () => setHovered(false) : undefined}
       >
         <div
@@ -183,7 +187,7 @@ export default function StatsCard({
           ...style,
         }}
         onClick={onClick}
-        onMouseEnter={isClickable ? () => setHovered(true)  : undefined}
+        onMouseEnter={isClickable ? () => setHovered(true) : undefined}
         onMouseLeave={isClickable ? () => setHovered(false) : undefined}
       >
         <div
@@ -227,7 +231,8 @@ export default function StatsCard({
         borderRadius: borderRadius.lg,
         padding: `${spacing['2xl']} ${spacing.xl}`,
         cursor: isClickable ? 'pointer' : 'default',
-        transform: hovered && isClickable ? 'translateY(-2px)' : 'translateY(0)',
+        transform:
+          hovered && isClickable ? 'translateY(-2px)' : 'translateY(0)',
         boxShadow:
           hovered && isClickable
             ? `0 8px 20px -4px ${withAlpha(accentColor, 0.2)}`
@@ -315,8 +320,11 @@ export default function StatsCard({
                   : sidebarColors.textSecondary,
           }}
         >
-          {trend.direction === 'up' ? '↑' : trend.direction === 'down' ? '↓' : '→'}
-          {' '}
+          {trend.direction === 'up'
+            ? '↑'
+            : trend.direction === 'down'
+              ? '↓'
+              : '→'}{' '}
           {trend.percent}%
         </div>
       )}
