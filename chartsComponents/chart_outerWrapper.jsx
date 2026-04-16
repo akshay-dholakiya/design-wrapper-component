@@ -15,12 +15,12 @@ export default function OuterWrapper({
             style={{
 
                 padding: spacing.xl,
-                backgroundColor: sidebarColors.background,
                 borderRadius: borderRadius.xl,
                 border: `1px solid ${sidebarColors.border}`,
                 backgroundColor: sidebarColors.backgroundSoft,
                 boxShadow: '0 10px 30px rgba(0, 0, 0, 0.12)',
             }}
+            className={'outer-main-wrapper'}
         >
             {/* title start */}
 
