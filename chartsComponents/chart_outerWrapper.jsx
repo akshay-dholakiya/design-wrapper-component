@@ -1,7 +1,7 @@
 import sidebarColors, { fontStyles } from '../colors';
 import { borderRadius, spacing } from '../spacing';
 import EagleEyeLoader from '../../src/components/utility/EagleEyeLoader';
-
+import dragIcon from '../assets/drag.png'
 export default function OuterWrapper({
     title,
     rightComponent = null,
@@ -56,19 +56,30 @@ export default function OuterWrapper({
                         alignItems: 'center',
                         justifyContent: 'flex-end',
                         gap: spacing.md,
-
-                        flexWrap: 'wrap',
+                        flexWrap: 'nowrap', // 👈 force same line
                     }}
                 >
-                    {rightComponent}
+                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                        {rightComponent}
+
+
+                        <div className="drag-handle ml-2" style={{ cursor: 'grab' }}>
+                            <img src={dragIcon} width={20} />
+                        </div>
+
+                    </div>
+
+
                 </div>
+
+
             </div>
 
             {/* title end */}
 
             {/* children start  */}
             <div
-
+                className={'h-full overflow-y-auto'}
             >
                 {isLoading ? loadingComponent : children}
             </div>
