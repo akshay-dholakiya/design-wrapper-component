@@ -1,7 +1,7 @@
 import React from 'react';
 import sidebarColors, { fontStyles } from '../../colors';
 import { borderRadius, componentSpacing, layout, spacing } from '../../spacing';
-import EagleEyeLoader from '../../../src/components/utility/EagleEyeLoader';
+// import EagleEyeLoader from '../../../src/components/utility/EagleEyeLoader';
 import { AlarmClock, RefreshCw, ClipboardList, Clock } from 'lucide-react';
 
 const ICON_MAP = {
@@ -29,7 +29,7 @@ export default function MttdMttrCardsWrapper({
 	cards = [],
 	children = null,
 	isLoading = false,
-	loadingComponent = <EagleEyeLoader />,
+	loadingComponent = '',
 	noDataComponent = 'No summary data available',
 	columns,
 	onCardClick,
