@@ -1,0 +1,16 @@
+.drag-handle {
+    opacity: 0.5;
+    cursor: pointer;
+}
+.drag-handle:hover {
+    opacity: 1;
+}
+.drag-handle , .react-resizable-handle-se {
+    display: none;
+}
+.edit-layout  .drag-handle    {
+    display: block;
+}
+.edit-layout  .react-resizable-handle-se {
+    display: block;
+}
