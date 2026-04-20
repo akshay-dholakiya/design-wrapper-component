@@ -2,6 +2,7 @@ import sidebarColors, { fontStyles } from '../colors';
 import { borderRadius, spacing } from '../spacing';
 import EagleEyeLoader from '../../src/components/utility/EagleEyeLoader';
 import dragIcon from '../assets/drag.png'
+import './chart_outerWrapper.css'
 export default function OuterWrapper({
     title,
     rightComponent = null,
@@ -63,7 +64,7 @@ export default function OuterWrapper({
                         {rightComponent}
 
 
-                        <div className="drag-handle ml-2" style={{ cursor: 'grab' }}>
+                        <div className="drag-handle ml-2" >
                             <img src={dragIcon} width={20} />
                         </div>
 
