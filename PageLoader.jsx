@@ -23,7 +23,7 @@ const PageLoader = ({ isLoading = true, fullScreen = true }) => {
       {/* Logo Container with Shimmer Effect */}
       <div className="loader-content">
         <div className="logo-wrapper">
-          <img src={logoImage?.src|| logoImage} alt="Loading..." className="loader-logo" />
+          <img src={logoImage?.src|| logoImage } alt="Loading..." className="loader-logo" />
           {/* Shimmer overlay for skeleton-like effect */}
           <div className="shimmer-overlay"></div>
         </div>
