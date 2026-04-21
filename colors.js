@@ -6,6 +6,7 @@ import * as aurora from "./theam/aurora.jsx";
 import * as neon from "./theam/neon.jsx";
 import * as emerald from "./theam/emerald.jsx";
 import * as nebula from "./theam/nebula.jsx";
+import * as linen from "./theam/linen.jsx";
 
 const themeMap = {
     eagleye,
@@ -14,6 +15,7 @@ const themeMap = {
     neon,
     emerald,
     nebula,
+    linen,
     ocean,
     // ── Legacy key aliases (preserves existing localStorage values) ──
     theam1: ocean,
@@ -21,13 +23,13 @@ const themeMap = {
 
 // Safe localStorage read — returns default during SSR where window is undefined
 const getThemeKey = () => {
-    if (typeof window === "undefined") return "eagleye"; // SSR: EagleEye brand theme is the default
-    return localStorage.getItem("theme") || "eagleye";
+    if (typeof window === "undefined") return "ocean"; // SSR: EagleEye brand theme is the default
+    return localStorage.getItem("theme") || "ocean";
 };
 
 const themeKey = getThemeKey();
 
-const theme = themeMap[themeKey] ?? themeMap['eagleye']; // fallback to brand theme
+const theme = themeMap[themeKey] ?? themeMap['ocean']; // fallback to brand theme
 
 const sidebarColors = theme.default;
 const DEFAULT_COLORS = theme.DEFAULT_COLORS;
@@ -53,7 +55,7 @@ export default sidebarColors;
  * Bypasses the module-level cache that is frozen at SSR time.
  */
 export const getLiveSidebarColors = () => {
-    if (typeof window === "undefined") return themeMap["eagleye"].default;
-    const key = localStorage.getItem("theme") || "eagleye";
-    return (themeMap[key] || themeMap["eagleye"]).default;
+    if (typeof window === "undefined") return themeMap["ocean"].default;
+    const key = localStorage.getItem("theme") || "ocean";
+    return (themeMap[key] || themeMap["ocean"]).default;
 };

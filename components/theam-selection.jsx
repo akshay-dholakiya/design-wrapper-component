@@ -9,6 +9,7 @@ const themes = [
   { name: 'Pulse',     bg: 'linear-gradient(135deg, #0a0a14 0%, #ff006e 50%, #00f5ff 100%)',    key: 'neon'     },
   { name: 'Vault',     bg: 'linear-gradient(135deg, #0a0f16 0%, #10b981 60%, #f59e0b 100%)',    key: 'emerald'  },
   { name: 'Nebula',    bg: 'linear-gradient(135deg, #0c0a1a 0%, #a855f7 60%, #22d3ee 100%)',    key: 'nebula'   },
+  { name: 'Linen',   bg: 'linear-gradient(135deg, #F1EDE6 0%, #CBAD8D 50%, #A48374 100%)',    key: 'linen'    },
   { name: 'Horizon',   bg: 'linear-gradient(135deg, #050d1a 0%, #0ea5e9 100%)',                 key: 'ocean'    },
 ];
 
@@ -23,7 +24,7 @@ export const ThemeSelection = () => {
   // ── mounted guard — ensures no server/client state mismatch ───────────────
   const [mounted, setMounted] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const [selected, setSelected] = useState('theam1'); // stable SSR value
+  const [selected, setSelected] = useState('ocean'); // stable SSR value
   const [btnY, setBtnY] = useState(0); // stable SSR value
 
   const dragging = useRef(false);
@@ -38,7 +39,7 @@ export const ThemeSelection = () => {
   // Patch to real client values after first paint — runs only on client
   useEffect(() => {
     setMounted(true);
-    setSelected(localStorage.getItem('theme') || 'eagleye');
+    setSelected(localStorage.getItem('theme') || 'ocean');
     const savedY = localStorage.getItem('themeBtnY');
     if (savedY !== null) {
       const parsed = parseFloat(savedY);
