@@ -149,17 +149,29 @@ export default function DonutChartWrapper({
         },
         legend: {
             show: showLegend,
+            type: 'scroll',   // 👈 THIS enables scroll
             bottom: 0,
             left: 'center',
             orient: 'horizontal',
+
             textStyle: {
                 color: sidebarColors.textPrimary,
                 ...fontStyles.bodySmall,
             },
+
             itemGap: tokens.legendGap,
             itemWidth: tokens.legendItem,
             itemHeight: tokens.legendItem,
             icon: 'circle',
+
+            // optional improvements 👇
+            pageIconColor: sidebarColors.primary,
+            pageIconInactiveColor: sidebarColors.textSecondary,
+            pageTextStyle: {
+                color: sidebarColors.textSecondary,
+            },
+            pageButtonItemGap: 6,
+            pageButtonGap: 12,
         },
         series: [
             {
