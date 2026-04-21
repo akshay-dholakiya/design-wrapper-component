@@ -1,25 +1,33 @@
 // Import all themes statically (no await needed)
-import * as theam1 from "./theam/theam1.jsx";
-import * as theam2 from "./theam/theam2.jsx";
-import * as theam3 from "./theam/theam3.jsx";
-import * as theam4 from "./theam/theam4.jsx";
-import * as theam5 from "./theam/theme5.jsx";
+import * as ocean from "./theam/ocean.jsx";
+import * as eagleye from "./theam/eagleye.jsx";
+import * as sentinel from "./theam/sentinel.jsx";
+import * as aurora from "./theam/aurora.jsx";
+import * as neon from "./theam/neon.jsx";
+import * as emerald from "./theam/emerald.jsx";
+import * as nebula from "./theam/nebula.jsx";
+
 const themeMap = {
-    theam1,
-    theam2,
-    theam3,
-    theam4,
-    theam5,
+    eagleye,
+    sentinel,
+    aurora,
+    neon,
+    emerald,
+    nebula,
+    ocean,
+    // ── Legacy key aliases (preserves existing localStorage values) ──
+    theam1: ocean,
 };
+
 // Safe localStorage read — returns default during SSR where window is undefined
 const getThemeKey = () => {
-    if (typeof window === "undefined") return "theam1"; // SSR: always default, no crash
-    return localStorage.getItem("theme") || "theam1";
+    if (typeof window === "undefined") return "eagleye"; // SSR: EagleEye brand theme is the default
+    return localStorage.getItem("theme") || "eagleye";
 };
 
 const themeKey = getThemeKey();
 
-const theme = themeMap[themeKey] ?? themeMap['theam1']; // fallback to default
+const theme = themeMap[themeKey] ?? themeMap['eagleye']; // fallback to brand theme
 
 const sidebarColors = theme.default;
 const DEFAULT_COLORS = theme.DEFAULT_COLORS;
@@ -45,7 +53,7 @@ export default sidebarColors;
  * Bypasses the module-level cache that is frozen at SSR time.
  */
 export const getLiveSidebarColors = () => {
-    if (typeof window === "undefined") return themeMap["theam1"].default;
-    const key = localStorage.getItem("theme") || "theam1";
-    return (themeMap[key] || themeMap["theam1"]).default;
+    if (typeof window === "undefined") return themeMap["eagleye"].default;
+    const key = localStorage.getItem("theme") || "eagleye";
+    return (themeMap[key] || themeMap["eagleye"]).default;
 };

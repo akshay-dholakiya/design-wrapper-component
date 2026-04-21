@@ -1,20 +1,34 @@
 // ============================================================
-// theme_violet_dark.jsx — Violet Dark Theme  (Violet-500 accent)
+// eagleye.jsx — EAGLEYE Brand Theme
+// ------------------------------------------------------------
+// Inspired by the EAGLEYE logo ("Protect. Detect. Respond.")
+//   • Deep Navy Blue   — trust, authority, security operations
+//   • Golden Amber     — alertness, vigilance, brand accent
+//   • Sky Blue         — clarity, calm, supportive surfaces
+//   • White            — contrast, legibility
+// Designed for a modern SOC / cyber-defense dashboard experience.
 // ============================================================
 
 const DEFAULT_COLORS = {
-  background: '#050d1a',
-  backgroundSoft: '#0a1628',
-  surface: '#16102e',
-  surfaceElevated: '#1e1640',
-  border: '#3b2a6e',
-  borderSoft: 'rgba(167, 139, 250, 0.06)',
-  textPrimary: '#f0ecff',
-  textSecondary: 'rgba(240, 236, 255, 0.55)',
-  textMuted: 'rgba(240, 236, 255, 0.30)',
-  textInverse: '#0a0714',
-  primary: '#8b5cf6', // violet-500
-  secondary: '#a78bfa', // violet-400
+  // Core canvas — deep navy, slightly cooler than logo's ring
+  background: '#040f22',          // Deep space navy — app backdrop
+  backgroundSoft: '#081c3a',      // Logo ring navy — panels/cards
+  surface: '#0c2f5a',             // Shield navy — raised surfaces
+  surfaceElevated: '#143a6c',     // Hover surface
+
+  // Borders — subtle sky-blue tint (brand accent)
+  border: '#1f4478',
+  borderSoft: 'rgba(127, 181, 230, 0.08)',
+
+  // Typography
+  textPrimary: '#f5faff',         // Near-white, tuned for navy
+  textSecondary: 'rgba(245, 250, 255, 0.62)',
+  textMuted: 'rgba(245, 250, 255, 0.34)',
+  textInverse: '#081c3a',
+
+  // Brand identity — amber gold + sky blue duo (logo colors)
+  primary: '#f5b800',             // EAGLEYE gold (primary brand)
+  secondary: '#a8d4f5',           // Shield sky-blue (secondary)
 };
 
 const sidebarColors = {
@@ -25,44 +39,45 @@ const sidebarColors = {
   surfaceElevated: DEFAULT_COLORS.surfaceElevated,
 
   // ── EXTENDED SURFACES ────────────────────────────────────────
-  surfaceMuted: '#120e28',
-  surfaceTint: '#181230',
-  surfaceMutedDeep: '#0e0a20',
-  surfaceTintDark: '#0a0718',
-  backgroundDeep: '#020510',
+  surfaceMuted: '#071a35',
+  surfaceTint: '#0a2444',
+  surfaceMutedDeep: '#051428',
+  surfaceTintDark: '#081c3a',
+  backgroundDeep: '#020817',
 
   // ── BORDERS ──────────────────────────────────────────────────
   border: DEFAULT_COLORS.border,
   borderSoft: DEFAULT_COLORS.borderSoft,
-  borderSubtle: 'rgba(167, 139, 250, 0.08)',
-  borderStrong: 'rgba(167, 139, 250, 0.45)',
-  borderAccent: 'rgba(167, 139, 250, 0.20)',
+  borderSubtle: 'rgba(127, 181, 230, 0.10)',
+  borderStrong: 'rgba(245, 184, 0, 0.45)',      // Gold, for emphasis
+  borderAccent: 'rgba(168, 212, 245, 0.22)',    // Sky-blue subtle
 
   // ── TEXT ─────────────────────────────────────────────────────
   textPrimary: DEFAULT_COLORS.textPrimary,
   textSecondary: DEFAULT_COLORS.textSecondary,
   textMuted: DEFAULT_COLORS.textMuted,
   textInverse: DEFAULT_COLORS.textInverse,
-  textAccent: DEFAULT_COLORS.secondary,
-  textDim: '#3b2a6e',
-  textDisabled: '#2a1e52',
-  textLighter: '#ddd6fe', // violet-200
-  textOffWhite: '#f0ecff',
-  textTertiary: '#c4b5fd', // violet-300
+  textAccent: DEFAULT_COLORS.primary,            // Gold accent text
+  textDim: '#1f4478',
+  textDisabled: '#143050',
+  textLighter: '#cfe6fa',
+  textOffWhite: '#f5faff',
+  textTertiary: '#7fb5e6',                      // Logo sky blue
 
   // ── PRIMARY BRAND ────────────────────────────────────────────
-  primaryFrom: DEFAULT_COLORS.primary,
-  primaryTo: DEFAULT_COLORS.secondary,
+  // Brand gradient: Gold → Warm Amber (headline actions, highlights)
+  primaryFrom: DEFAULT_COLORS.primary,          // #f5b800
+  primaryTo: '#ffc72c',                         // Slightly warmer gold
   primary: DEFAULT_COLORS.primary,
-  accent: DEFAULT_COLORS.secondary,
-  primaryMuted: '#c4b5fd', // violet-300
+  accent: DEFAULT_COLORS.secondary,             // Sky blue
+  primaryMuted: '#ffe28a',
 
   // ── STATUS — DANGER ──────────────────────────────────────────
-  danger: '#ff2d2d',
+  danger: '#ef4444',
   dangerDark: '#dc2626',
-  dangerHover: '#ef4444',
+  dangerHover: '#f87171',
   dangerSoft: '#fca5a5',
-  dangerLight: '#f87171',
+  dangerLight: '#fecaca',
   dangerDark2: '#b91c1c',
   dangerDarker: '#991b1b',
 
@@ -72,36 +87,38 @@ const sidebarColors = {
   successGreen: '#22c55e',
 
   // ── STATUS — WARNING ─────────────────────────────────────────
-  warning: '#f59e0b',
-  warningLight: '#fbbf24',
-  warningDark: '#d97706',
-  warningSoft: '#fde68a',
-  warningOrange: '#ea580c',
+  // Warning shares brand gold family for cohesion
+  warning: '#f5b800',
+  warningLight: '#ffd45c',
+  warningDark: '#c28c00',
+  warningSoft: '#ffe9a3',
+  warningOrange: '#ea7c00',
 
   // ── STATUS — INFO ────────────────────────────────────────────
-  info: DEFAULT_COLORS.primary,
-  infoSoft: DEFAULT_COLORS.secondary,
+  info: '#7fb5e6',                              // Sky blue (brand)
+  infoSoft: '#a8d4f5',
 
   // ── NEUTRAL / ERROR ──────────────────────────────────────────
-  neutral: '#6b7280',
+  neutral: '#64748b',
   errorcolor: '#ef4444',
   sucesscolor: '#22c55e',
 
   // ── LOGIN PAGE ───────────────────────────────────────────────
-  loginBgFrom: '#050d1a',
-  loginBgTo: '#16102e',
+  // Navy → deeper shield navy — echoes the logo ring gradient
+  loginBgFrom: '#040f22',
+  loginBgTo: '#0c2f5a',
 
   // ── EXTENDED ACCENT PALETTE ──────────────────────────────────
   accentPurple: '#a78bfa',
-  accentCyan: '#06b6d4',
+  accentCyan: '#38bdf8',
   accentIndigo: '#6366f1',
   accentPink: '#ec4899',
-  accentBlue: '#38bdf8',
+  accentBlue: '#7fb5e6',
   accentTeal: '#14b8a6',
   accentViolet: '#8b5cf6',
   accentOrange: '#f97316',
-  accentYellow: '#eab308',
-  accentBlueDark: '#0284c7',
+  accentYellow: '#f5b800',
+  accentBlueDark: '#1e5a9c',
   accentIndigoDark: '#4338ca',
   accentVioletDark: '#7c3aed',
   accentPurple600: '#9333ea',
@@ -112,28 +129,28 @@ const sidebarColors = {
   orangeDark900: '#7c2d12',
   amberDark900: '#78350f',
   orangeDark950: '#451a03',
-  stoneDark800: '#0a1628',
-  stoneDark900: '#050d1a',
+  stoneDark800: '#081c3a',
+  stoneDark900: '#040f22',
 
   // ── HOVER / ACTIVE / BUTTON ──────────────────────────────────
   hoverBackground: DEFAULT_COLORS.surface,
-  hoverBorder: DEFAULT_COLORS.surface,
-  hoverShadow: 'rgba(167, 139, 250, 0.55)',
+  hoverBorder: DEFAULT_COLORS.primary,
+  hoverShadow: 'rgba(245, 184, 0, 0.45)',       // Gold glow
   hoverShadowSpread: '0 0 20px',
-  hoverText: DEFAULT_COLORS.secondary,
-  activeBackground: DEFAULT_COLORS.surface,
-  activeBorder: DEFAULT_COLORS.surface,
-  activeShadow: 'rgba(167, 139, 250, 0.45)',
+  hoverText: DEFAULT_COLORS.primary,
+  activeBackground: DEFAULT_COLORS.surfaceElevated,
+  activeBorder: DEFAULT_COLORS.primary,
+  activeShadow: 'rgba(245, 184, 0, 0.50)',
   activeText: DEFAULT_COLORS.primary,
   buttonBackground: DEFAULT_COLORS.background,
   buttonIconColor: DEFAULT_COLORS.textPrimary,
 
   // ── TAILWIND CLASSES ─────────────────────────────────────────
-  primaryGradient: 'from-violet-500 to-violet-400',
-  primaryShadow: 'shadow-violet-500/50',
+  primaryGradient: 'from-amber-400 to-yellow-400',
+  primaryShadow: 'shadow-amber-500/50',
 };
 
-// ===== FONT STYLES ===== (same across all themes)
+// ===== FONT STYLES ===== (consistent across all themes)
 const fontSmoothing = {
   fontFamily:
     '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
@@ -246,59 +263,60 @@ export const fontStyles = {
 };
 
 // ===== CHART COLORS =====
+// Series stay readable against deep navy while echoing brand gold + sky blue
 export const chartColors = {
-  primary: ['#8b5cf6', '#a78bfa', '#7c3aed', '#c4b5fd', '#ddd6fe'],
+  primary: ['#f5b800', '#ffc72c', '#c28c00', '#ffe28a', '#fff4c8'],
   severity: {
     critical: '#ef4444',
     high: '#f97316',
-    medium: '#eab308',
-    low: '#8b5cf6',
-    info: '#8b5cf6',
+    medium: '#f5b800',   // Brand gold — warning severity
+    low: '#7fb5e6',      // Brand sky-blue — low severity
+    info: '#a8d4f5',
   },
   series: [
-    '#8b5cf6',
-    '#a78bfa',
-    '#7c3aed',
-    '#06b6d4',
-    '#ec4899',
-    '#f59e0b',
-    '#6366f1',
-    '#14b8a6',
-    '#c4b5fd',
-    '#84cc16',
+    '#f5b800',   // Gold (primary brand)
+    '#7fb5e6',   // Sky blue (secondary brand)
+    '#ffc72c',   // Warm amber
+    '#a8d4f5',   // Light sky blue
+    '#38bdf8',   // Cyan highlight
+    '#f97316',   // Orange (warning tone)
+    '#10b981',   // Green
+    '#8b5cf6',   // Violet
+    '#ec4899',   // Pink
+    '#14b8a6',   // Teal
   ],
   categorical: [
+    '#f5b800',
+    '#7fb5e6',
+    '#ffc72c',
+    '#a8d4f5',
+    '#ea7c00',
+    '#38bdf8',
+    '#10b981',
     '#8b5cf6',
-    '#a78bfa',
-    '#06b6d4',
-    '#22d3ee',
     '#ec4899',
-    '#f472b6',
-    '#6366f1',
-    '#818cf8',
-    '#c4b5fd',
-    '#ddd6fe',
+    '#14b8a6',
   ],
   gradients: {
-    blue: ['#8b5cf6', '#a78bfa'],
-    cyan: ['#7c3aed', '#8b5cf6'],
-    orange: ['#f97316', '#fb923c'],
-    pink: ['#ec4899', '#f472b6'],
+    gold: ['#f5b800', '#ffc72c'],
+    sky: ['#7fb5e6', '#a8d4f5'],
+    navy: ['#0c2f5a', '#081c3a'],
+    amber: ['#f5b800', '#ea7c00'],
   },
   ui: {
-    grid: 'rgba(167, 139, 250, 0.08)',
-    axis: 'rgba(240, 236, 255, 0.30)',
-    label: 'rgba(240, 236, 255, 0.60)',
-    tooltip: 'rgba(5, 13, 26, 0.97)',
-    tooltipBorder: 'rgba(167, 139, 250, 0.50)',
-    border: 'rgba(167, 139, 250, 0.15)',
+    grid: 'rgba(127, 181, 230, 0.08)',
+    axis: 'rgba(245, 250, 255, 0.30)',
+    label: 'rgba(245, 250, 255, 0.62)',
+    tooltip: 'rgba(4, 15, 34, 0.97)',
+    tooltipBorder: 'rgba(245, 184, 0, 0.55)',
+    border: 'rgba(127, 181, 230, 0.18)',
   },
   edges: {
     critical: '#ef4444',
-    high: '#f87171',
-    medium: '#fca5a5',
-    low: '#fecaca',
-    default: '#dc2626',
+    high: '#f97316',
+    medium: '#f5b800',
+    low: '#7fb5e6',
+    default: '#f5b800',
   },
   themes: {
     dark: {
@@ -308,111 +326,111 @@ export const chartColors = {
       surfaceElevated: DEFAULT_COLORS.surfaceElevated,
       border: DEFAULT_COLORS.border,
       borderSoft: DEFAULT_COLORS.borderSoft,
-      borderSubtle: 'rgba(167,139,250,0.08)',
-      borderStrong: 'rgba(167,139,250,0.45)',
-      borderAccent: 'rgba(167,139,250,0.20)',
+      borderSubtle: 'rgba(127, 181, 230, 0.10)',
+      borderStrong: 'rgba(245, 184, 0, 0.45)',
+      borderAccent: 'rgba(168, 212, 245, 0.22)',
       textPrimary: DEFAULT_COLORS.textPrimary,
       textSecondary: DEFAULT_COLORS.textSecondary,
       textMuted: DEFAULT_COLORS.textMuted,
       textInverse: DEFAULT_COLORS.textInverse,
-      textAccent: '#a78bfa',
-      primaryFrom: '#8b5cf6',
-      primaryTo: '#a78bfa',
-      primary: '#8b5cf6',
-      accent: '#a78bfa',
-      nodeBg: '#0e0a20',
-      nodeStroke: '#a78bfa',
-      edge: '#f0ecff',
-      edgeGlow: '#8b5cf6',
-      hubRing1: '#a78bfa',
-      hubRing2: '#7c3aed',
-      hubCore: '#060412',
-      hubBorder: '#8b5cf6',
-      statBorder: '#7c3aed',
+      textAccent: DEFAULT_COLORS.primary,
+      primaryFrom: DEFAULT_COLORS.primary,
+      primaryTo: '#ffc72c',
+      primary: DEFAULT_COLORS.primary,
+      accent: DEFAULT_COLORS.secondary,
+      nodeBg: '#081c3a',
+      nodeStroke: DEFAULT_COLORS.primary,
+      edge: '#cfe6fa',
+      edgeGlow: DEFAULT_COLORS.primary,
+      hubRing1: DEFAULT_COLORS.primary,
+      hubRing2: DEFAULT_COLORS.secondary,
+      hubCore: '#030c1c',
+      hubBorder: DEFAULT_COLORS.primary,
+      statBorder: DEFAULT_COLORS.secondary,
     },
     light: {
-      background: '#f5f3ff',
-      backgroundSoft: '#ede9fe',
-      surface: '#ddd6fe',
+      background: '#f8fbff',
+      backgroundSoft: '#eaf2fb',
+      surface: '#d7e6f5',
       surfaceElevated: '#ffffff',
-      border: '#c4b5fd',
-      borderSoft: 'rgba(139,92,246,0.08)',
-      borderSubtle: 'rgba(139,92,246,0.10)',
-      borderStrong: 'rgba(139,92,246,0.35)',
-      borderAccent: 'rgba(139,92,246,0.18)',
-      textPrimary: '#1e0a4a',
-      textSecondary: '#3b1f7a',
-      textMuted: '#5b3fa0',
-      textInverse: '#f5f3ff',
-      textAccent: '#7c3aed',
-      primary: '#7c3aed',
-      accent: '#8b5cf6',
-      nodeBg: '#ede9fe',
-      nodeStroke: '#7c3aed',
-      edge: '#c4b5fd',
-      edgeGlow: 'rgba(139,92,246,0.4)',
-      hubRing1: '#8b5cf6',
-      hubRing2: '#7c3aed',
-      hubCore: '#f5f3ff',
-      hubBorder: '#7c3aed',
-      statBorder: '#8b5cf6',
+      border: '#a8d4f5',
+      borderSoft: 'rgba(12, 47, 90, 0.08)',
+      borderSubtle: 'rgba(12, 47, 90, 0.10)',
+      borderStrong: 'rgba(245, 184, 0, 0.55)',
+      borderAccent: 'rgba(12, 47, 90, 0.18)',
+      textPrimary: '#081c3a',
+      textSecondary: '#1e5a9c',
+      textMuted: '#4a7ba8',
+      textInverse: '#f8fbff',
+      textAccent: '#c28c00',
+      primary: '#c28c00',
+      accent: '#1e5a9c',
+      nodeBg: '#eaf2fb',
+      nodeStroke: '#c28c00',
+      edge: '#a8d4f5',
+      edgeGlow: 'rgba(245, 184, 0, 0.4)',
+      hubRing1: '#f5b800',
+      hubRing2: '#1e5a9c',
+      hubCore: '#ffffff',
+      hubBorder: '#c28c00',
+      statBorder: '#1e5a9c',
     },
     cyber: {
-      background: '#04020f',
-      backgroundSoft: '#080418',
-      surface: '#0e0824',
-      surfaceElevated: '#140c30',
-      border: '#2a1060',
-      borderSoft: 'rgba(189,0,255,0.06)',
-      borderSubtle: 'rgba(189,0,255,0.10)',
-      borderStrong: 'rgba(189,0,255,0.40)',
-      borderAccent: 'rgba(189,0,255,0.20)',
-      textPrimary: '#f0ecff',
-      textSecondary: 'rgba(240,236,255,0.55)',
-      textMuted: 'rgba(240,236,255,0.30)',
-      textInverse: '#04020f',
-      textAccent: '#bd00ff',
-      primary: '#bd00ff',
-      accent: '#a78bfa',
-      nodeBg: '#060310',
-      nodeStroke: '#bd00ff',
-      edge: '#f0ecff',
-      edgeGlow: '#bd00ff',
-      hubRing1: '#bd00ff',
-      hubRing2: '#8b5cf6',
-      hubCore: '#04020f',
-      hubBorder: '#7c3aed',
-      statBorder: '#bd00ff',
+      background: '#020817',
+      backgroundSoft: '#051428',
+      surface: '#081c3a',
+      surfaceElevated: '#0c2f5a',
+      border: '#143a6c',
+      borderSoft: 'rgba(245, 184, 0, 0.06)',
+      borderSubtle: 'rgba(245, 184, 0, 0.10)',
+      borderStrong: 'rgba(245, 184, 0, 0.50)',
+      borderAccent: 'rgba(245, 184, 0, 0.22)',
+      textPrimary: '#fff4c8',
+      textSecondary: 'rgba(255, 244, 200, 0.60)',
+      textMuted: 'rgba(255, 244, 200, 0.32)',
+      textInverse: '#020817',
+      textAccent: '#f5b800',
+      primary: '#f5b800',
+      accent: '#7fb5e6',
+      nodeBg: '#030e1f',
+      nodeStroke: '#f5b800',
+      edge: '#ffe28a',
+      edgeGlow: '#f5b800',
+      hubRing1: '#f5b800',
+      hubRing2: '#7fb5e6',
+      hubCore: '#020817',
+      hubBorder: '#ffc72c',
+      statBorder: '#f5b800',
     },
   },
   networkSankey: {
-    hubGradientFrom: '#16102e',
-    hubGradientTo: '#050d1a',
-    panelGradientFrom: '#120e28',
-    panelGradientTo: '#030614',
-    input: '#a78bfa',
-    inputGlow: '#8b5cf6',
-    output: '#34d399',
-    outputGlow: '#059669',
-    cyan: '#06b6d4',
-    textInput: '#ddd6fe',
-    textPanel: '#f0ecff',
-    textOutput: '#d1fae5',
+    hubGradientFrom: '#081c3a',
+    hubGradientTo: '#040f22',
+    panelGradientFrom: '#0a2444',
+    panelGradientTo: '#051428',
+    input: '#7fb5e6',
+    inputGlow: '#a8d4f5',
+    output: '#f5b800',
+    outputGlow: '#ffc72c',
+    cyan: '#38bdf8',
+    textInput: '#cfe6fa',
+    textPanel: '#f5faff',
+    textOutput: '#ffe28a',
   },
-  default: '#8b5cf6',
+  default: '#f5b800',
 };
 
 export const panelSummaryColors = {
-  primary: '#8b5cf6',
-  info: '#06b6d4',
-  warning: '#f97316',
-  success: '#14b8a6',
+  primary: '#f5b800',      // Gold — headline metric
+  info: '#7fb5e6',         // Sky blue — informational
+  warning: '#f97316',      // Orange — caution
+  success: '#10b981',      // Green — success
   overlay: '#000000',
 };
 
 export const sidebarClasses = {
-  primaryGradient: 'from-violet-500 to-violet-400',
-  primaryShadow: 'shadow-violet-500/50',
+  primaryGradient: 'from-amber-400 to-yellow-400',
+  primaryShadow: 'shadow-amber-500/50',
 };
 
 export { DEFAULT_COLORS };

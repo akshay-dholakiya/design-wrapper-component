@@ -3,11 +3,13 @@ import { sidebarColors as _sidebarColors, getLiveSidebarColors } from "@design-p
     // import { applyTheme } from "@/lib/colors";
 
 const themes = [
-  { name: 'Ocean', bg: '#0077b6', key: 'theam1' },
-  { name: 'Sunset', bg: '#e76f51', key: 'theam2' },
-  { name: 'Purple', bg: '#8b5cf6', key: 'theam3' },
-  { name: 'Forest', bg: '#2d6a4f', key: 'theam4' },
-  { name: 'Amber', bg: '#fbbf24', key: 'theam5' },
+  { name: 'Beacon',    bg: 'linear-gradient(135deg, #081c3a 0%, #f5b800 100%)',                 key: 'eagleye'  },
+  { name: 'Sentinel',  bg: 'linear-gradient(135deg, #0b0d14 0%, #dc2626 100%)',                 key: 'sentinel' },
+  { name: 'Daylight',  bg: 'linear-gradient(135deg, #e8ecf7 0%, #6366f1 55%, #ec4899 100%)',    key: 'aurora'   },
+  { name: 'Pulse',     bg: 'linear-gradient(135deg, #0a0a14 0%, #ff006e 50%, #00f5ff 100%)',    key: 'neon'     },
+  { name: 'Vault',     bg: 'linear-gradient(135deg, #0a0f16 0%, #10b981 60%, #f59e0b 100%)',    key: 'emerald'  },
+  { name: 'Nebula',    bg: 'linear-gradient(135deg, #0c0a1a 0%, #a855f7 60%, #22d3ee 100%)',    key: 'nebula'   },
+  { name: 'Horizon',   bg: 'linear-gradient(135deg, #050d1a 0%, #0ea5e9 100%)',                 key: 'ocean'    },
 ];
 
 const PANEL_W = 260;
@@ -36,7 +38,7 @@ export const ThemeSelection = () => {
   // Patch to real client values after first paint — runs only on client
   useEffect(() => {
     setMounted(true);
-    setSelected(localStorage.getItem('theme') || 'theam1');
+    setSelected(localStorage.getItem('theme') || 'eagleye');
     const savedY = localStorage.getItem('themeBtnY');
     if (savedY !== null) {
       const parsed = parseFloat(savedY);

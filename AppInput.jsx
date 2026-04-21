@@ -50,6 +50,23 @@ import { useState, forwardRef } from 'react';
 import sidebarColors, { fontStyles } from './colors';
 import { borderRadius, componentSpacing, spacing } from './spacing';
 
+// Detect whether the active theme is a light theme by sniffing
+// the canvas background — light themes use near-white hues (>= 0xe0).
+// This lets form controls (date pickers, etc.) render their native
+// chrome with the correct color scheme.
+const isLightTheme = (() => {
+  const bg = sidebarColors?.background;
+  if (typeof bg !== 'string' || !bg.startsWith('#')) return false;
+  const hex = bg.replace('#', '');
+  const full = hex.length === 3 ? hex.split('').map((c) => c + c).join('') : hex;
+  if (full.length < 6) return false;
+  const r = parseInt(full.slice(0, 2), 16);
+  const g = parseInt(full.slice(2, 4), 16);
+  const b = parseInt(full.slice(4, 6), 16);
+  const luma = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+  return luma > 0.75;
+})();
+
 // ─── size variants ────────────────────────────────────────────────────────────
 const SIZE = {
   sm: {
@@ -157,8 +174,8 @@ const AppInput = forwardRef(function AppInput(
     cursor: disabled ? 'not-allowed' : 'text',
     width: '100%',
     minWidth: 0,
-    // date/time inputs in dark mode
-    colorScheme: 'dark',
+    // date/time inputs respect the active theme
+    colorScheme: isLightTheme ? 'light' : 'dark',
     ...inputStyle,
   };
 
