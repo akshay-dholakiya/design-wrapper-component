@@ -29,16 +29,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { getLiveSidebarColors } from "./colors.js";
+import {hex2rgba} from "@design-pattern/utils/utils.js";
 
-const hex2rgba = (hex, a = 1) => {
-    if (typeof hex !== "string" || !hex.startsWith("#")) return hex;
-    const h = hex.replace("#", "");
-    const full = h.length === 3 ? h.split("").map((c) => c + c).join("") : h;
-    const r = parseInt(full.slice(0, 2), 16);
-    const g = parseInt(full.slice(2, 4), 16);
-    const b = parseInt(full.slice(4, 6), 16);
-    return `rgba(${r}, ${g}, ${b}, ${a})`;
-};
+
 
 const SIZE = {
     sm: { padding: "6px 10px", fontSize: 11, badgeH: 16, badgeMinW: 16 },
