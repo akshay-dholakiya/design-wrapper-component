@@ -1,41 +1,22 @@
-/**
- * ColumnVisibilityMenu — show/hide columns dropdown
- *
- * A themed button + dropdown with a checkbox per column. Controlled — pass
- * the current `hidden` set and an `onChange(next)` handler. Designed for
- * grid/table headers (e.g. alongside an AgGrid wrapper).
- *
- * Props
- * ─────
- *   columns      – { id, label }[]                   required
- *   hidden       – Set<id>  |  Array<id>             current hidden column ids
- *   onChange     – (nextHiddenSet: Set<id>) => void  called on every toggle
- *   minVisible   – number (default 1)                disables the last visible checkbox
- *   label        – button text (default "Columns")
- *   align        – "left" | "right" (default "right") menu alignment
- *   className    – forwarded to the outer wrapper
- *   style        – inline overrides on the outer wrapper
- */
+
 
 import React, { useEffect, useRef, useState } from "react";
-import PropTypes from "prop-types";
+
 import { getLiveSidebarColors } from "./colors.js";
 import {hex2rgba} from "@design-pattern/utils/utils.js";
-
-
 
 const toSet = (v) => (v instanceof Set ? new Set(v) : new Set(v || []));
 
 const ColumnVisibilityMenu = ({
-    columns = [],
-    hidden,
-    onChange,
-    minVisible = 1,
-    label = "Columns",
-    align = "right",
-    className = "",
-    style,
-}) => {
+                                  columns = [],
+                                  hidden,
+                                  onChange,
+                                  minVisible = 1,
+                                  label = "Columns",
+                                  align = "right",
+                                  className = "",
+                                  style,
+                              }) => {
     const c = getLiveSidebarColors();
     const ff = `-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif`;
 
@@ -202,25 +183,6 @@ const ColumnVisibilityMenu = ({
             )}
         </div>
     );
-};
-
-ColumnVisibilityMenu.propTypes = {
-    columns: PropTypes.arrayOf(
-        PropTypes.shape({
-            id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-            label: PropTypes.node.isRequired,
-        })
-    ).isRequired,
-    hidden: PropTypes.oneOfType([
-        PropTypes.instanceOf(Set),
-        PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])),
-    ]),
-    onChange: PropTypes.func,
-    minVisible: PropTypes.number,
-    label: PropTypes.string,
-    align: PropTypes.oneOf(["left", "right"]),
-    className: PropTypes.string,
-    style: PropTypes.object,
 };
 
 export default ColumnVisibilityMenu;
