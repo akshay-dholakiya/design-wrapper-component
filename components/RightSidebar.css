@@ -118,3 +118,42 @@
   background-color: var(--rs-border);
   border-radius: 4px;
 }
+
+/* FOOTER */
+.right-sidebar-footer {
+  flex-shrink: 0;
+  border-top: 1px solid var(--rs-border);
+  padding: 14px 20px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  background: var(--rs-surface);
+  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Buttons */
+.right-sidebar-footer button {
+  min-width: 90px;
+  height: 36px;
+  border-radius: 8px;
+  border: 1px solid var(--rs-border);
+  background: var(--rs-surface);
+  color: var(--rs-text-primary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.right-sidebar-footer button:hover {
+  background: var(--rs-background);
+}
+
+/* Primary button */
+.right-sidebar-footer button:first-child {
+  background: linear-gradient(
+          135deg,
+          var(--rs-primary-from),
+          var(--rs-primary-to)
+  );
+  color: #fff;
+  border: none;
+}

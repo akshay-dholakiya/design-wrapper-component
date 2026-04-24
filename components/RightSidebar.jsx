@@ -27,7 +27,7 @@ const closeIcon = (
 );
 
 const RightSidebar = forwardRef(function RightSidebar(
-  { title, subtitle, children, width = 420 },
+  { title, subtitle, children, width = 420,footer },
   ref
 ) {
   const [open, setOpen] = useState(false);
@@ -105,6 +105,9 @@ const RightSidebar = forwardRef(function RightSidebar(
           </button>
         </header>
         <div className="right-sidebar-body">{children}</div>
+        {footer && (
+            <div className="right-sidebar-footer">{footer}</div>
+        )}
       </aside>
     </div>,
     document.body
