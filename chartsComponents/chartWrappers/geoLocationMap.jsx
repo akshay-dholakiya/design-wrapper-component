@@ -4,7 +4,7 @@ import * as echarts from 'echarts';
 import worldMap from '../map/world.json';
 import sidebarColors, { chartColors, fontStyles } from '../../colors';
 import { spacing } from '../../spacing';
-import { EagleEyeLoader } from '../../loaders';
+import EagleEyeLoader from './EagleEyeLoader';
 echarts.registerMap('world', worldMap);
 
 const withAlpha = (hex, alpha) => {

@@ -1,8 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import ReactECharts from 'echarts-for-react';
-import sidebarColors, { chartColors, fontStyles } from '../../colors';
-import { spacing } from '../../spacing';
-import EagleEyeLoader from '../../../src/components/utility/EagleEyeLoader';
+import sidebarColors, { chartColors } from '../../colors';
+import EagleEyeLoader from './EagleEyeLoader';
 
 // Reuse your helpers
 const withAlpha = (hex, alpha) => {

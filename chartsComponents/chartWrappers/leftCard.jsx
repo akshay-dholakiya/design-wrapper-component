@@ -1,7 +1,7 @@
 import React from 'react';
 import sidebarColors, { fontStyles } from '../../colors';
 import { spacing } from '../../spacing';
-import { EagleEyeLoader } from '../../loaders';
+import EagleEyeLoader from './EagleEyeLoader';;
 
 const resolveRisk = (score, maxScore) => {
     const ratio = maxScore > 0 ? score / maxScore : 0;

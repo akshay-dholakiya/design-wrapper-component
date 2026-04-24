@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import ReactECharts from 'echarts-for-react';
 import sidebarColors, { chartColors, fontStyles } from '../../colors';
 import { spacing } from '../../spacing';
-import { EagleEyeLoader } from '../../loaders';
+import EagleEyeLoader from './EagleEyeLoader';;
 
 const withAlpha = (hex, alpha) => {
     if (typeof hex !== 'string') return hex;
