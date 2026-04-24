@@ -98,6 +98,7 @@ export default function LineChartWrapper({
     yAxisInterval = 5,
     fillMissingWithZero = true,
     onClick,
+    gridOverride = {},
 }) {
     const [labelStyle, setLabelStyle] = useState(getResponsiveLabelStyle());
     const containerRef = useRef(null);
@@ -257,12 +258,13 @@ export default function LineChartWrapper({
             textStyle: { color: sidebarColors.textPrimary, ...fontStyles.bodySmall },
         },
         grid: {
-            left: chartTokens.gridLeft,
-            right: chartTokens.gridRight,
-            top: chartTokens.gridTop,
+            left:   chartTokens.gridLeft,
+            right:  chartTokens.gridRight,
+            top:    chartTokens.gridTop,
             bottom: chartTokens.gridBottom,
             containLabel: true,
             backgroundColor: sidebarColors.backgroundSoft,
+            ...gridOverride,
         },
         xAxis: {
             type: 'category',
