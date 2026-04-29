@@ -55,6 +55,8 @@
   border-bottom: 2px solid var(--sidebar-border);
   padding: 0.75rem;
   position: relative;
+    min-height: var(--topbar-height);
+  box-sizing: border-box;
 }
 
 .sidebar-logo img {
