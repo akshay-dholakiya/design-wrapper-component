@@ -116,19 +116,26 @@ function NativeSelect({
   const [focused, setFocused] = useState(false);
   const base = size === 'sm' ? BASE_SM : BASE_MD;
   const computed = {
-  ...base,
-  appearance: 'none',
-  WebkitAppearance: 'none',
-  paddingRight: '2.25rem',
-  opacity: disabled ? 0.5 : 1,
-  cursor: disabled ? 'not-allowed' : 'pointer',
-  // ↓ longhands BEFORE ...style so user overrides win cleanly
-  borderColor: error
-    ? sidebarColors.errorcolor
-    : focused ? sidebarColors.primaryFrom : sidebarColors.border,
-  boxShadow: focused ? (error ? ERROR_FOCUS.boxShadow : FOCUS.boxShadow) : 'none',
-  ...style, // ← user style always wins, including border: "none"
-};
+    ...base,
+    borderColor: error
+      ? sidebarColors.errorcolor
+      : focused
+        ? sidebarColors.primaryFrom
+        : sidebarColors.border,
+    boxShadow: focused
+      ? error
+        ? ERROR_FOCUS.boxShadow
+        : FOCUS.boxShadow
+      : 'none',
+    opacity: disabled ? 0.5 : 1,
+    cursor: disabled ? 'not-allowed' : 'pointer',
+    // Override browser default arrow styling
+    appearance: 'none',
+    WebkitAppearance: 'none',
+    paddingRight: '2.25rem',
+    ...style,
+  };
+
   return (
     <div style={{ position: 'relative', width: '100%' }} className={className}>
       <select

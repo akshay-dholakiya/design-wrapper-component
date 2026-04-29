@@ -105,7 +105,7 @@ const AppInput = forwardRef(function AppInput(
 
   // ─── derived styles ─────────────────────────────────────────────────────────
   const borderColor = error
-    ? sidebarColors.danger
+    ? '#ef4444'
     : focused
       ? sidebarColors.primaryFrom
       : hovered
@@ -113,7 +113,7 @@ const AppInput = forwardRef(function AppInput(
         : sidebarColors.border;
 
   const boxShadow = error
-    ? `0 0 0 3px ${sidebarColors.border}20`
+    ? `0 0 0 3px rgba(239,68,68,0.2)`
     : focused
       ? `0 0 0 3px ${sidebarColors.primaryFrom}20`
       : 'none';
