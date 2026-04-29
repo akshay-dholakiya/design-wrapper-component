@@ -1,18 +1,13 @@
-import sidebarColors, { fontStyles } from '@design-pattern/colors.js';
-import { LiveClock } from './liveclick.jsx';
+// main-topbar.jsx
+"use client";
+import React from "react";
+import { LiveClock } from "@design-pattern/liveclick";
+import sidebarColors, { getLiveSidebarColors, fontStyles } from "@design-pattern/colors";
 
-export const MainTopbar = ({ routeLabels }) => {
-  const location = {
-    pathname: window.location.pathname,
-  };
-
-  const ROUTE_LABELS = routeLabels;
-
-  const normalizePath = (pathname) => {
-    if (!pathname) return '/';
-    const trimmed = pathname.replace(/\/+$/, '');
-    return (trimmed || '/').toLowerCase();
-  };
+const normalizePath = (p) => {
+  const trimmed = (p || "/").replace(/\/+$/, "");
+  return (trimmed || "/").toLowerCase();
+};
 
   const toLabel = (segment) => {
     const name = segment.replace(/-/g, ' ');
@@ -31,23 +26,29 @@ export const MainTopbar = ({ routeLabels }) => {
     return toLabel(parts[parts.length - 1]);
   };
 
-  const getBreadcrumbs = (pathname) => {
-    const normalizedPath = normalizePath(pathname);
+const getBreadcrumbs = (p, labels) => {
+  const norm = normalizePath(p);
+  if (norm === "/" || norm === "/home") return ["Home"];
+  if (labels[norm]) return ["Home", labels[norm]];
+  const parts = norm.split("/").filter(Boolean).map(toLabel);
+  return ["Home", ...parts.filter((part, i, arr) => part !== arr[i - 1])];
+};
 
-    if (normalizedPath === '/' || normalizedPath === '/home') {
-      return ['Home'];
-    }
+export const MainTopbar = ({
+  routeLabels = {},
+  pathname,
+  leftContent,
+  rightContent,
+  style,
+  className,
+}) => {
+  const colors = getLiveSidebarColors();
 
-    if (ROUTE_LABELS[normalizedPath]) {
-      return ['Home', ROUTE_LABELS[normalizedPath]];
-    }
+  const resolvedPath =
+    pathname ??
+    (typeof window !== "undefined" ? window.location.pathname : "/");
 
-    const parts = normalizedPath.split('/').filter(Boolean).map(toLabel);
-    return ['Home', ...parts.filter((part) => part !== 'Home')];
-  };
-
-  const dashboardName = getDashboardName(location.pathname);
-  const breadcrumbs = getBreadcrumbs(location.pathname);
+  const dashboardName = getDashboardName(resolvedPath, routeLabels);
 
   const visibleBreadcrumbs = breadcrumbs.filter((crumb, index, arr) => {
     if (index === 0) return true;
@@ -56,55 +57,38 @@ export const MainTopbar = ({ routeLabels }) => {
 
   return (
     <div
-      className="w-full border-b px-6 py-4"
+      className={`w-full border-b px-6 ${className ?? ""}`}  // ← removed py-4
       style={{
-        backgroundColor: sidebarColors.background,
-        borderColor: sidebarColors.border,
+        backgroundColor: colors.background,
+        borderColor: colors.border,
+        display: "flex",          // ← added
+        alignItems: "center",     // ← added (replaces py-4 centering)
+        boxSizing: "border-box",  // ← added (border doesn't add to height)
+        ...style,                 // ← height: 90 from caller lands here ✅
       }}
     >
-      <div className="flex items-center justify-between">
-        {/* Left */}
-        <div>
-          <h1
-            style={{
-              ...fontStyles.heading2,
-              background: `linear-gradient(to right, ${sidebarColors.primaryFrom}, ${sidebarColors.primaryTo})`,
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text',
-            }}
-          >
-            {dashboardName === 'Home' ? 'Home' : `${dashboardName} Dashboard`}
-          </h1>
+      {/* ← added w-full so inner row still stretches end-to-end */}
+      <div className="flex items-center justify-between gap-4 w-full">
 
-          <div
-            className="flex items-center gap-2 mt-2 min-h-[20px]"
-            style={{
-              visibility: visibleBreadcrumbs.length > 1 ? 'visible' : 'hidden',
-            }}
-          >
-            {visibleBreadcrumbs.map((crumb, index) => (
-              <div key={index} className="flex items-center gap-2">
-                <span
-                  style={{
-                    ...fontStyles.label,
-                    color:
-                      index === visibleBreadcrumbs.length - 1
-                        ? sidebarColors.primaryFrom
-                        : sidebarColors.textSecondary,
-                  }}
-                >
-                  {crumb}
-                </span>
-
-                {index < visibleBreadcrumbs.length - 1 && (
+        {/* ── LEFT ── */}
+        <div className="flex items-center gap-8 min-w-0">
+          <div className="flex flex-col min-w-0">
+            <h1 style={{ ...fontStyles.heading2, color: colors.primary, margin: 0 }}>
+              {dashboardName === "Home" ? "Home" : `${dashboardName} `}
+            </h1>
+            <div
+              className="flex items-center gap-2 mt-1 min-h-[18px]"
+              style={{ visibility: visibleBreadcrumbs.length > 1 ? "visible" : "hidden" }}
+            >
+              {visibleBreadcrumbs.map((crumb, i, arr) => (
+                <div key={i} className="flex items-center gap-2">
                   <span
                     style={{
-                      color: sidebarColors.textSecondary,
-                      fontSize: '12px',
+                      ...fontStyles.label,
+                      color: i === arr.length - 1 ? colors.primaryFrom : colors.textSecondary,
                     }}
                   >
-                    ›
+                    {crumb}
                   </span>
                 )}
               </div>
@@ -112,13 +96,23 @@ export const MainTopbar = ({ routeLabels }) => {
           </div>
         </div>
 
-        {/* Right */}
-        <div className="flex items-center gap-2">
-          <div
-            className="w-2 h-2 rounded-full animate-pulse"
-            style={{ backgroundColor: sidebarColors.primaryFrom }}
-          />
-          <LiveClock />
+          {leftContent && (
+            <div className="flex items-center gap-3 flex-shrink-0">{leftContent}</div>
+          )}
+        </div>
+
+        {/* ── RIGHT ── */}
+        <div className="flex items-center gap-4 flex-shrink-0">
+          {rightContent && (
+            <div className="flex items-center gap-3">{rightContent}</div>
+          )}
+          <div className="flex items-center gap-2">
+            <div
+              className="w-2 h-2 rounded-full animate-pulse"
+              style={{ backgroundColor: colors.primaryFrom }}
+            />
+            <LiveClock />
+          </div>
         </div>
       </div>
     </div>
