@@ -1,23 +1,8 @@
 // main-topbar.jsx
 "use client";
 import React from "react";
-import dynamic from "next/dynamic";
+import { LiveClock } from "@design-pattern/liveclick";
 import sidebarColors, { getLiveSidebarColors, fontStyles } from "@design-pattern/colors";
-import { tr } from "zod/v4/locales";
-
-const LiveClock = dynamic(
-  () => import("@design-pattern/liveclick").then((m) => ({ default: m.LiveClock })),
-  {
-    ssr: false,
-    loading: () => (
-      <span style={{ color: sidebarColors.textMuted, fontSize: "12px", fontFamily: "monospace" }}>
-        --:--:--
-      </span>
-    ),
-  }
-);
-
-// ── Path helpers (pure) ──────────────────────────────────────────────────────
 
 const normalizePath = (p) => {
   const trimmed = (p || "/").replace(/\/+$/, "");
@@ -44,22 +29,8 @@ const getBreadcrumbs = (p, labels) => {
   return ["Home", ...parts.filter((part, i, arr) => part !== arr[i - 1])];
 };
 
-// ── Component ────────────────────────────────────────────────────────────────
-
-/**
- * MainTopbar
- *
- * @param {{ 
- *   routeLabels?:  Record<string, string>,
- *   pathname?:     string,
- *   leftContent?:  import("react").ReactNode,
- *   rightContent?: import("react").ReactNode,
- *   style?:        import("react").CSSProperties,
- *   className?:    string,
- * }} props
- */
 export const MainTopbar = ({
-  routeLabels  = {},
+  routeLabels = {},
   pathname,
   leftContent,
   rightContent,
@@ -68,7 +39,6 @@ export const MainTopbar = ({
 }) => {
   const colors = getLiveSidebarColors();
 
-  // Resolve pathname: prop → window (CSR fallback) → '/'
   const resolvedPath =
     pathname ??
     (typeof window !== "undefined" ? window.location.pathname : "/");
@@ -81,31 +51,25 @@ export const MainTopbar = ({
 
   return (
     <div
-      className={`w-full  border-b px-6 py-4 ${className ?? ""}`}
+      className={`w-full border-b px-6 ${className ?? ""}`}  // ← removed py-4
       style={{
         backgroundColor: colors.background,
         borderColor: colors.border,
-        ...style,
+        display: "flex",          // ← added
+        alignItems: "center",     // ← added (replaces py-4 centering)
+        boxSizing: "border-box",  // ← added (border doesn't add to height)
+        ...style,                 // ← height: 90 from caller lands here ✅
       }}
     >
-      <div className="flex items-center justify-between gap-4">
+      {/* ← added w-full so inner row still stretches end-to-end */}
+      <div className="flex items-center justify-between gap-4 w-full">
 
-        {/* ── LEFT: Title › Breadcrumbs › leftContent slot ── */}
+        {/* ── LEFT ── */}
         <div className="flex items-center gap-8 min-w-0">
-
-          {/* Title + Breadcrumbs */}
           <div className="flex flex-col min-w-0">
-            <h1
-              style={{
-                ...fontStyles.heading2,
-                color: colors.primary,
-               
-                margin: 0,
-              }}
-            >
+            <h1 style={{ ...fontStyles.heading2, color: colors.primary, margin: 0 }}>
               {dashboardName === "Home" ? "Home" : `${dashboardName} `}
             </h1>
-
             <div
               className="flex items-center gap-2 mt-1 min-h-[18px]"
               style={{ visibility: visibleBreadcrumbs.length > 1 ? "visible" : "hidden" }}
@@ -115,10 +79,7 @@ export const MainTopbar = ({
                   <span
                     style={{
                       ...fontStyles.label,
-                      color:
-                        i === arr.length - 1
-                          ? colors.primaryFrom
-                          : colors.textSecondary,
+                      color: i === arr.length - 1 ? colors.primaryFrom : colors.textSecondary,
                     }}
                   >
                     {crumb}
@@ -131,25 +92,16 @@ export const MainTopbar = ({
             </div>
           </div>
 
-          {/* Slot: leftContent — e.g. tenant switcher, context selector */}
           {leftContent && (
-            <div className="flex items-center gap-3 flex-shrink-0">
-              {leftContent}
-            </div>
+            <div className="flex items-center gap-3 flex-shrink-0">{leftContent}</div>
           )}
         </div>
 
-        {/* ── RIGHT: rightContent slot + Pulse + Clock ── */}
+        {/* ── RIGHT ── */}
         <div className="flex items-center gap-4 flex-shrink-0">
-
-          {/* Slot: rightContent — e.g. timeline filter, action controls */}
           {rightContent && (
-            <div className="flex items-center gap-3">
-              {rightContent}
-            </div>
+            <div className="flex items-center gap-3">{rightContent}</div>
           )}
-
-          {/* Always-present: pulse dot + live clock */}
           <div className="flex items-center gap-2">
             <div
               className="w-2 h-2 rounded-full animate-pulse"
