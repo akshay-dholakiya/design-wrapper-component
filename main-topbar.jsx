@@ -4,27 +4,26 @@ import React from "react";
 import { LiveClock } from "@design-pattern/liveclick";
 import sidebarColors, { getLiveSidebarColors, fontStyles } from "@design-pattern/colors";
 
+
+
+// ── Path helpers (pure) ──────────────────────────────────────────────────────
+
 const normalizePath = (p) => {
   const trimmed = (p || "/").replace(/\/+$/, "");
   return (trimmed || "/").toLowerCase();
 };
 
-  const toLabel = (segment) => {
-    const name = segment.replace(/-/g, ' ');
-    return name.charAt(0).toUpperCase() + name.slice(1);
-  };
+const toLabel = (segment) => {
+  const name = segment.replace(/-/g, " ");
+  return name.charAt(0).toUpperCase() + name.slice(1);
+};
 
-  const getDashboardName = (pathname) => {
-    const normalizedPath = normalizePath(pathname);
-
-    if (ROUTE_LABELS[normalizedPath]) {
-      return ROUTE_LABELS[normalizedPath];
-    }
-
-    const parts = normalizedPath.split('/').filter(Boolean);
-    if (parts.length === 0) return 'Home';
-    return toLabel(parts[parts.length - 1]);
-  };
+const getDashboardName = (p, labels) => {
+  const norm = normalizePath(p);
+  if (labels[norm]) return labels[norm];
+  const parts = norm.split("/").filter(Boolean);
+  return parts.length === 0 ? "Home" : toLabel(parts[parts.length - 1]);
+};
 
 const getBreadcrumbs = (p, labels) => {
   const norm = normalizePath(p);
@@ -34,8 +33,22 @@ const getBreadcrumbs = (p, labels) => {
   return ["Home", ...parts.filter((part, i, arr) => part !== arr[i - 1])];
 };
 
+// ── Component ────────────────────────────────────────────────────────────────
+
+/**
+ * MainTopbar
+ *
+ * @param {{ 
+ *   routeLabels?:  Record<string, string>,
+ *   pathname?:     string,
+ *   leftContent?:  import("react").ReactNode,
+ *   rightContent?: import("react").ReactNode,
+ *   style?:        import("react").CSSProperties,
+ *   className?:    string,
+ * }} props
+ */
 export const MainTopbar = ({
-  routeLabels = {},
+  routeLabels  = {},
   pathname,
   leftContent,
   rightContent,
@@ -44,38 +57,44 @@ export const MainTopbar = ({
 }) => {
   const colors = getLiveSidebarColors();
 
+  // Resolve pathname: prop → window (CSR fallback) → '/'
   const resolvedPath =
     pathname ??
     (typeof window !== "undefined" ? window.location.pathname : "/");
 
   const dashboardName = getDashboardName(resolvedPath, routeLabels);
 
-  const visibleBreadcrumbs = breadcrumbs.filter((crumb, index, arr) => {
-    if (index === 0) return true;
-    return crumb !== arr[index - 1];
-  });
+  const visibleBreadcrumbs = getBreadcrumbs(resolvedPath, routeLabels).filter(
+    (crumb, i, arr) => i === 0 || crumb !== arr[i - 1]
+  );
 
   return (
     <div
-      className={`w-full border-b px-6 ${className ?? ""}`}  // ← removed py-4
+      className={`w-full  border-b px-6 py-4 ${className ?? ""}`}
       style={{
         backgroundColor: colors.background,
         borderColor: colors.border,
-        display: "flex",          // ← added
-        alignItems: "center",     // ← added (replaces py-4 centering)
-        boxSizing: "border-box",  // ← added (border doesn't add to height)
-        ...style,                 // ← height: 90 from caller lands here ✅
+        ...style,
       }}
     >
-      {/* ← added w-full so inner row still stretches end-to-end */}
-      <div className="flex items-center justify-between gap-4 w-full">
+      <div className="flex items-center justify-between gap-4">
 
-        {/* ── LEFT ── */}
+        {/* ── LEFT: Title › Breadcrumbs › leftContent slot ── */}
         <div className="flex items-center gap-8 min-w-0">
+
+          {/* Title + Breadcrumbs */}
           <div className="flex flex-col min-w-0">
-            <h1 style={{ ...fontStyles.heading2, color: colors.primary, margin: 0 }}>
+            <h1
+              style={{
+                ...fontStyles.heading2,
+                color: colors.primary,
+               
+                margin: 0,
+              }}
+            >
               {dashboardName === "Home" ? "Home" : `${dashboardName} `}
             </h1>
+
             <div
               className="flex items-center gap-2 mt-1 min-h-[18px]"
               style={{ visibility: visibleBreadcrumbs.length > 1 ? "visible" : "hidden" }}
@@ -85,27 +104,41 @@ export const MainTopbar = ({
                   <span
                     style={{
                       ...fontStyles.label,
-                      color: i === arr.length - 1 ? colors.primaryFrom : colors.textSecondary,
+                      color:
+                        i === arr.length - 1
+                          ? colors.primaryFrom
+                          : colors.textSecondary,
                     }}
                   >
                     {crumb}
                   </span>
-                )}
-              </div>
-            ))}
+                  {i < arr.length - 1 && (
+                    <span style={{ color: colors.textSecondary, fontSize: "12px" }}>›</span>
+                  )}
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
 
+          {/* Slot: leftContent — e.g. tenant switcher, context selector */}
           {leftContent && (
-            <div className="flex items-center gap-3 flex-shrink-0">{leftContent}</div>
+            <div className="flex items-center gap-3 flex-shrink-0">
+              {leftContent}
+            </div>
           )}
         </div>
 
-        {/* ── RIGHT ── */}
+        {/* ── RIGHT: rightContent slot + Pulse + Clock ── */}
         <div className="flex items-center gap-4 flex-shrink-0">
+
+          {/* Slot: rightContent — e.g. timeline filter, action controls */}
           {rightContent && (
-            <div className="flex items-center gap-3">{rightContent}</div>
+            <div className="flex items-center gap-3">
+              {rightContent}
+            </div>
           )}
+
+          {/* Always-present: pulse dot + live clock */}
           <div className="flex items-center gap-2">
             <div
               className="w-2 h-2 rounded-full animate-pulse"
@@ -114,6 +147,7 @@ export const MainTopbar = ({
             <LiveClock />
           </div>
         </div>
+
       </div>
     </div>
   );
