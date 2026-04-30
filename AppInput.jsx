@@ -105,18 +105,14 @@ const AppInput = forwardRef(function AppInput(
 
   // ─── derived styles ─────────────────────────────────────────────────────────
   const borderColor = error
-    ? '#ef4444'
+    ? sidebarColors.danger
     : focused
       ? sidebarColors.primaryFrom
       : hovered
         ? `${sidebarColors.primaryFrom}60`
         : sidebarColors.border;
 
-  const boxShadow = error
-    ? `0 0 0 3px rgba(239,68,68,0.2)`
-    : focused
-      ? `0 0 0 3px ${sidebarColors.primaryFrom}20`
-      : 'none';
+  
 
   const sizeStyles = SIZE[size] || SIZE.md;
 
@@ -128,7 +124,7 @@ const AppInput = forwardRef(function AppInput(
     backgroundColor: `${sidebarColors.backgroundSoft}`,
     border: `1px solid ${borderColor}`,
     borderRadius: borderRadius.md,
-    boxShadow,
+    
     opacity: disabled ? 0.5 : 1,
     cursor: disabled ? 'not-allowed' : 'text',
     transition: 'border-color 150ms ease, box-shadow 150ms ease',

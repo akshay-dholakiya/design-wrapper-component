@@ -3,6 +3,7 @@ import { createPortal } from "react-dom";
 import { Link, useLocation } from "react-router-dom";
 import sidebarColors from "./colors";
 import "./Sidebar.css";
+import { TOPBAR_HEIGHT , SIDEBAR_COLLAPSED_W,SIDEBAR_EXPANDED_W } from "./lib/layout-constants";
 
 const isExternalLink = (path = "") => /^https?:\/\//i.test(path);
 
@@ -75,6 +76,10 @@ const Sidebar = ({
     "--sidebar-danger-rgb": hexToRgb(sidebarColors.danger),
     "--sidebar-danger-dark-rgb": hexToRgb(sidebarColors.dangerDark),
     "--sidebar-primary-rgb": hexToRgb(sidebarColors.primary),
+
+    "--sidebar-expanded-width": SIDEBAR_EXPANDED_W,
+    "--sidebar-collapsed-width": SIDEBAR_COLLAPSED_W,
+     // for use in CSS calc() to fill remaining height
   };
 
   const canLogout = showLogout && typeof onLogout === "function";
