@@ -1,44 +1,44 @@
 import React, { useEffect, useState } from "react";
-import { getLiveSidebarColors } from "@design-pattern/colors.js";
+import { getLiveSidebarColors ,sidebarColors} from "@design-pattern/colors.js";
 
 const TOAST_CFG = {
-    info:    { accent: "#0ea5e9", bg: "rgba(14,165,233,0.08)",  border: "rgba(14,165,233,0.22)",  icon: <InfoIcon /> },
-    success: { accent: "#10b981", bg: "rgba(16,185,129,0.08)",  border: "rgba(16,185,129,0.22)",  icon: <CheckIcon /> },
-    warning: { accent: "#f59e0b", bg: "rgba(245,158,11,0.08)",  border: "rgba(245,158,11,0.22)",  icon: <WarnIcon /> },
-    error:   { accent: "#ef4444", bg: "rgba(239,68,68,0.08)",   border: "rgba(239,68,68,0.22)",   icon: <ErrorIcon /> },
+    info:    { accent: sidebarColors.info, bg: "rgba(14,165,233,0.08)",  border: "rgba(14,165,233,0.22)",  icon: <InfoIcon /> },
+    success: { accent: sidebarColors.success, bg: "rgba(16,185,129,0.08)",  border: "rgba(16,185,129,0.22)",  icon: <CheckIcon /> },
+    warning: { accent: sidebarColors.warning, bg: "rgba(245,158,11,0.08)",  border: "rgba(245,158,11,0.22)",  icon: <WarnIcon /> },
+    error:   { accent: sidebarColors.error, bg: "rgba(239,68,68,0.08)",   border: "rgba(239,68,68,0.22)",   icon: <ErrorIcon /> },
 };
 
 function CheckIcon() {
     return (
         <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-            <circle cx="7" cy="7" r="6.5" stroke="#10b981" strokeWidth="1.2" />
-            <path d="M4 7l2.2 2.2L10 5" stroke="#10b981" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+            <circle cx="7" cy="7" r="6.5" stroke={sidebarColors.success} strokeWidth="1.2" />
+            <path d="M4 7l2.2 2.2L10 5" stroke={sidebarColors.success} strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
     );
 }
 function ErrorIcon() {
     return (
         <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-            <circle cx="7" cy="7" r="6.5" stroke="#ef4444" strokeWidth="1.2" />
-            <path d="M4.5 4.5l5 5M9.5 4.5l-5 5" stroke="#ef4444" strokeWidth="1.4" strokeLinecap="round" />
+            <circle cx="7" cy="7" r="6.5" stroke={sidebarColors.error} strokeWidth="1.2" />
+            <path d="M4.5 4.5l5 5M9.5 4.5l-5 5" stroke={sidebarColors.error} strokeWidth="1.4" strokeLinecap="round" />
         </svg>
     );
 }
 function WarnIcon() {
     return (
         <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-            <path d="M7 1.5L12.8 12H1.2L7 1.5Z" stroke="#f59e0b" strokeWidth="1.2" strokeLinejoin="round" />
-            <path d="M7 5.5v3" stroke="#f59e0b" strokeWidth="1.4" strokeLinecap="round" />
-            <circle cx="7" cy="10" r="0.6" fill="#f59e0b" />
+            <path d="M7 1.5L12.8 12H1.2L7 1.5Z" stroke={sidebarColors.warning} strokeWidth="1.2" strokeLinejoin="round" />
+            <path d="M7 5.5v3" stroke={sidebarColors.warning} strokeWidth="1.4" strokeLinecap="round" />
+            <circle cx="7" cy="10" r="0.6" fill={sidebarColors.warning} />
         </svg>
     );
 }
 function InfoIcon() {
     return (
         <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-            <circle cx="7" cy="7" r="6.5" stroke="#0ea5e9" strokeWidth="1.2" />
-            <path d="M7 6.5v4" stroke="#0ea5e9" strokeWidth="1.4" strokeLinecap="round" />
-            <circle cx="7" cy="4.5" r="0.65" fill="#0ea5e9" />
+            <circle cx="7" cy="7" r="6.5" stroke={sidebarColors.info} strokeWidth="1.2" />
+            <path d="M7 6.5v4" stroke={sidebarColors.info} strokeWidth="1.4" strokeLinecap="round" />
+            <circle cx="7" cy="4.5" r="0.65" fill={sidebarColors.info} />
         </svg>
     );
 }
