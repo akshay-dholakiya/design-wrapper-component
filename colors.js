@@ -8,6 +8,8 @@ import * as emerald from "./theam/emerald.jsx";
 import * as nebula from "./theam/nebula.jsx";
 import * as linen from "./theam/linen.jsx";
 
+import * as signal from "./theam/signal.jsx";
+
 const themeMap = {
     eagleye,
     sentinel,
@@ -17,6 +19,8 @@ const themeMap = {
     nebula,
     linen,
     ocean,
+
+    signal,
     // ── Legacy key aliases (preserves existing localStorage values) ──
     theam1: ocean,
 };

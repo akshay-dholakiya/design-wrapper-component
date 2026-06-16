@@ -11,6 +11,8 @@ const themes = [
   { name: 'Nebula',    bg: 'linear-gradient(135deg, #0c0a1a 0%, #a855f7 60%, #22d3ee 100%)',    key: 'nebula'   },
   { name: 'Linen',   bg: 'linear-gradient(135deg, #F1EDE6 0%, #CBAD8D 50%, #A48374 100%)',    key: 'linen'    },
   { name: 'Horizon',   bg: 'linear-gradient(135deg, #050d1a 0%, #0ea5e9 100%)',                 key: 'ocean'    },
+  { name: 'Void',      bg: 'linear-gradient(135deg, #000000 0%, #27262c 55%, #a78bfa 100%)',   key: 'void'     },
+  { name: 'Signal',    bg: 'linear-gradient(135deg, #000000 0%, #17181c 50%, #1da1f2 100%)',   key: 'signal'   },
 ];
 
 const PANEL_W = 260;
