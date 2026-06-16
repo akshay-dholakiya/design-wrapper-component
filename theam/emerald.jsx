@@ -1,187 +1,179 @@
 // ============================================================
-// emerald.jsx — EMERALD Theme (Dark / Balanced)
+// emerald.jsx — EMERALD Theme
 // ------------------------------------------------------------
-// A sophisticated dark theme where emerald is the *brand accent*,
-// not the overall wash. The chrome is neutral slate; green appears
-// only in brand moments (primary buttons, highlights, hover glow).
-//   • Slate-Black Canvas  — neutral, professional, not green-tinted
-//   • Pure Slate Text     — no colour cast; reads cleanly
-//   • Emerald Primary     — used sparingly as the brand moment
-//   • Amber Gold Accent   — warm counterpoint for variety
-//   • Diverse chart series — avoid mono-green dashboards
+// Light canvas with emerald-green primary; dark mode flips
+// to a slate-900 base with emerald-400 as the brand accent.
+//   Light  —  Alice-blue bg · gray-700 text · green-500 primary
+//   Dark   —  Slate-900 bg  · gray-300 text · emerald-400 primary
+//   Charts —  5-step emerald/teal series (chart-1 → chart-5)
 // ============================================================
 
 const DEFAULT_COLORS = {
-  // Core canvas — neutral slate-black (NO green undertone)
-  background: '#0a0f16',          // Slate 950-ish, neutral
-  backgroundSoft: '#111826',      // Panels — cool neutral
-  surface: '#1a2332',             // Cards
-  surfaceElevated: '#22304a',     // Hover
+  // Dark mode canvas — slate-900 base
+  background:      '#0f172a',   // --background (dark)
+  backgroundSoft:  '#1e293b',   // --muted / --card (dark)
+  surface:         '#1e293b',   // --card (dark)
+  surfaceElevated: '#2d3748',   // --secondary (dark)
 
-  // Borders — neutral slate
-  border: '#273449',
-  borderSoft: 'rgba(148, 163, 184, 0.10)',   // Slate tint, not green
+  border:     '#4b5563',                     // --border (dark)
+  borderSoft: 'rgba(75, 85, 99, 0.20)',
 
-  // Typography — pure slate-white (NO mint cast)
-  textPrimary: '#f1f5f9',         // Slate 100 — clean white
-  textSecondary: 'rgba(241, 245, 249, 0.65)',
-  textMuted: 'rgba(241, 245, 249, 0.42)',
-  textInverse: '#0a0f16',
+  textPrimary:   '#d1d5db',                  // --foreground (dark)
+  textSecondary: 'rgba(209, 213, 219, 0.65)',
+  textMuted:     '#6b7280',                  // --muted-foreground
+  textInverse:   '#0f172a',                  // --primary-foreground (dark)
 
-  // Brand identity — Emerald (primary) + Amber (secondary)
-  primary: '#10b981',             // Emerald 500 — brand moment
-  secondary: '#f59e0b',           // Amber 500 — warm counterpoint
+  primary:   '#34d399',   // --primary (dark)  emerald-400
+  secondary: '#2dd4bf',   // --chart-2 (dark)  teal-400
 };
 
 const sidebarColors = {
   // ── BACKGROUNDS ──────────────────────────────────────────────
-  background: DEFAULT_COLORS.background,
-  backgroundSoft: DEFAULT_COLORS.backgroundSoft,
-  surface: DEFAULT_COLORS.surface,
+  background:      DEFAULT_COLORS.background,
+  backgroundSoft:  DEFAULT_COLORS.backgroundSoft,
+  surface:         DEFAULT_COLORS.surface,
   surfaceElevated: DEFAULT_COLORS.surfaceElevated,
 
   // ── EXTENDED SURFACES ────────────────────────────────────────
-  surfaceMuted: '#0d141e',
-  surfaceTint: '#141d2b',
-  surfaceMutedDeep: '#070b11',
-  surfaceTintDark: '#111826',
-  backgroundDeep: '#05080d',
+  surfaceMuted:      '#131e2e',
+  surfaceTint:       '#1a2844',
+  surfaceMutedDeep:  '#0a1120',
+  surfaceTintDark:   '#1e293b',
+  backgroundDeep:    '#080e1a',
 
   // ── BORDERS ──────────────────────────────────────────────────
-  border: DEFAULT_COLORS.border,
-  borderSoft: DEFAULT_COLORS.borderSoft,
-  borderSubtle: 'rgba(148, 163, 184, 0.14)',    // Neutral
-  borderStrong: 'rgba(16, 185, 129, 0.45)',     // Emerald — only when emphasized
-  borderAccent: 'rgba(245, 158, 11, 0.30)',     // Amber accent
+  border:       DEFAULT_COLORS.border,
+  borderSoft:   DEFAULT_COLORS.borderSoft,
+  borderSubtle: 'rgba(75, 85, 99, 0.28)',
+  borderStrong: 'rgba(52, 211, 153, 0.50)',    // emerald-400
+  borderAccent: 'rgba(45, 212, 191, 0.32)',    // teal-400
 
   // ── TEXT ─────────────────────────────────────────────────────
-  textPrimary: DEFAULT_COLORS.textPrimary,
+  textPrimary:   DEFAULT_COLORS.textPrimary,
   textSecondary: DEFAULT_COLORS.textSecondary,
-  textMuted: DEFAULT_COLORS.textMuted,
-  textInverse: DEFAULT_COLORS.textInverse,
-  textAccent: DEFAULT_COLORS.primary,            // Emerald for accent text only
-  textDim: '#273449',
-  textDisabled: '#1a2332',
-  textLighter: '#cbd5e1',                        // Slate, not mint
-  textOffWhite: '#f1f5f9',
-  textTertiary: '#94a3b8',                       // Slate, not green
+  textMuted:     DEFAULT_COLORS.textMuted,
+  textInverse:   DEFAULT_COLORS.textInverse,
+  textAccent:    DEFAULT_COLORS.primary,
+  textDim:       '#4b5563',
+  textDisabled:  '#374151',
+  textLighter:   '#e5e7eb',
+  textOffWhite:  '#f3f4f6',
+  textTertiary:  '#9ca3af',
 
   // ── PRIMARY BRAND ────────────────────────────────────────────
-  // Gradient: Emerald → Jade (used sparingly — brand moments only)
-  primaryFrom: DEFAULT_COLORS.primary,           // #10b981
-  primaryTo: '#34d399',
-  primary: DEFAULT_COLORS.primary,
-  accent: DEFAULT_COLORS.secondary,              // Amber
+  primaryFrom:  DEFAULT_COLORS.primary,        // #34d399
+  primaryTo:    '#22c55e',
+  primary:      DEFAULT_COLORS.primary,
+  accent:       DEFAULT_COLORS.secondary,      // teal-400
   primaryMuted: '#6ee7b7',
 
   // ── STATUS — DANGER ──────────────────────────────────────────
-  danger: '#ef4444',
-  dangerDark: '#dc2626',
-  dangerHover: '#f87171',
-  dangerSoft: '#fca5a5',
-  dangerLight: '#fecaca',
-  dangerDark2: '#b91c1c',
+  danger:       '#ef4444',   // --destructive
+  dangerDark:   '#dc2626',
+  dangerHover:  '#f87171',
+  dangerSoft:   '#fca5a5',
+  dangerLight:  '#fecaca',
+  dangerDark2:  '#b91c1c',
   dangerDarker: '#991b1b',
 
   // ── STATUS — SUCCESS ─────────────────────────────────────────
-  success: '#10b981',
-  successSoft: '#34d399',
+  success:      '#34d399',
+  successSoft:  '#6ee7b7',
   successGreen: '#22c55e',
 
   // ── STATUS — WARNING ─────────────────────────────────────────
-  warning: '#f59e0b',
-  warningLight: '#fbbf24',
-  warningDark: '#d97706',
-  warningSoft: '#fde68a',
+  warning:       '#f59e0b',
+  warningLight:  '#fbbf24',
+  warningDark:   '#d97706',
+  warningSoft:   '#fde68a',
   warningOrange: '#f97316',
 
   // ── STATUS — INFO ────────────────────────────────────────────
-  info: '#38bdf8',                               // Sky blue — neutral cool
-  infoSoft: '#7dd3fc',
+  info:     '#2dd4bf',
+  infoSoft: '#5eead4',
 
   // ── NEUTRAL / ERROR ──────────────────────────────────────────
-  neutral: '#64748b',
-  errorcolor: '#ef4444',
+  neutral:     '#6b7280',
+  errorcolor:  '#ef4444',
   sucesscolor: '#22c55e',
 
   // ── LOGIN PAGE ───────────────────────────────────────────────
-  // Slate → deep slate — neutral entrance with subtle emerald hint
-  loginBgFrom: '#05080d',
-  loginBgTo: '#1a2332',
+  loginBgFrom: '#0f172a',
+  loginBgTo:   '#1e293b',
 
   // ── EXTENDED ACCENT PALETTE ──────────────────────────────────
-  accentPurple: '#a78bfa',
-  accentCyan: '#22d3ee',
-  accentIndigo: '#818cf8',
-  accentPink: '#f472b6',
-  accentBlue: '#38bdf8',
-  accentTeal: '#2dd4bf',
-  accentViolet: '#8b5cf6',
-  accentOrange: '#fb923c',
-  accentYellow: '#fbbf24',
-  accentBlueDark: '#1e40af',
+  accentPurple:     '#a78bfa',
+  accentCyan:       '#22d3ee',
+  accentIndigo:     '#818cf8',
+  accentPink:       '#f472b6',
+  accentBlue:       '#38bdf8',
+  accentTeal:       '#2dd4bf',
+  accentViolet:     '#8b5cf6',
+  accentOrange:     '#fb923c',
+  accentYellow:     '#fbbf24',
+  accentBlueDark:   '#1e40af',
   accentIndigoDark: '#4338ca',
   accentVioletDark: '#7c3aed',
-  accentPurple600: '#9333ea',
+  accentPurple600:  '#9333ea',
 
   // ── EXTENDED DARK SHADES ─────────────────────────────────────
   orangeDark700: '#c2410c',
   orangeDark800: '#9a3412',
   orangeDark900: '#7c2d12',
-  amberDark900: '#78350f',
+  amberDark900:  '#78350f',
   orangeDark950: '#451a03',
-  stoneDark800: '#111826',
-  stoneDark900: '#0a0f16',
+  stoneDark800:  '#1e293b',
+  stoneDark900:  '#0f172a',
 
   // ── HOVER / ACTIVE / BUTTON ──────────────────────────────────
-  hoverBackground: DEFAULT_COLORS.surface,
-  hoverBorder: DEFAULT_COLORS.primary,
-  hoverShadow: 'rgba(16, 185, 129, 0.35)',       // Subtler glow
+  hoverBackground:   DEFAULT_COLORS.surface,
+  hoverBorder:       DEFAULT_COLORS.primary,
+  hoverShadow:       'rgba(52, 211, 153, 0.30)',
   hoverShadowSpread: '0 0 18px',
-  hoverText: '#34d399',
-  activeBackground: DEFAULT_COLORS.surfaceElevated,
-  activeBorder: DEFAULT_COLORS.primary,
-  activeShadow: 'rgba(16, 185, 129, 0.35)',
-  activeText: DEFAULT_COLORS.primary,
-  buttonBackground: DEFAULT_COLORS.background,
-  buttonIconColor: DEFAULT_COLORS.textPrimary,
+  hoverText:         '#6ee7b7',
+  activeBackground:  DEFAULT_COLORS.surfaceElevated,
+  activeBorder:      DEFAULT_COLORS.primary,
+  activeShadow:      'rgba(52, 211, 153, 0.40)',
+  activeText:        DEFAULT_COLORS.primary,
+  buttonBackground:  DEFAULT_COLORS.background,
+  buttonIconColor:   DEFAULT_COLORS.textPrimary,
 
   // ── TAILWIND CLASSES ─────────────────────────────────────────
-  primaryGradient: 'from-emerald-500 to-emerald-400',
-  primaryShadow: 'shadow-emerald-500/40',
+  primaryGradient: 'from-emerald-400 to-green-500',
+  primaryShadow:   'shadow-emerald-400/40',
 };
 
-// ===== FONT STYLES ===== (consistent across all themes)
+// ===== FONT STYLES =====
 const fontSmoothing = {
   fontFamily:
-    '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
+    '"DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
   WebkitFontSmoothing: 'antialiased',
   MozOsxFontSmoothing: 'grayscale',
   textRendering: 'optimizeLegibility',
 };
 
 export const fontStyles = {
-  smoothing: fontSmoothing,
-  heading1: { fontSize: '32px', fontWeight: '800', lineHeight: '1.1', letterSpacing: '-0.02em', ...fontSmoothing },
-  heading2: { fontSize: '24px', fontWeight: '700', lineHeight: '1.2', letterSpacing: '-0.015em', ...fontSmoothing },
-  heading3: { fontSize: '20px', fontWeight: '700', lineHeight: '1.3', letterSpacing: '-0.01em', ...fontSmoothing },
-  heading4: { fontSize: '18px', fontWeight: '700', lineHeight: '1.4', letterSpacing: '-0.005em', ...fontSmoothing },
-  heading5: { fontSize: '16px', fontWeight: '700', lineHeight: '1.4', ...fontSmoothing },
-  heading6: { fontSize: '14px', fontWeight: '700', lineHeight: '1.5', letterSpacing: '0.01em', ...fontSmoothing },
-  body: { fontSize: '14px', lineHeight: '1.6', ...fontSmoothing },
-  bodyLarge: { fontSize: '16px', lineHeight: '1.6', ...fontSmoothing },
-  bodySmall: { fontSize: '12px', lineHeight: '1.5', ...fontSmoothing },
-  caption: { fontSize: '12px', lineHeight: '1.4', ...fontSmoothing },
-  label: { fontSize: '13px', fontWeight: '500', letterSpacing: '0.01em', ...fontSmoothing },
-  button: { fontSize: '14px', fontWeight: '600', letterSpacing: '0.02em', ...fontSmoothing },
-  metric: { fontSize: '24px', fontWeight: '700', fontVariantNumeric: 'tabular-nums', lineHeight: '1.2', ...fontSmoothing },
-  metricMedium: { fontSize: '30px', fontWeight: '700', lineHeight: '1.1', fontVariantNumeric: 'tabular-nums', ...fontSmoothing },
-  metric2xl: { fontSize: '32px', fontWeight: '700', lineHeight: '1', fontVariantNumeric: 'tabular-nums', ...fontSmoothing },
-  metricLarge: { fontSize: '48px', fontWeight: '700', lineHeight: '1.1', fontVariantNumeric: 'tabular-nums', ...fontSmoothing },
-  metricXL: { fontSize: '60px', fontWeight: '700', lineHeight: '1.1', fontVariantNumeric: 'tabular-nums', ...fontSmoothing },
+  smoothing:    fontSmoothing,
+  heading1:     { fontSize: '32px', fontWeight: '800', lineHeight: '1.1',  letterSpacing: '-0.02em',  ...fontSmoothing },
+  heading2:     { fontSize: '24px', fontWeight: '700', lineHeight: '1.2',  letterSpacing: '-0.015em', ...fontSmoothing },
+  heading3:     { fontSize: '20px', fontWeight: '700', lineHeight: '1.3',  letterSpacing: '-0.01em',  ...fontSmoothing },
+  heading4:     { fontSize: '18px', fontWeight: '700', lineHeight: '1.4',  letterSpacing: '-0.005em', ...fontSmoothing },
+  heading5:     { fontSize: '16px', fontWeight: '700', lineHeight: '1.4',  ...fontSmoothing },
+  heading6:     { fontSize: '14px', fontWeight: '700', lineHeight: '1.5',  letterSpacing: '0.01em',   ...fontSmoothing },
+  body:         { fontSize: '14px', lineHeight: '1.6', ...fontSmoothing },
+  bodyLarge:    { fontSize: '16px', lineHeight: '1.6', ...fontSmoothing },
+  bodySmall:    { fontSize: '12px', lineHeight: '1.5', ...fontSmoothing },
+  caption:      { fontSize: '12px', lineHeight: '1.4', ...fontSmoothing },
+  label:        { fontSize: '13px', fontWeight: '500', letterSpacing: '0.01em', ...fontSmoothing },
+  button:       { fontSize: '14px', fontWeight: '600', letterSpacing: '0.02em', ...fontSmoothing },
+  metric:       { fontSize: '24px', fontWeight: '700', fontVariantNumeric: 'tabular-nums', lineHeight: '1.2',  ...fontSmoothing },
+  metricMedium: { fontSize: '30px', fontWeight: '700', lineHeight: '1.1',  fontVariantNumeric: 'tabular-nums', ...fontSmoothing },
+  metric2xl:    { fontSize: '32px', fontWeight: '700', lineHeight: '1',    fontVariantNumeric: 'tabular-nums', ...fontSmoothing },
+  metricLarge:  { fontSize: '48px', fontWeight: '700', lineHeight: '1.1',  fontVariantNumeric: 'tabular-nums', ...fontSmoothing },
+  metricXL:     { fontSize: '60px', fontWeight: '700', lineHeight: '1.1',  fontVariantNumeric: 'tabular-nums', ...fontSmoothing },
   code: {
     fontSize: '13px',
-    fontFamily: '"Fira Code", "Consolas", "Monaco", monospace',
+    fontFamily: '"IBM Plex Mono", "Fira Code", "Consolas", monospace',
     lineHeight: '1.6',
     WebkitFontSmoothing: 'antialiased',
     MozOsxFontSmoothing: 'grayscale',
@@ -189,174 +181,145 @@ export const fontStyles = {
 };
 
 // ===== CHART COLORS =====
-// Diverse palette — emerald appears but does NOT dominate every chart.
+// 5-step emerald/teal progression from CSS --chart-1 … --chart-5
 export const chartColors = {
-  primary: ['#10b981', '#34d399', '#6ee7b7', '#a7f3d0', '#d1fae5'],
+  // Dark: chart-1…5 from .dark vars
+  primary: ['#34d399', '#2dd4bf', '#22c55e', '#10b981', '#059669'],
   severity: {
-    critical: '#ef4444',   // Red — unambiguous critical
-    high: '#f97316',       // Orange — high
-    medium: '#f59e0b',     // Amber — medium
-    low: '#38bdf8',        // Sky blue — low (cool neutral, not green)
-    info: '#38bdf8',
+    critical: '#ef4444',   // --destructive
+    high:     '#f97316',
+    medium:   '#f59e0b',
+    low:      '#2dd4bf',   // teal — visually distinct from emerald primary
+    info:     '#38bdf8',
   },
   series: [
-    '#10b981',   // Emerald (brand — appears first)
-    '#38bdf8',   // Sky blue
-    '#f59e0b',   // Amber
-    '#a78bfa',   // Violet
-    '#f472b6',   // Pink
-    '#22d3ee',   // Cyan
-    '#fb923c',   // Orange
-    '#818cf8',   // Indigo
-    '#2dd4bf',   // Teal
-    '#facc15',   // Yellow
+    '#34d399',   // chart-1 dark  — emerald-400  (primary)
+    '#2dd4bf',   // chart-2 dark  — teal-400
+    '#22c55e',   // chart-3 dark  — green-500
+    '#10b981',   // chart-4 dark  — emerald-500
+    '#059669',   // chart-5 dark  — emerald-600
+    '#6ee7b7',   // extended      — emerald-300
+    '#f59e0b',   // warm contrast — amber
+    '#38bdf8',   // cool contrast — sky-400
+    '#a78bfa',   // purple
+    '#f472b6',   // pink
   ],
   categorical: [
-    '#10b981',
-    '#38bdf8',
-    '#f59e0b',
-    '#a78bfa',
-    '#f472b6',
-    '#22d3ee',
-    '#fb923c',
-    '#818cf8',
-    '#2dd4bf',
-    '#facc15',
+    '#34d399', '#2dd4bf',
+    '#22c55e', '#10b981',
+    '#059669', '#6ee7b7',
+    '#f59e0b', '#38bdf8',
+    '#a78bfa', '#f472b6',
   ],
   gradients: {
-    emerald: ['#10b981', '#34d399'],          // Brand primary
-    slate: ['#1a2332', '#0a0f16'],            // Canvas
-    amber: ['#f59e0b', '#fbbf24'],            // Accent gold
-    sky: ['#38bdf8', '#0ea5e9'],              // Info blue
+    emerald: ['#34d399', '#22c55e'],
+    teal:    ['#2dd4bf', '#0d9488'],
+    slate:   ['#1e293b', '#0f172a'],
+    amber:   ['#f59e0b', '#fbbf24'],
   },
   ui: {
-    grid: 'rgba(148, 163, 184, 0.08)',        // Neutral grid
-    axis: 'rgba(241, 245, 249, 0.30)',
-    label: 'rgba(241, 245, 249, 0.65)',
-    tooltip: 'rgba(10, 15, 22, 0.97)',
-    tooltipBorder: 'rgba(16, 185, 129, 0.50)',
-    border: 'rgba(148, 163, 184, 0.18)',      // Neutral border
+    grid:          'rgba(75, 85, 99, 0.12)',
+    axis:          'rgba(209, 213, 219, 0.32)',
+    label:         'rgba(209, 213, 219, 0.70)',
+    tooltip:       'rgba(15, 23, 42, 0.97)',
+    tooltipBorder: 'rgba(52, 211, 153, 0.50)',
+    border:        'rgba(75, 85, 99, 0.20)',
   },
   edges: {
     critical: '#ef4444',
-    high: '#f97316',
-    medium: '#f59e0b',
-    low: '#38bdf8',
-    default: '#10b981',
+    high:     '#f97316',
+    medium:   '#f59e0b',
+    low:      '#2dd4bf',
+    default:  '#34d399',
   },
   themes: {
+    // Dark from .dark CSS vars
     dark: {
-      background: DEFAULT_COLORS.background,
-      backgroundSoft: DEFAULT_COLORS.backgroundSoft,
-      surface: DEFAULT_COLORS.surface,
-      surfaceElevated: DEFAULT_COLORS.surfaceElevated,
-      border: DEFAULT_COLORS.border,
-      borderSoft: DEFAULT_COLORS.borderSoft,
-      borderSubtle: 'rgba(148, 163, 184, 0.14)',
-      borderStrong: 'rgba(16, 185, 129, 0.45)',
-      borderAccent: 'rgba(245, 158, 11, 0.30)',
-      textPrimary: DEFAULT_COLORS.textPrimary,
-      textSecondary: DEFAULT_COLORS.textSecondary,
-      textMuted: DEFAULT_COLORS.textMuted,
-      textInverse: DEFAULT_COLORS.textInverse,
-      textAccent: DEFAULT_COLORS.primary,
-      primaryFrom: DEFAULT_COLORS.primary,
-      primaryTo: '#34d399',
-      primary: DEFAULT_COLORS.primary,
-      accent: DEFAULT_COLORS.secondary,
-      nodeBg: '#111826',
-      nodeStroke: DEFAULT_COLORS.primary,
-      edge: '#cbd5e1',
-      edgeGlow: DEFAULT_COLORS.primary,
-      hubRing1: DEFAULT_COLORS.primary,
-      hubRing2: DEFAULT_COLORS.secondary,
-      hubCore: '#05080d',
-      hubBorder: DEFAULT_COLORS.primary,
-      statBorder: DEFAULT_COLORS.secondary,
+      background:      '#0f172a',
+      backgroundSoft:  '#1e293b',
+      surface:         '#1e293b',
+      surfaceElevated: '#2d3748',
+      border:          '#4b5563',
+      borderSoft:      'rgba(75, 85, 99, 0.20)',
+      borderSubtle:    'rgba(75, 85, 99, 0.28)',
+      borderStrong:    'rgba(52, 211, 153, 0.50)',
+      borderAccent:    'rgba(45, 212, 191, 0.32)',
+      textPrimary:     '#d1d5db',
+      textSecondary:   'rgba(209, 213, 219, 0.65)',
+      textMuted:       '#6b7280',
+      textInverse:     '#0f172a',
+      textAccent:      '#34d399',
+      primaryFrom:     '#34d399',
+      primaryTo:       '#22c55e',
+      primary:         '#34d399',
+      accent:          '#2dd4bf',
+      nodeBg:          '#1e293b',
+      nodeStroke:      '#34d399',
+      edge:            '#d1d5db',
+      edgeGlow:        '#34d399',
+      hubRing1:        '#34d399',
+      hubRing2:        '#2dd4bf',
+      hubCore:         '#0f172a',
+      hubBorder:       '#34d399',
+      statBorder:      '#2dd4bf',
     },
+    // Light from :root CSS vars
     light: {
-      background: '#f8fafc',
-      backgroundSoft: '#f1f5f9',
-      surface: '#ffffff',
-      surfaceElevated: '#ffffff',
-      border: '#cbd5e1',
-      borderSoft: 'rgba(15, 23, 42, 0.08)',
-      borderSubtle: 'rgba(15, 23, 42, 0.12)',
-      borderStrong: 'rgba(5, 150, 105, 0.45)',
-      borderAccent: 'rgba(217, 119, 6, 0.30)',
-      textPrimary: '#0f172a',
-      textSecondary: 'rgba(15, 23, 42, 0.70)',
-      textMuted: 'rgba(15, 23, 42, 0.42)',
-      textInverse: '#f8fafc',
-      textAccent: '#059669',
-      primary: '#059669',
-      accent: '#d97706',
-      nodeBg: '#f1f5f9',
-      nodeStroke: '#059669',
-      edge: '#cbd5e1',
-      edgeGlow: 'rgba(5, 150, 105, 0.40)',
-      hubRing1: '#10b981',
-      hubRing2: '#d97706',
-      hubCore: '#ffffff',
-      hubBorder: '#059669',
-      statBorder: '#d97706',
-    },
-    cyber: {
-      background: '#05080d',
-      backgroundSoft: '#0a0f16',
-      surface: '#111826',
-      surfaceElevated: '#1a2332',
-      border: '#1e2a3f',
-      borderSoft: 'rgba(16, 185, 129, 0.08)',
-      borderSubtle: 'rgba(16, 185, 129, 0.14)',
-      borderStrong: 'rgba(16, 185, 129, 0.55)',
-      borderAccent: 'rgba(245, 158, 11, 0.35)',
-      textPrimary: '#f1f5f9',
-      textSecondary: 'rgba(241, 245, 249, 0.60)',
-      textMuted: 'rgba(241, 245, 249, 0.34)',
-      textInverse: '#05080d',
-      textAccent: '#34d399',
-      primary: '#34d399',
-      accent: '#f59e0b',
-      nodeBg: '#0a0f16',
-      nodeStroke: '#34d399',
-      edge: '#cbd5e1',
-      edgeGlow: '#10b981',
-      hubRing1: '#34d399',
-      hubRing2: '#f59e0b',
-      hubCore: '#05080d',
-      hubBorder: '#10b981',
-      statBorder: '#f59e0b',
+      background:      '#f0f8ff',   // --background
+      backgroundSoft:  '#e0f2fe',   // --sidebar / --secondary
+      surface:         '#ffffff',   // --card
+      surfaceElevated: '#f3f4f6',   // --muted
+      border:          '#e5e7eb',   // --border
+      borderSoft:      'rgba(229, 231, 235, 0.60)',
+      borderSubtle:    'rgba(229, 231, 235, 0.80)',
+      borderStrong:    'rgba(34, 197, 94, 0.50)',
+      borderAccent:    'rgba(209, 250, 229, 0.80)',   // --accent
+      textPrimary:     '#374151',   // --foreground
+      textSecondary:   'rgba(55, 65, 81, 0.70)',
+      textMuted:       '#6b7280',   // --muted-foreground
+      textInverse:     '#ffffff',   // --primary-foreground
+      textAccent:      '#059669',
+      primary:         '#22c55e',   // --primary (light)
+      accent:          '#e0f2fe',   // --secondary
+      nodeBg:          '#f1f5f9',
+      nodeStroke:      '#22c55e',
+      edge:            '#e5e7eb',
+      edgeGlow:        'rgba(34, 197, 94, 0.40)',
+      hubRing1:        '#22c55e',
+      hubRing2:        '#10b981',
+      hubCore:         '#ffffff',
+      hubBorder:       '#22c55e',
+      statBorder:      '#10b981',
     },
   },
   networkSankey: {
-    hubGradientFrom: '#111826',
-    hubGradientTo: '#0a0f16',
-    panelGradientFrom: '#1a2332',
-    panelGradientTo: '#111826',
-    input: '#38bdf8',
-    inputGlow: '#0ea5e9',
-    output: '#10b981',
-    outputGlow: '#059669',
-    cyan: '#22d3ee',
-    textInput: '#bae6fd',
-    textPanel: '#f1f5f9',
-    textOutput: '#a7f3d0',
+    hubGradientFrom:   '#1e293b',
+    hubGradientTo:     '#0f172a',
+    panelGradientFrom: '#2d3748',
+    panelGradientTo:   '#1e293b',
+    input:      '#34d399',
+    inputGlow:  '#22c55e',
+    output:     '#2dd4bf',
+    outputGlow: '#0d9488',
+    cyan:       '#22d3ee',
+    textInput:  '#a7f3d0',
+    textPanel:  '#d1d5db',
+    textOutput: '#99f6e4',
   },
-  default: '#10b981',
+  default: '#34d399',
 };
 
 export const panelSummaryColors = {
-  primary: '#10b981',      // Emerald — headline metric
-  info: '#38bdf8',         // Sky — informational
-  warning: '#f59e0b',      // Amber — caution
-  success: '#22c55e',      // Fresh green — success (differentiated)
-  overlay: '#000000',
+  primary: '#34d399',   // emerald-400 — headline metric
+  info:    '#2dd4bf',   // teal-400
+  warning: '#f59e0b',   // amber
+  success: '#22c55e',   // green-500
+  overlay: '#0f172a',
 };
 
 export const sidebarClasses = {
-  primaryGradient: 'from-emerald-500 to-emerald-400',
-  primaryShadow: 'shadow-emerald-500/40',
+  primaryGradient: 'from-emerald-400 to-green-500',
+  primaryShadow:   'shadow-emerald-400/40',
 };
 
 export { DEFAULT_COLORS };
