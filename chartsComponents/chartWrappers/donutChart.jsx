@@ -51,6 +51,10 @@ export default function DonutChartWrapper({
     radiusInner = '48%',
     radiusOuter = '78%',
     showLegend = true,
+    showLabel = true,
+    center = ['50%', '44%'],
+    centerText = '',
+    centerSubtext = '',
     onClick,
 }) {
     const containerRef = useRef(null);
@@ -119,6 +123,31 @@ export default function DonutChartWrapper({
         };
     });
 
+    const graphic = centerText ? [
+        {
+            type: 'text',
+            left: 'center',
+            top: centerSubtext ? '42%' : 'middle',
+            style: {
+                text: centerText,
+                font: `bold 22px ${fontStyles.body?.fontFamily || 'sans-serif'}`,
+                fill: sidebarColors.textPrimary,
+                textAlign: 'center',
+            },
+        },
+        ...(centerSubtext ? [{
+            type: 'text',
+            left: 'center',
+            top: '56%',
+            style: {
+                text: centerSubtext,
+                font: `11px ${fontStyles.body?.fontFamily || 'sans-serif'}`,
+                fill: sidebarColors.textSecondary,
+                textAlign: 'center',
+            },
+        }] : []),
+    ] : [];
+
     const option = {
         backgroundColor: sidebarColors.backgroundSoft,
         animationDuration: 650,
@@ -173,11 +202,12 @@ export default function DonutChartWrapper({
             pageButtonItemGap: 6,
             pageButtonGap: 12,
         },
+        graphic,
         series: [
             {
                 type: 'pie',
                 radius: [radiusInner, radiusOuter],
-                center: ['50%', '44%'],
+                center,
                 avoidLabelOverlap: true,
                 minAngle: 2,
                 hoverAnimation: true,
@@ -190,13 +220,13 @@ export default function DonutChartWrapper({
                     shadowOffsetY: 3,
                 },
                 label: {
-                    show: true,
+                    show: showLabel,
                     color: sidebarColors.textPrimary,
                     ...fontStyles.bodySmall,
                     formatter: '{b}',
                 },
                 labelLine: {
-                    show: true,
+                    show: showLabel,
                     lineStyle: { color: chartColors.ui.axis },
                 },
                 emphasis: {

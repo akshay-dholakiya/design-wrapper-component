@@ -93,6 +93,14 @@ export default function HorizontalBarChartWrapper({
     tickCount,
     yAxisInterval = 5,
     fillMissingWithZero = false,
+    stacked = false,
+    showLegend,
+    gridOverride = {},
+    colorField = null,
+    barWidthOverride = null,
+    barMaxWidthOverride = null,
+    barCategoryGapOverride = null,
+    tooltipFormatter = null,
     onClick,
 }) {
     const [labelStyle, setLabelStyle] = useState(getResponsiveLabelStyle());
@@ -154,16 +162,36 @@ export default function HorizontalBarChartWrapper({
 
         seriesValueMap[field] = values;
 
+        const isLastSeries = index === seriesFields.length - 1;
+        const borderRadius = stacked
+            ? (isLastSeries ? [0, 6, 6, 0] : [0, 0, 0, 0])
+            : chartTokens.barBorderRadius;
+
+        const seriesData = colorField
+            ? values.map((v, i) => ({
+                value: v,
+                itemStyle: {
+                    color: data[i]?.[colorField] || seriesColor,
+                    borderRadius,
+                    borderColor: withAlpha(sidebarColors.background, 0.75),
+                    borderWidth: 1,
+                },
+            }))
+            : values;
+
         return {
             name: field,
             type: 'bar',
-            data: values,
-            itemStyle: {
-                color: seriesColor,
-                borderRadius: chartTokens.barBorderRadius,
-                borderColor: withAlpha(sidebarColors.background, 0.75),
-                borderWidth: 1,
-            },
+            stack: stacked ? 'total' : undefined,
+            data: seriesData,
+            ...(colorField ? {} : {
+                itemStyle: {
+                    color: seriesColor,
+                    borderRadius,
+                    borderColor: withAlpha(sidebarColors.background, 0.75),
+                    borderWidth: 1,
+                },
+            }),
             emphasis: {
                 focus: 'series',
                 itemStyle: {
@@ -172,14 +200,14 @@ export default function HorizontalBarChartWrapper({
                     shadowBlur: 6,
                 },
             },
-            barWidth: isSingleSeries ? chartTokens.singleBarWidth : chartTokens.multiBarWidth,
-            barMaxWidth: isSingleSeries ? chartTokens.singleBarMaxWidth : chartTokens.multiBarMaxWidth,
+            barWidth: barWidthOverride ?? (isSingleSeries ? chartTokens.singleBarWidth : (stacked ? '65%' : chartTokens.multiBarWidth)),
+            barMaxWidth: barMaxWidthOverride ?? (isSingleSeries ? chartTokens.singleBarMaxWidth : (stacked ? 52 : chartTokens.multiBarMaxWidth)),
             barGap: isSingleSeries ? '0%' : '10%',
-            barCategoryGap: isSingleSeries ? '42%' : '30%',
+            barCategoryGap: barCategoryGapOverride ?? (isSingleSeries ? '42%' : '30%'),
         };
     });
 
-    const series = isSingleSeries
+    const series = (isSingleSeries && !colorField)
         ? (() => {
             const field = seriesFields[0];
             const seriesColor = colorMap[field] || chartColors.series[0];
@@ -314,7 +342,13 @@ export default function HorizontalBarChartWrapper({
     const numericValues = Object.values(seriesValueMap).flatMap((values) =>
         (Array.isArray(values) ? values : []).filter((v) => typeof v === 'number' && Number.isFinite(v)),
     );
-    const maxValue = numericValues.length > 0 ? Math.max(...numericValues) : 1;
+    const rawMax = numericValues.length > 0 ? Math.max(...numericValues) : 1;
+    const stackedMax = stacked
+        ? Math.max(1, ...Array.from({ length: categories.length }, (_, i) =>
+            Object.values(seriesValueMap).reduce((sum, vals) => sum + (Number(vals[i]) || 0), 0)
+          ))
+        : rawMax;
+    const maxValue = stacked ? stackedMax : rawMax;
     const smartInterval = maxValue <= 10 ? 1 : maxValue <= 100 ? 5 : maxValue <= 1000 ? 50 : yAxisInterval;
     const xAxisMax = Math.max(smartInterval, Math.ceil(maxValue / smartInterval) * smartInterval);
 
@@ -341,7 +375,7 @@ export default function HorizontalBarChartWrapper({
             borderWidth: 1,
             extraCssText: `border-radius:8px;box-shadow:0 8px 24px ${withAlpha(sidebarColors.background, 0.55)};`,
             textStyle: { color: sidebarColors.textPrimary, ...fontStyles.bodySmall },
-            formatter: (params = []) => {
+            formatter: tooltipFormatter || ((params = []) => {
                 if (!params.length) return '';
                 let result = `<div style="padding:${chartTokens.tooltipHeaderPadY + 2}px ${chartTokens.tooltipHeaderPadX + 2}px ${chartTokens.tooltipHeaderPadY + 4}px ${chartTokens.tooltipHeaderPadX + 2}px;font-weight:${fontStyles.heading6?.fontWeight || 700};font-size:${fontStyles.body?.fontSize || '14px'};color:${sidebarColors.textPrimary};border-bottom:1px solid ${withAlpha(sidebarColors.border, 0.8)};margin-bottom:2px;">${params[0].axisValue}</div>`;
                 params.forEach((param) => {
@@ -356,10 +390,10 @@ export default function HorizontalBarChartWrapper({
                     </div>`;
                 });
                 return result;
-            },
+            }),
         },
         legend: {
-            show: seriesFields.length > 1,
+            show: showLegend !== undefined ? showLegend : seriesFields.length > 1,
             data: seriesFields,
             bottom: 0,
             left: 'center',
@@ -378,6 +412,7 @@ export default function HorizontalBarChartWrapper({
             bottom: chartTokens.gridBottom,
             containLabel: true,
             backgroundColor: sidebarColors.backgroundSoft,
+            ...gridOverride,
         },
         xAxis: {
             type: 'value',

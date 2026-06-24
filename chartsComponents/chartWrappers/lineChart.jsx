@@ -97,6 +97,7 @@ export default function LineChartWrapper({
     tickCount,
     yAxisInterval = 5,
     fillMissingWithZero = true,
+    showSymbol = false,
     onClick,
     gridOverride = {},
 }) {
@@ -151,7 +152,8 @@ export default function LineChartWrapper({
             smooth: true,
             connectNulls: true,
             clip: false,
-            showSymbol: false,
+            showSymbol,
+            symbolSize: chartTokens.symbolSize * 2,
             data: data.map((item) => {
                 const rawValue = item?.[field];
                 if (rawValue === null || rawValue === undefined || rawValue === '') {
