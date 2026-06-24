@@ -93,6 +93,13 @@ export default function VerticalBarChartWrapper({
     tickCount,
     yAxisInterval = 5,
     fillMissingWithZero = false,
+    colorField = null,
+    gridOverride = {},
+    barWidthOverride = null,
+    barMaxWidthOverride = null,
+    barCategoryGapOverride = null,
+    tooltipFormatter = null,
+    xAxisLabelRotate = 0,
     onClick,
 }) {
     const [labelStyle, setLabelStyle] = useState(getResponsiveLabelStyle());
@@ -154,16 +161,30 @@ export default function VerticalBarChartWrapper({
 
         seriesValueMap[field] = values;
 
+        const seriesData = colorField
+            ? values.map((v, i) => ({
+                value: v,
+                itemStyle: {
+                    color: data[i]?.[colorField] || seriesColor,
+                    borderRadius: chartTokens.barBorderRadius,
+                    borderColor: withAlpha(sidebarColors.background, 0.75),
+                    borderWidth: 1,
+                },
+            }))
+            : values;
+
         return {
             name: field,
             type: 'bar',
-            data: values,
-            itemStyle: {
-                color: seriesColor,
-                borderRadius: chartTokens.barBorderRadius,
-                borderColor: withAlpha(sidebarColors.background, 0.75),
-                borderWidth: 1,
-            },
+            data: seriesData,
+            ...(colorField ? {} : {
+                itemStyle: {
+                    color: seriesColor,
+                    borderRadius: chartTokens.barBorderRadius,
+                    borderColor: withAlpha(sidebarColors.background, 0.75),
+                    borderWidth: 1,
+                },
+            }),
             emphasis: {
                 focus: 'series',
                 itemStyle: {
@@ -172,14 +193,14 @@ export default function VerticalBarChartWrapper({
                     shadowBlur: 6,
                 },
             },
-            barWidth: isSingleSeries ? chartTokens.singleBarWidth : chartTokens.multiBarWidth,
-            barMaxWidth: isSingleSeries ? chartTokens.singleBarMaxWidth : chartTokens.multiBarMaxWidth,
+            barWidth: barWidthOverride ?? (isSingleSeries ? chartTokens.singleBarWidth : chartTokens.multiBarWidth),
+            barMaxWidth: barMaxWidthOverride ?? (isSingleSeries ? chartTokens.singleBarMaxWidth : chartTokens.multiBarMaxWidth),
             barGap: isSingleSeries ? '0%' : '10%',
-            barCategoryGap: isSingleSeries ? '42%' : '30%',
+            barCategoryGap: barCategoryGapOverride ?? (isSingleSeries ? '42%' : '30%'),
         };
     });
 
-    const series = isSingleSeries
+    const series = (isSingleSeries && !colorField)
         ? (() => {
             const field = seriesFields[0];
             const seriesColor = colorMap[field] || chartColors.series[0];
@@ -342,7 +363,7 @@ export default function VerticalBarChartWrapper({
             borderWidth: 1,
             extraCssText: `border-radius:8px;box-shadow:0 8px 24px ${withAlpha(sidebarColors.background, 0.55)};`,
             textStyle: { color: sidebarColors.textPrimary, ...fontStyles.bodySmall },
-            formatter: (params = []) => {
+            formatter: tooltipFormatter || ((params = []) => {
                 if (!params.length) return '';
                 let result = `<div style="padding:${chartTokens.tooltipHeaderPadY + 2}px ${chartTokens.tooltipHeaderPadX + 2}px ${chartTokens.tooltipHeaderPadY + 4}px ${chartTokens.tooltipHeaderPadX + 2}px;font-weight:${fontStyles.heading6?.fontWeight || 700};font-size:${fontStyles.body?.fontSize || '14px'};color:${sidebarColors.textPrimary};border-bottom:1px solid ${withAlpha(sidebarColors.border, 0.8)};margin-bottom:2px;">${params[0].axisValue}</div>`;
                 params.forEach((param) => {
@@ -357,7 +378,7 @@ export default function VerticalBarChartWrapper({
                     </div>`;
                 });
                 return result;
-            },
+            }),
         },
         legend: {
             show: seriesFields.length > 1,
@@ -379,6 +400,7 @@ export default function VerticalBarChartWrapper({
             bottom: chartTokens.gridBottom,
             containLabel: true,
             backgroundColor: sidebarColors.backgroundSoft,
+            ...gridOverride,
         },
         xAxis: {
             type: 'category',
@@ -414,6 +436,7 @@ export default function VerticalBarChartWrapper({
                     return label.length > 12 ? `${label.slice(0, 12)}..` : label;
                 },
                 hideOverlap: true,
+                ...(xAxisLabelRotate !== 0 ? { rotate: xAxisLabelRotate } : {}),
             },
             boundaryGap: true,
         },
@@ -422,7 +445,6 @@ export default function VerticalBarChartWrapper({
             ...baseAxisStyle(labelStyle, true),
             max: yAxisMax,
             minInterval: 1,
-            splitNumber: 5,
             axisLabel: {
                 ...baseAxisStyle(labelStyle, true).axisLabel,
                 formatter: (value) => {
