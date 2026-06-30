@@ -48,8 +48,6 @@ const Sidebar = ({
     if (onOpenChange) onOpenChange(newOpenState);
   };
 
-
-
   const cssVariables = {
     "--sidebar-background": sidebarColors.background,
     "--sidebar-border": sidebarColors.border,
@@ -200,7 +198,6 @@ const MenuItem = ({ item, open, cssVariables }) => {
     }
   };
 
-
   const closeFloatingMenu = () => {
     if (!open && hasChildren) {
       closeTimerRef.current = setTimeout(() => setHoverOpen(false), 120);
@@ -218,38 +215,8 @@ const MenuItem = ({ item, open, cssVariables }) => {
     };
   }, [showFloatingSubmenu]);
 
-  useEffect(() => {
-    if (!hoverOpen) return;
-
-    const handleClickOutside = (e) => {
-      if (!wrapperRef.current?.contains(e.target)) {
-        setHoverOpen(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [hoverOpen]);
-
-  // const handleItemClick = () => {
-  //   if (open && hasChildren) setSubOpen(!subOpen);
-  // };
-
-  const handleItemClick = (e) => {
-    if (!hasChildren) return;
-
-    e.preventDefault();
-    e.stopPropagation();
-
-    if (open) {
-      setSubOpen((prev) => !prev);
-    } else {
-      updateFloatingPosition();
-      setHoverOpen((prev) => !prev);
-    }
+  const handleItemClick = () => {
+    if (open && hasChildren) setSubOpen(!subOpen);
   };
 
   const renderMenuTarget = (menuItem, content, key) => {
@@ -276,8 +243,6 @@ const MenuItem = ({ item, open, cssVariables }) => {
     }
     return <Link key={key} to={menuPath}>{content}</Link>;
   };
-
-
 
   const menuContent = (
     <div
@@ -322,8 +287,8 @@ const MenuItem = ({ item, open, cssVariables }) => {
       ref={wrapperRef}
       // ✅ FIX: was `!showFloatingSubmenu` — inverted bug corrected
       className={`menu-item-wrapper ${showFloatingSubmenu ? "floating-open" : ""}`}
-      // onMouseEnter={openFloatingMenu}
-      // onMouseLeave={closeFloatingMenu}
+      onMouseEnter={openFloatingMenu}
+      onMouseLeave={closeFloatingMenu}
     >
       {hasChildren && !item.path ? (
         menuContent
@@ -361,8 +326,8 @@ const MenuItem = ({ item, open, cssVariables }) => {
               top: `${floatingPosition.top}px`,
               left: `${floatingPosition.left}px`,
             }}
-            // onMouseEnter={openFloatingMenu}
-            // onMouseLeave={closeFloatingMenu}
+            onMouseEnter={openFloatingMenu}
+            onMouseLeave={closeFloatingMenu}
           >
             <div className="floating-submenu-title">{item.title}</div>
             <div className="floating-submenu-items">
