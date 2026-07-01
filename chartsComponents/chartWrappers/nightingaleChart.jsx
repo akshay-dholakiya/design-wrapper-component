@@ -186,6 +186,7 @@ export function NightingaleChartWrapper({
                 radius: [radiusInner, radiusOuter],
                 center: ['50%', '48%'],
                 roseType: 'area',
+                roundCap: true,
                 itemStyle: { borderRadius: 8, borderColor: sidebarColors.background, borderWidth: 2 },
                 label: {
                     show: true,
