@@ -158,6 +158,7 @@ const MenuItem = ({ item, open, cssVariables }) => {
   const location = useLocation();
   const wrapperRef = useRef(null);
   const portalRef = useRef(null);
+  const closeTimerRef = useRef(null);
 
   const hasChildren = Boolean(item.children?.length);
   const isActionItem = typeof item.onClick === "function" && !item.path;
@@ -178,6 +179,12 @@ const MenuItem = ({ item, open, cssVariables }) => {
     setTooltipOpen(false);
   }, [open, isParentActive]);
 
+  useEffect(() => {
+    return () => {
+      if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
+    };
+  }, []);
+
   const updateFloatingPosition = () => {
     if (!wrapperRef.current) return;
     const rect = wrapperRef.current.getBoundingClientRect();
@@ -194,26 +201,34 @@ const MenuItem = ({ item, open, cssVariables }) => {
     const rect = wrapperRef.current.getBoundingClientRect();
     setTooltipPosition({
       top: rect.top + rect.height / 2,
-      left: rect.right + 10,
+      left: rect.right + 12,
     });
   };
 
-  // Hover only OPENS the floating submenu now — it no longer closes on
-  // mouse-out. Closing happens exclusively via outside click (or navigating).
+  // Hover both opens and closes the floating submenu again: entering cancels
+  // any pending close, leaving schedules a short-delay close (so moving the
+  // mouse from the trigger to the portal submenu doesn't flicker it shut).
   const openFloatingMenu = () => {
+    if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
     if (!open && hasChildren) {
       updateFloatingPosition();
       setFloatingOpen(true);
     }
   };
 
-  const closeFloatingMenu = () => {
+  const closeFloatingMenu = (immediate = false) => {
     if (!open && hasChildren) {
-      setFloatingOpen(false);
+      if (immediate) {
+        if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
+        setFloatingOpen(false);
+        return;
+      }
+      closeTimerRef.current = setTimeout(() => setFloatingOpen(false), 150);
     }
   };
 
   const toggleFloatingMenu = () => {
+    if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
     if (floatingOpen) {
       setFloatingOpen(false);
     } else {
@@ -377,6 +392,7 @@ const MenuItem = ({ item, open, cssVariables }) => {
           ref={wrapperRef}
           className={`menu-item-wrapper ${showFloatingSubmenu ? "floating-open" : ""}`}
           onMouseEnter={openFloatingMenu}
+          onMouseLeave={() => closeFloatingMenu(false)}
       >
         {hasChildren && !item.path ? (
             menuContent
@@ -417,6 +433,7 @@ const MenuItem = ({ item, open, cssVariables }) => {
                       left: `${floatingPosition.left}px`,
                     }}
                     onMouseEnter={openFloatingMenu}
+                    onMouseLeave={() => closeFloatingMenu(false)}
                 >
                   <div className="floating-submenu-title">{item.title}</div>
                   <div className="floating-submenu-items">
@@ -433,7 +450,7 @@ const MenuItem = ({ item, open, cssVariables }) => {
                             <span>{child.title}</span>
                           </div>,
                           `${item.title}-floating-${child.title}-${i}`,
-                          () => closeFloatingMenu() // close immediately after navigating
+                          () => closeFloatingMenu(true) // close immediately after navigating
                       );
                     })}
                   </div>
