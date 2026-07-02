@@ -444,4 +444,53 @@ color: var(--sidebar-danger);
 .toggle-button.expanded svg { transform: rotate(0deg); }
 .toggle-button.collapsed svg { transform: rotate(180deg); }
 
+.menu-item-content {
+    position: relative;
+}
+.menu-item-tooltip {
+    position: fixed;
+    transform: translateY(-50%);
+    z-index: 60;
+    pointer-events: none;
 
+    background: var(--sidebar-background);
+    color: var(--sidebar-text-primary);
+    font-size: 12.5px;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    white-space: nowrap;
+    padding: 6px 12px;
+    border-radius: 7px;
+    border: 1px solid var(--sidebar-border);
+
+    box-shadow:
+            0 4px 12px rgba(0, 0, 0, 0.18),
+            0 1px 3px rgba(0, 0, 0, 0.10);
+
+    animation: sidebarTooltipIn 0.14s ease-out;
+}
+
+.menu-item-tooltip::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: -5px;
+    transform: translateY(-50%) rotate(45deg);
+    width: 8px;
+    height: 8px;
+    background: var(--sidebar-background);
+    border-left: 1px solid var(--sidebar-border);
+    border-bottom: 1px solid var(--sidebar-border);
+    border-radius: 1.5px;
+}
+
+@keyframes sidebarTooltipIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50%) translateX(-4px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(-50%) translateX(0);
+    }
+}
