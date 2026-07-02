@@ -1106,7 +1106,7 @@ export default function GeoLocationMapWrapper({
                     <h3 style={{ ...fontStyles.heading6, color: sidebarColors.textPrimary, margin: `0 0 ${spacing.sm}` }}>
                         Recent High/Critical Connections
                     </h3>
-                    <div className={'custom-scrollbar'} style={{ display: 'grid', gap: spacing.sm, maxHeight: 220, overflowY: 'auto',paddingRight: '8x' }}>
+                    <div className={'custom-scrollbar'} style={{ display: 'grid', gap: spacing.sm, maxHeight: 220, overflowY: 'auto',paddingRight: '8px' }}>
                         {logEntries.slice(0, 5).map((entry, idx) => (
                             <div
                                 key={`${entry.timestamp || idx}-${idx}`}
