@@ -52,6 +52,7 @@ export function NightingaleChartWrapper({
     onClick,
 }) {
     const containerRef = useRef(null);
+    const chartRef = useRef(null);
     const [ready, setReady] = useState(false);
 
     useEffect(() => {
@@ -61,7 +62,30 @@ export function NightingaleChartWrapper({
         };
         checkSize();
         window.addEventListener('resize', checkSize);
-        return () => window.removeEventListener('resize', checkSize);
+
+        const el = containerRef.current;
+        let rafId = null;
+        let observer = null;
+        if (el) {
+            observer = new ResizeObserver((entries) => {
+                const entry = entries[0];
+                if (entry) {
+                    const { width, height } = entry.contentRect;
+                    setReady(width > 0 && height > 0);
+                    if (rafId !== null) cancelAnimationFrame(rafId);
+                    rafId = requestAnimationFrame(() => {
+                        chartRef.current?.getEchartsInstance()?.resize();
+                    });
+                }
+            });
+            observer.observe(el);
+        }
+
+        return () => {
+            window.removeEventListener('resize', checkSize);
+            if (rafId !== null) cancelAnimationFrame(rafId);
+            observer?.disconnect();
+        };
     }, []);
 
     const hasData = Array.isArray(data) && data.length > 0;
@@ -216,6 +240,7 @@ export function NightingaleChartWrapper({
         <div ref={containerRef} style={{ width: '100%', height }}>
             {ready && (
                 <ReactECharts
+                    ref={chartRef}
                     option={option}
                     style={{ width: '100%', height: '100%' }}
                     notMerge

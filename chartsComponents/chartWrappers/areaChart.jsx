@@ -29,21 +29,30 @@ export default function AreaChartWrapper({
     onClick,
 }) {
     const containerRef = useRef(null);
+    const chartRef = useRef(null);
     const [ready, setReady] = useState(false);
 
     useEffect(() => {
         const el = containerRef.current;
         if (!el) return;
 
+        let rafId = null;
         const observer = new ResizeObserver((entries) => {
             const { width, height } = entries[0].contentRect;
             setReady(width > 0 && height > 0);
+            if (rafId !== null) cancelAnimationFrame(rafId);
+            rafId = requestAnimationFrame(() => {
+                chartRef.current?.getEchartsInstance()?.resize();
+            });
         });
 
         observer.observe(el);
         setReady(el.clientWidth > 0 && el.clientHeight > 0);
 
-        return () => observer.disconnect();
+        return () => {
+            if (rafId !== null) cancelAnimationFrame(rafId);
+            observer.disconnect();
+        };
     }, []);
 
     const hasData = Array.isArray(data) && data.length > 0;
@@ -116,6 +125,7 @@ export default function AreaChartWrapper({
             ) : hasData ? (
                 ready && (
                     <ReactECharts
+                        ref={chartRef}
                         option={option}
                         style={{ width: '100%', height: '100%' }}
                         onEvents={onClick ? { click: onClick } : {}}

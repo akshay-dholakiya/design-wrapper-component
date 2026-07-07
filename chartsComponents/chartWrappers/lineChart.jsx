@@ -103,6 +103,7 @@ export default function LineChartWrapper({
 }) {
     const [labelStyle, setLabelStyle] = useState(getResponsiveLabelStyle());
     const containerRef = useRef(null);
+    const chartRef = useRef(null);
     const [ready, setReady] = useState(false);
 
     useEffect(() => {
@@ -111,17 +112,23 @@ export default function LineChartWrapper({
 
         const el = containerRef.current;
         if (el) {
+            let rafId = null;
             const observer = new ResizeObserver((entries) => {
                 const entry = entries[0];
                 if (entry) {
                     const { width, height } = entry.contentRect;
                     setReady(width > 0 && height > 0);
+                    if (rafId !== null) cancelAnimationFrame(rafId);
+                    rafId = requestAnimationFrame(() => {
+                        chartRef.current?.getEchartsInstance()?.resize();
+                    });
                 }
             });
             observer.observe(el);
             setReady(el.clientWidth > 0 && el.clientHeight > 0);
             return () => {
                 window.removeEventListener('resize', handleResize);
+                if (rafId !== null) cancelAnimationFrame(rafId);
                 observer.disconnect();
             };
         }
@@ -324,6 +331,7 @@ export default function LineChartWrapper({
     const chartContent = children || (
         ready && (
             <ReactECharts
+                ref={chartRef}
                 option={option}
                 style={{ width: '100%', height: '100%' }}
                 onEvents={onClick ? { click: onClick } : {}}

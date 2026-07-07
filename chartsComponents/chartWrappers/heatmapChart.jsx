@@ -41,22 +41,31 @@ export function HeatmapChartWrapper({
     noDataComponent = 'No heatmap data',
 }) {
     const containerRef = useRef(null);
+    const chartRef = useRef(null);
     const [ready, setReady] = useState(false);
     const c = getLiveSidebarColors();
 
     useEffect(() => {
         const el = containerRef.current;
         if (!el) return;
+        let rafId = null;
         const observer = new ResizeObserver((entries) => {
             const entry = entries[0];
             if (entry) {
                 const { width, height: h } = entry.contentRect;
                 setReady(width > 0 && h > 0);
+                if (rafId !== null) cancelAnimationFrame(rafId);
+                rafId = requestAnimationFrame(() => {
+                    chartRef.current?.getEchartsInstance()?.resize();
+                });
             }
         });
         observer.observe(el);
         setReady(el.clientWidth > 0 && el.clientHeight > 0);
-        return () => observer.disconnect();
+        return () => {
+            if (rafId !== null) cancelAnimationFrame(rafId);
+            observer.disconnect();
+        };
     }, []);
 
     const hasData = Array.isArray(data) && data.length > 0;
@@ -243,6 +252,7 @@ export function HeatmapChartWrapper({
 
                     {ready && (
                         <ReactECharts
+                            ref={chartRef}
                             option={option}
                             style={{ width: '100%', height: resolvedHeight }}
                             notMerge
