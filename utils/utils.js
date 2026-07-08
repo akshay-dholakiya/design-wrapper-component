@@ -7,3 +7,19 @@ export const hex2rgba = (hex, a = 1) => {
     const b = parseInt(full.slice(4, 6), 16);
     return `rgba(${r}, ${g}, ${b}, ${a})`;
 };
+
+export const hasPermission = ({
+                                  permissions = [],
+                                  permission,
+                                  any = false,
+                              }) => {
+    if (!permission) return true;
+
+    const requiredPermissions = Array.isArray(permission)
+        ? permission
+        : [permission];
+
+    return any
+        ? requiredPermissions.some((p) => permissions.includes(p))
+        : requiredPermissions.every((p) => permissions.includes(p));
+};
