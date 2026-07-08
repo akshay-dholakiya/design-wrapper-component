@@ -15,3 +15,5 @@ export * from "@design-pattern/chartsComponents/chartWrappers/exploitAttemptsCar
 export * from "@design-pattern/chartsComponents/chartWrappers/malwareThreatActorsCard.jsx";
 export * from "@design-pattern/chartsComponents/chartWrappers/nightingaleChart.jsx";
 export * from "@design-pattern/chartsComponents/chartWrappers/heatmapChart.jsx";
+export * from "@design-pattern/chartsComponents/chartWrappers/polarBarChart.jsx";
+export * from "@design-pattern/chartsComponents/chartWrappers/treemapChart.jsx";
