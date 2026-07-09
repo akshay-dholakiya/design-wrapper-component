@@ -7,17 +7,17 @@
  */
 
 // Components
-export { default as Button } from './Button';
-export { default as Sidebar } from './Sidebar';
-export { default as RightSidebar } from './components/RightSidebar.jsx';
-export { default as BaseAccordion } from './components/BaseAccordion.jsx';
-export { default as PageLoader } from './PageLoader';
-export { default as UnifiedSelect } from './UnifiedSelect';
-export { default as AppInput } from './AppInput';
-export { default as StatsCard } from './StatsCard';
-export { default as Tabs } from './Tabs';
-export { default as ColumnVisibilityMenu } from './ColumnVisibilityMenu';
-export { ToastProvider, useToast } from './components/toast/toastContext.jsx';
+export { default as Button } from './components/buttons/Button';
+export { default as Sidebar } from './components/navigation/Sidebar';
+export { default as RightSidebar } from './components/navigation/RightSidebar.jsx';
+export { default as BaseAccordion } from './components/layout/BaseAccordion.jsx';
+export { default as PageLoader } from './components/loaders/PageLoader';
+export { default as UnifiedSelect } from './components/inputs/UnifiedSelect';
+export { default as AppInput } from './components/inputs/AppInput';
+export { default as StatsCard } from './components/cards/StatsCard';
+export { default as Tabs } from './components/navigation/Tabs';
+export { default as ColumnVisibilityMenu } from './components/table/ColumnVisibilityMenu';
+export { ToastProvider, useToast } from './components/feedback/toast/toastContext.jsx';
 
 // Color Tokens
 export {
@@ -26,7 +26,7 @@ export {
   fontStyles,
   sidebarClasses,
   panelSummaryColors,
-} from './colors';
+} from './theme/colors';
 
 // Spacing & Layout Tokens
 export {
@@ -35,10 +35,10 @@ export {
   borderRadius,
   layout,
   zIndex,
-} from './spacing';
+} from './theme/spacing';
 
 // Common Styles (pre-built style objects)
-export { default as commonStyles } from './commonStyles';
+export { default as commonStyles } from './theme/commonStyles';
 export {
   // Typography
   widgetTitleStyles,
@@ -68,11 +68,11 @@ export {
   dividerStyles,
   hoverBackgroundColor,
   hoverTextColor,
-} from './commonStyles';
+} from './theme/commonStyles';
 
 // Side panel tokens
 export {
   sidePanelTheme,
   summaryTone,
   severityBadgeStyle,
-} from './sidePanelTheme';
+} from './theme/sidePanelTheme';
