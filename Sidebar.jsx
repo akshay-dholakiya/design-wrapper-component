@@ -32,6 +32,42 @@ const logoutIcon = (
     </svg>
 );
 
+const fullscreenIcon = (
+    <svg
+        className="fullscreen-item-icon"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2.25"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        aria-hidden="true"
+    >
+      <path d="M8 3H5a2 2 0 0 0-2 2v3" />
+      <path d="M16 3h3a2 2 0 0 1 2 2v3" />
+      <path d="M8 21H5a2 2 0 0 1-2-2v-3" />
+      <path d="M16 21h3a2 2 0 0 0 2-2v-3" />
+    </svg>
+);
+
+const exitFullscreenIcon = (
+    <svg
+        className="fullscreen-item-icon"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2.25"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        aria-hidden="true"
+    >
+      <path d="M9 3v3a2 2 0 0 1-2 2H4" />
+      <path d="M15 3v3a2 2 0 0 0 2 2h3" />
+      <path d="M9 21v-3a2 2 0 0 0-2-2H4" />
+      <path d="M15 21v-3a2 2 0 0 1 2-2h3" />
+    </svg>
+);
+
 const Sidebar = ({
                    menuItems = [],
                    bottomMenuItems = [],
@@ -41,11 +77,28 @@ const Sidebar = ({
                    onLogout,
                  }) => {
   const [open, setOpen] = useState(false);
+  const [isFullscreen, setIsFullscreen] = useState(
+      () => typeof document !== "undefined" && Boolean(document.fullscreenElement)
+  );
 
   const handleToggle = () => {
     const newOpenState = !open;
     setOpen(newOpenState);
     if (onOpenChange) onOpenChange(newOpenState);
+  };
+
+  useEffect(() => {
+    const handleFullscreenChange = () => setIsFullscreen(Boolean(document.fullscreenElement));
+    document.addEventListener("fullscreenchange", handleFullscreenChange);
+    return () => document.removeEventListener("fullscreenchange", handleFullscreenChange);
+  }, []);
+
+  const toggleFullscreen = () => {
+    if (document.fullscreenElement) {
+      document.exitFullscreen();
+    } else {
+      document.documentElement.requestFullscreen();
+    }
   };
 
   const cssVariables = {
@@ -86,6 +139,11 @@ const Sidebar = ({
 
   const resolvedBottomMenuItems = [
     ...bottomMenuItems,
+    {
+      title: isFullscreen ? "Exit Full Screen" : "Full Screen",
+      icon: isFullscreen ? exitFullscreenIcon : fullscreenIcon,
+      onClick: toggleFullscreen,
+    },
     ...(canLogout
         ? [{ title: "Logout", icon: logoutIcon, variant: "danger", onClick: onLogout }]
         : []),
