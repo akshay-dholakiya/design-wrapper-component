@@ -4,10 +4,17 @@ export const getCookie = (name) => {
     return match ? decodeURIComponent(match[1]) : null;
 };
 
+// Shares the cookie across all *.eagleyesoc.ai subdomains (edr, soar, ioc, dashboard, ...)
+const getCookieDomain = () => {
+    if (typeof window === "undefined") return "";
+    const { hostname } = window.location;
+    return hostname.endsWith("eagleyesoc.ai") ? "; domain=.eagleyesoc.ai" : "";
+};
+
 export const setCookie = (name, value, days = 365) => {
     if (typeof document === "undefined") return;
     const expires = new Date(Date.now() + days * 24 * 60 * 60 * 1000).toUTCString();
-    document.cookie = `${name}=${encodeURIComponent(value)}; expires=${expires}; path=/; SameSite=Lax`;
+    document.cookie = `${name}=${encodeURIComponent(value)}; expires=${expires}; path=/; SameSite=Lax${getCookieDomain()}`;
 };
 
 export const hex2rgba = (hex, a = 1) => {
