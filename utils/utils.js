@@ -1,3 +1,15 @@
+export const getCookie = (name) => {
+    if (typeof document === "undefined") return null;
+    const match = document.cookie.match(new RegExp(`(?:^|; )${name}=([^;]*)`));
+    return match ? decodeURIComponent(match[1]) : null;
+};
+
+export const setCookie = (name, value, days = 365) => {
+    if (typeof document === "undefined") return;
+    const expires = new Date(Date.now() + days * 24 * 60 * 60 * 1000).toUTCString();
+    document.cookie = `${name}=${encodeURIComponent(value)}; expires=${expires}; path=/; SameSite=Lax`;
+};
+
 export const hex2rgba = (hex, a = 1) => {
     if (typeof hex !== "string" || !hex.startsWith("#")) return hex;
     const h = hex.replace("#", "");

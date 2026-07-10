@@ -3,20 +3,21 @@ import * as ocean from "./themes/ocean.jsx";
 import * as sentinel from "./themes/sentinel.jsx";
 import * as emerald from "./themes/emerald.jsx";
 import * as signal from "./themes/signal.jsx";
+import { getCookie } from "../utils/utils.js";
 
 const themeMap = {
     sentinel,
     emerald,
     ocean,
     signal,
-    // ── Legacy key aliases (preserves existing localStorage values) ──
+    // ── Legacy key aliases (preserves existing cookie values) ──
     theam1: ocean,
 };
 
-// Safe localStorage read — returns default during SSR where window is undefined
+// Safe cookie read — returns default during SSR where document is undefined
 const getThemeKey = () => {
     if (typeof window === "undefined") return "ocean"; // SSR: EagleEye brand theme is the default
-    return localStorage.getItem("theme") || "ocean";
+    return getCookie("theme") || "ocean";
 };
 
 const themeKey = getThemeKey();
@@ -42,12 +43,12 @@ export {
 export default sidebarColors;
 
 /**
- * getLiveSidebarColors — reads current localStorage theme on every call.
+ * getLiveSidebarColors — reads current theme cookie on every call.
  * Use inside React component bodies to get theme-accurate colors on every render.
  * Bypasses the module-level cache that is frozen at SSR time.
  */
 export const getLiveSidebarColors = () => {
     if (typeof window === "undefined") return themeMap["ocean"].default;
-    const key = localStorage.getItem("theme") || "ocean";
+    const key = getCookie("theme") || "ocean";
     return (themeMap[key] || themeMap["ocean"]).default;
 };

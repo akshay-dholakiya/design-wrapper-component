@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { sidebarColors as _sidebarColors, getLiveSidebarColors } from "@design-pattern/theme/colors.js";
+import { getCookie, setCookie } from "@design-pattern/utils/utils.js";
 
 const themes = [
   { name: 'Horizon',   bg: 'linear-gradient(135deg, #050d1a 0%, #0ea5e9 100%)',                 key: 'ocean'    },
@@ -35,7 +36,7 @@ export const ThemeSelection = () => {
   // Patch to real client values after first paint — runs only on client
   useEffect(() => {
     setMounted(true);
-    setSelected(localStorage.getItem('theme') || 'ocean');
+    setSelected(getCookie('theme') || 'ocean');
     const savedY = localStorage.getItem('themeBtnY');
     if (savedY !== null) {
       const parsed = parseFloat(savedY);
@@ -158,8 +159,8 @@ export const ThemeSelection = () => {
               <button
                 key={t.name}
                 onClick={() => {
-                  // Event handlers are browser-only — localStorage/window are safe here
-                  localStorage.setItem('theme', t.key);
+                  // Event handlers are browser-only — cookie/window are safe here
+                  setCookie('theme', t.key);
                   setSelected(t.key);
                   // applyTheme(t.key); // apply all CSS vars instantly before reload
                   window.location.reload();
