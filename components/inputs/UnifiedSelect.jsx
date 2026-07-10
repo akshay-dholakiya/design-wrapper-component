@@ -28,7 +28,8 @@
  *   size           – "sm" | "md" (default: "md")
  */
 
-import React, { useState, useRef, useEffect, useCallback } from 'react';
+import React, { useState, useRef, useEffect, useLayoutEffect, useCallback } from 'react';
+import { createPortal } from 'react-dom';
 import sidebarColors from '../../theme/colors';
 import { borderRadius, componentSpacing, spacing } from '../../theme/spacing';
 import { fontStyles } from '../../theme/colors';
@@ -235,7 +236,9 @@ function CustomSelect({
   const [search, setSearch] = useState('');
   const [highlighted, setHighlighted] = useState(-1);
   const [focused, setFocused] = useState(false);
+  const [menuRect, setMenuRect] = useState(null);
   const containerRef = useRef(null);
+  const triggerRef = useRef(null);
   const searchRef = useRef(null);
   const menuRef = useRef(null);
 
@@ -251,11 +254,33 @@ function CustomSelect({
 
   const base = size === 'sm' ? BASE_SM : BASE_MD;
 
-  // Close on outside click
+  // The menu portals to document.body (see below) so it isn't clipped by an
+  // ancestor with overflow:hidden (e.g. an AG Grid cell) — it needs its own
+  // fixed-position coordinates instead of relying on the trigger's normal
+  // document flow, recomputed on scroll/resize while open.
+  useLayoutEffect(() => {
+    if (!open) return;
+    const updateRect = () => {
+      const rect = triggerRef.current?.getBoundingClientRect();
+      if (rect) setMenuRect({ top: rect.bottom + 4, left: rect.left, width: rect.width });
+    };
+    updateRect();
+    window.addEventListener('scroll', updateRect, true);
+    window.addEventListener('resize', updateRect);
+    return () => {
+      window.removeEventListener('scroll', updateRect, true);
+      window.removeEventListener('resize', updateRect);
+    };
+  }, [open]);
+
+  // Close on outside click — the menu itself now lives in a portal outside
+  // containerRef's subtree, so it must be checked separately.
   useEffect(() => {
     if (!open) return;
     const handler = (e) => {
-      if (containerRef.current && !containerRef.current.contains(e.target)) {
+      const insideTrigger = containerRef.current && containerRef.current.contains(e.target);
+      const insideMenu = menuRef.current && menuRef.current.contains(e.target);
+      if (!insideTrigger && !insideMenu) {
         setOpen(false);
         setSearch('');
         setHighlighted(-1);
@@ -352,6 +377,7 @@ function CustomSelect({
     >
       {/* Trigger button */}
       <button
+        ref={triggerRef}
         type="button"
         disabled={disabled}
         style={triggerStyle}
@@ -414,22 +440,33 @@ function CustomSelect({
         </svg>
       </button>
 
-      {/* Dropdown menu */}
-      {open && (
+      {/* Dropdown menu — portaled to document.body so it isn't clipped by an
+          ancestor with overflow:hidden (e.g. an AG Grid cell); positioned via
+          menuRect (the trigger's live bounding rect) instead of normal flow. */}
+      {open && menuRect && typeof document !== 'undefined' && createPortal(
         <div
           ref={menuRef}
           role="listbox"
+          className="unified-select-menu"
           style={{
             ...MENU_BASE,
-            position: 'absolute',
-            top: 'calc(100% + 4px)',
-            left: 0,
-            right: 0,
+            position: 'fixed',
+            top: menuRect.top,
+            left: menuRect.left,
+            width: menuRect.width,
             maxHeight: '240px',
             overflowY: 'auto',
+            scrollbarColor: `${sidebarColors.border} transparent`,
+            scrollbarWidth: 'thin',
             ...menuStyle,
           }}
         >
+          <style>{`
+            .unified-select-menu::-webkit-scrollbar { width: 8px; }
+            .unified-select-menu::-webkit-scrollbar-track { background: transparent; }
+            .unified-select-menu::-webkit-scrollbar-thumb { background: ${sidebarColors.border}; border-radius: 4px; }
+            .unified-select-menu::-webkit-scrollbar-thumb:hover { background: ${sidebarColors.primaryFrom}; }
+          `}</style>
           {/* Search input */}
           {searchable && (
             <div
@@ -538,7 +575,8 @@ function CustomSelect({
               );
             })
           )}
-        </div>
+        </div>,
+        document.body
       )}
     </div>
   );
