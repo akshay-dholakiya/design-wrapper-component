@@ -56,10 +56,11 @@ export const Permission ={
         SETTING_WRITE: "edr:setting_write",
         ACTION_READ: "edr:action_read",
         NOTIFICATION_DELETE: "edr:notification_delete",
-        CUSTOM_RULES_READ: "edr:custom_rules_read",
-        CUSTOM_RULE_WRITE: "edr:custom_rule_write",
-        CUSTOM_RULE_UPDATE: "edr:custom_rule_update",
-        CUSTOM_RULE_DELETE: "edr:custom_rule_delete",
+        CUSTOM_RULES_READ: "edr:customRules_read",
+        CUSTOM_RULE_WRITE: "edr:customRule_write",
+        CUSTOM_RULE_UPDATE: "edr:customRule_update",
+        CUSTOM_RULE_DELETE: "edr:customRule_delete",
+        DASHBOARD_READ: "edr:dashboard_read",
     },
 
     TI: {
