@@ -30,6 +30,7 @@ const px = (value, fallback = 0) => {
 const tokens = {
     tooltipPadY: px(spacing.xs, 4),
     tooltipPadX: px(spacing.sm, 8),
+    legendGap: px(spacing.lg, 16),
 };
 
 export default function PolarBarChartWrapper({
@@ -42,6 +43,7 @@ export default function PolarBarChartWrapper({
     colorMap = {},
     colors = [],
     height = 400,
+    showLegend = true,
     onClick,
 }) {
     const containerRef = useRef(null);
@@ -98,19 +100,32 @@ export default function PolarBarChartWrapper({
         const color = colorMap?.[categories[index]] || colors[index] || themeSeriesColors[index % themeSeriesColors.length];
         return {
             value: Number.isFinite(value) ? value : 0,
-            itemStyle: { color, borderRadius: 4 },
+            color,
             raw: item,
         };
     });
 
     const maxValue = Math.max(1, ...seriesData.map((d) => d.value));
 
+    const series = seriesData.map((d, index) => ({
+        name: categories[index],
+        type: 'bar',
+        coordinateSystem: 'polar',
+        roundCap: true,
+        itemStyle: { color: d.color, borderRadius: 4 },
+        data: seriesData.map((_, i) => (i === index ? { value: d.value, raw: d.raw } : { value: 0 })),
+        emphasis: {
+            focus: 'self',
+            itemStyle: { shadowBlur: 10, shadowColor: withAlpha(sidebarColors.primary, 0.4) },
+        },
+    }));
+
     const option = {
         backgroundColor: 'transparent',
         animationDuration: 650,
         animationEasing: 'cubicOut',
         polar: {
-            radius: [30, '70%'],
+            radius: showLegend ? [30, '62%'] : [30, '70%'],
         },
         angleAxis: {
             type: 'category',
@@ -148,18 +163,21 @@ export default function PolarBarChartWrapper({
                 return `<div style="padding:${tokens.tooltipPadY + 2}px ${tokens.tooltipPadX + 4}px;font-weight:${fontStyles.heading6?.fontWeight || 700};color:${sidebarColors.textPrimary};">${name}: ${value}</div>`;
             },
         },
-        series: [
-            {
-                type: 'bar',
-                coordinateSystem: 'polar',
-                data: seriesData,
-                roundCap: true,
-                emphasis: {
-                    focus: 'self',
-                    itemStyle: { shadowBlur: 10, shadowColor: withAlpha(sidebarColors.primary, 0.4) },
-                },
-            },
-        ],
+        legend: showLegend
+            ? {
+                  type: 'scroll',
+                  bottom: 0,
+                  left: 'center',
+                  orient: 'horizontal',
+                  textStyle: { color: sidebarColors.textPrimary, ...fontStyles.bodySmall },
+                  pageTextStyle: { color: sidebarColors.textSecondary },
+                  pageIconColor: sidebarColors.primary,
+                  pageIconInactiveColor: sidebarColors.textMuted,
+                  itemGap: tokens.legendGap,
+                  data: categories,
+              }
+            : { show: false },
+        series,
     };
 
     return (
