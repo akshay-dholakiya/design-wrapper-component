@@ -161,7 +161,7 @@ const EagleEyeLoader = ({
           {/* Logo */}
           <img
             src={logo}
-            alt="EagleEye Logo"
+            alt="Eagleye Logo"
             style={logoStyle}
           />
         </div>        {showText && (
