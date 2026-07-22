@@ -4,20 +4,6 @@ import sidebarColors, { chartColors, fontStyles } from '../../theme/colors';
 import { spacing } from '../../theme/spacing';
 import EagleEyeLoader from './EagleEyeLoader';
 
-const withAlpha = (hex, alpha) => {
-    if (typeof hex !== 'string') return hex;
-    if (hex.startsWith('rgba') || hex.startsWith('rgb')) return hex;
-    const normalized = hex.replace('#', '');
-    if (![3, 6].includes(normalized.length)) return hex;
-    const full = normalized.length === 3
-        ? normalized.split('').map((ch) => `${ch}${ch}`).join('')
-        : normalized;
-    const r = parseInt(full.slice(0, 2), 16);
-    const g = parseInt(full.slice(2, 4), 16);
-    const b = parseInt(full.slice(4, 6), 16);
-    return `rgba(${r}, ${g}, ${b}, ${alpha})`;
-};
-
 const px = (value, fallback = 0) => {
     if (typeof value === 'number') return value;
     if (typeof value === 'string' && value.endsWith('px')) {
@@ -34,16 +20,8 @@ const chartTokens = {
     multiBarWidth: '16%',
     singleBarMaxWidth: 48,
     multiBarMaxWidth: 24,
-    barBorderRadius: 6,
-    tooltipHeaderPadY: px(spacing.xs, 4),
-    tooltipHeaderPadX: px(spacing.sm, 8),
-    tooltipRowPadY: px(spacing.none, 0),
-    tooltipRowPadX: px(spacing.sm, 8),
-    tooltipDotSize: px(spacing.sm, 8),
-    tooltipDotGap: px(spacing.sm, 8),
-    tooltipValueGap: px(spacing.sm, 8),
+    barBorderRadius: [4, 4, 0, 0],
     legendItemGap: px(spacing.xl, 20),
-    legendPadding: px(spacing.xs, 4),
     gridLeft: px(spacing['5xl'], 48),
     gridRight: px(spacing['3xl'], 32),
     gridTop: px(spacing['3xl'], 32),
@@ -68,15 +46,15 @@ const getResponsiveLabelStyle = () => {
 
 const baseAxisStyle = (labelStyle, isYAxis = false) => ({
     axisLabel: {
-        color: withAlpha(sidebarColors.textPrimary, 0.9),
+        color: sidebarColors.textPrimary,
         ...labelStyle,
         margin: isYAxis ? chartTokens.labelMarginY : chartTokens.labelMarginX,
     },
-    axisLine: { lineStyle: { color: withAlpha(chartColors.ui.axis, 0.7) } },
+    axisLine: { lineStyle: { color: chartColors.ui.axis } },
     axisTick: { show: false },
     splitLine: {
         show: isYAxis,
-        lineStyle: { color: withAlpha(chartColors.ui.grid, 0.22) },
+        lineStyle: { color: chartColors.ui.grid },
     },
 });
 
@@ -155,7 +133,7 @@ export default function VerticalBarChartWrapper({
 
     const seriesValueMap = {};
 
-    const baseSeries = seriesFields.map((field, index) => {
+    const series = seriesFields.map((field, index) => {
         const seriesColor = colorMap[field] || chartColors.series[index % chartColors.series.length];
         const values = data.map((item) => {
             const rawValue = item?.[field];
@@ -174,8 +152,6 @@ export default function VerticalBarChartWrapper({
                 itemStyle: {
                     color: data[i]?.[colorField] || seriesColor,
                     borderRadius: chartTokens.barBorderRadius,
-                    borderColor: withAlpha(sidebarColors.background, 0.75),
-                    borderWidth: 1,
                 },
             }))
             : values;
@@ -188,17 +164,11 @@ export default function VerticalBarChartWrapper({
                 itemStyle: {
                     color: seriesColor,
                     borderRadius: chartTokens.barBorderRadius,
-                    borderColor: withAlpha(sidebarColors.background, 0.75),
-                    borderWidth: 1,
                 },
             }),
             emphasis: {
                 focus: 'series',
-                itemStyle: {
-                    color: withAlpha(seriesColor, 0.9),
-                    shadowColor: withAlpha(seriesColor, 0.45),
-                    shadowBlur: 6,
-                },
+                itemStyle: { opacity: 0.85 },
             },
             barWidth: barWidthOverride ?? (isSingleSeries ? chartTokens.singleBarWidth : chartTokens.multiBarWidth),
             barMaxWidth: barMaxWidthOverride ?? (isSingleSeries ? chartTokens.singleBarMaxWidth : chartTokens.multiBarMaxWidth),
@@ -206,137 +176,6 @@ export default function VerticalBarChartWrapper({
             barCategoryGap: barCategoryGapOverride ?? (isSingleSeries ? '42%' : '30%'),
         };
     });
-
-    const series = (isSingleSeries && !colorField)
-        ? (() => {
-            const field = seriesFields[0];
-            const seriesColor = colorMap[field] || chartColors.series[0];
-            const values = seriesValueMap[field] || [];
-            const prismData = values.map((value, idx) => [idx, Number(value) || 0]);
-
-            return [
-                {
-                    name: field,
-                    type: 'bar',
-                    data: values,
-                    barWidth: chartTokens.singleBarWidth,
-                    barMaxWidth: chartTokens.singleBarMaxWidth,
-                    barGap: '0%',
-                    barCategoryGap: '42%',
-                    itemStyle: {
-                        borderRadius: [4, 4, 0, 0],
-                        borderColor: withAlpha(seriesColor, 0.88),
-                        borderWidth: 1,
-                        color: {
-                            type: 'linear',
-                            x: 0,
-                            y: 0,
-                            x2: 0,
-                            y2: 1,
-                            colorStops: [
-                                { offset: 0, color: withAlpha(seriesColor, 0.9) },
-                                { offset: 0.55, color: withAlpha(seriesColor, 0.66) },
-                                { offset: 1, color: withAlpha(seriesColor, 0.48) },
-                            ],
-                        },
-                    },
-                    label: {
-                        show: true,
-                        position: 'top',
-                        formatter: ({ value }) => `${value}`,
-                        distance: 16,
-                        color: withAlpha(seriesColor, 0.98),
-                        fontSize: 18,
-                        fontWeight: 800,
-                        ...fontStyles.smoothing,
-                    },
-                    emphasis: {
-                        focus: 'series',
-                        itemStyle: {
-                            shadowColor: withAlpha(seriesColor, 0.28),
-                            shadowBlur: 4,
-                        },
-                    },
-                    z: 2,
-                },
-                {
-                    name: `${field}-right-face`,
-                    type: 'custom',
-                    data: prismData,
-                    renderItem: (params, api) => {
-                        const categoryIndex = api.value(0);
-                        const value = api.value(1);
-                        if (!Number.isFinite(value) || value <= 0) return null;
-
-                        const top = api.coord([categoryIndex, value]);
-                        const bottom = api.coord([categoryIndex, 0]);
-                        const categorySize = api.size([1, 0])[0];
-                        const halfBar = Math.min(categorySize * 0.17, 24);
-                        const depthX = Math.max(6, Math.min(10, categorySize * 0.1));
-                        const depthY = Math.max(4, Math.min(8, categorySize * 0.08));
-                        const rightX = top[0] + halfBar;
-
-                        return {
-                            type: 'polygon',
-                            shape: {
-                                points: [
-                                    [rightX, top[1]],
-                                    [rightX + depthX, top[1] - depthY],
-                                    [rightX + depthX, bottom[1] - depthY],
-                                    [rightX, bottom[1]],
-                                ],
-                            },
-                            style: {
-                                fill: withAlpha(seriesColor, 0.28),
-                                stroke: withAlpha(seriesColor, 0.55),
-                                lineWidth: 1,
-                            },
-                        };
-                    },
-                    silent: true,
-                    tooltip: { show: false },
-                    z: 3,
-                },
-                {
-                    name: `${field}-top-face`,
-                    type: 'custom',
-                    data: prismData,
-                    renderItem: (params, api) => {
-                        const categoryIndex = api.value(0);
-                        const value = api.value(1);
-                        if (!Number.isFinite(value) || value <= 0) return null;
-
-                        const top = api.coord([categoryIndex, value]);
-                        const categorySize = api.size([1, 0])[0];
-                        const halfBar = Math.min(categorySize * 0.17, 24);
-                        const depthX = Math.max(6, Math.min(10, categorySize * 0.1));
-                        const depthY = Math.max(4, Math.min(8, categorySize * 0.08));
-                        const leftX = top[0] - halfBar;
-                        const rightX = top[0] + halfBar;
-
-                        return {
-                            type: 'polygon',
-                            shape: {
-                                points: [
-                                    [leftX, top[1]],
-                                    [rightX, top[1]],
-                                    [rightX + depthX, top[1] - depthY],
-                                    [leftX + depthX, top[1] - depthY],
-                                ],
-                            },
-                            style: {
-                                fill: withAlpha(seriesColor, 0.5),
-                                stroke: withAlpha(seriesColor, 0.78),
-                                lineWidth: 1,
-                            },
-                        };
-                    },
-                    tooltip: { show: false },
-                    z: 4,
-                },
-            ];
-        })()
-        : baseSeries;
 
     const numericValues = Object.values(seriesValueMap).flatMap((values) =>
         (Array.isArray(values) ? values : []).filter((v) => typeof v === 'number' && Number.isFinite(v)),
@@ -349,39 +188,28 @@ export default function VerticalBarChartWrapper({
         ? Math.ceil(categories.length / tickCount) - 1
         : 0;
 
-    const displaySeries = series;
-
     const option = {
         backgroundColor: sidebarColors.backgroundSoft,
-        animationDuration: 850,
-        animationEasing: 'cubicOut',
-        animationDurationUpdate: 500,
         tooltip: {
             trigger: 'axis',
             confine: true,
-            axisPointer: {
-                type: 'shadow',
-                shadowStyle: {
-                    color: withAlpha(chartColors.ui.grid, 0.15),
-                },
-            },
+            axisPointer: { type: 'shadow' },
             backgroundColor: chartColors.ui.tooltip,
             borderColor: chartColors.ui.tooltipBorder,
             borderWidth: 1,
-            extraCssText: `border-radius:8px;box-shadow:0 8px 24px ${withAlpha(sidebarColors.background, 0.55)};`,
             textStyle: { color: sidebarColors.textPrimary, ...fontStyles.bodySmall },
             formatter: tooltipFormatter || ((params = []) => {
                 if (!params.length) return '';
-                let result = `<div style="padding:${chartTokens.tooltipHeaderPadY + 2}px ${chartTokens.tooltipHeaderPadX + 2}px ${chartTokens.tooltipHeaderPadY + 4}px ${chartTokens.tooltipHeaderPadX + 2}px;font-weight:${fontStyles.heading6?.fontWeight || 700};font-size:${fontStyles.body?.fontSize || '14px'};color:${sidebarColors.textPrimary};border-bottom:1px solid ${withAlpha(sidebarColors.border, 0.8)};margin-bottom:2px;">${params[0].axisValue}</div>`;
+                let result = `<div style="font-weight:${fontStyles.heading6?.fontWeight || 700};color:${sidebarColors.textPrimary};margin-bottom:4px;">${params[0].axisValue}</div>`;
                 params.forEach((param) => {
                     const value = typeof param.value === 'number'
                         ? (param.value % 1 !== 0 ? param.value.toFixed(1) : param.value)
                         : param.value;
                     const label = String(param.seriesName || '').replace(/_/g, ' ');
-                    result += `<div style="padding:${chartTokens.tooltipRowPadY + 4}px ${chartTokens.tooltipRowPadX + 2}px;display:grid;grid-template-columns:auto 1fr auto;align-items:center;column-gap:${chartTokens.tooltipDotGap}px;min-width:220px;line-height:1.35;">
-                        <span style="display:inline-block;width:${chartTokens.tooltipDotSize}px;height:${chartTokens.tooltipDotSize}px;border-radius:50%;background:${param.color};"></span>
-                        <span style="color:${sidebarColors.textSecondary};text-transform:capitalize;padding-right:${chartTokens.tooltipValueGap}px;">${label}</span>
-                        <strong style="color:${sidebarColors.textPrimary};font-weight:${fontStyles.heading6?.fontWeight || 700};text-align:right;">${value}</strong>
+                    result += `<div style="display:flex;align-items:center;gap:8px;min-width:180px;line-height:1.5;">
+                        <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:${param.color};"></span>
+                        <span style="flex:1;color:${sidebarColors.textSecondary};text-transform:capitalize;">${label}</span>
+                        <strong style="color:${sidebarColors.textPrimary};">${value}</strong>
                     </div>`;
                 });
                 return result;
@@ -392,13 +220,11 @@ export default function VerticalBarChartWrapper({
             data: seriesFields,
             bottom: 0,
             left: 'center',
-            orient: 'horizontal',
             itemWidth: 25,
             itemHeight: 14,
             itemGap: chartTokens.legendItemGap,
             icon: 'roundRect',
-            padding: [chartTokens.legendPadding, chartTokens.legendPadding, chartTokens.legendPadding, chartTokens.legendPadding],
-            textStyle: { color: withAlpha(sidebarColors.textPrimary, 0.92), ...fontStyles.body },
+            textStyle: { color: sidebarColors.textPrimary, ...fontStyles.body },
         },
         grid: {
             left: chartTokens.gridLeft,
@@ -406,7 +232,6 @@ export default function VerticalBarChartWrapper({
             top: chartTokens.gridTop,
             bottom: chartTokens.gridBottom,
             containLabel: true,
-            backgroundColor: sidebarColors.backgroundSoft,
             ...gridOverride,
         },
         xAxis: {
@@ -416,13 +241,12 @@ export default function VerticalBarChartWrapper({
             axisTick: {
                 show: true,
                 alignWithLabel: true,
-                lineStyle: { color: withAlpha(chartColors.ui.axis, 0.55) },
+                lineStyle: { color: chartColors.ui.axis },
             },
             axisLabel: {
                 ...baseAxisStyle(labelStyle).axisLabel,
                 interval,
                 align: 'center',
-                fontWeight: 600,
                 formatter: (value) => {
                     if (value && typeof value === 'string') {
                         try {
@@ -461,17 +285,8 @@ export default function VerticalBarChartWrapper({
                     return value;
                 },
             },
-            splitArea: {
-                show: true,
-                areaStyle: {
-                    color: [
-                        withAlpha(sidebarColors.textPrimary, 0.03),
-                        withAlpha(sidebarColors.textPrimary, 0.08),
-                    ],
-                },
-            },
         },
-        series: displaySeries,
+        series,
     };
 
     const chartContent = children || (

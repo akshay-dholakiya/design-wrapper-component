@@ -1,40 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import ReactECharts from 'echarts-for-react';
 import sidebarColors, { chartColors, fontStyles } from '../../theme/colors';
-import { spacing } from '../../theme/spacing';
-import EagleEyeLoader from './EagleEyeLoader';;
-
-const withAlpha = (hex, alpha) => {
-    if (typeof hex !== 'string') return hex;
-    if (hex.startsWith('rgba') || hex.startsWith('rgb')) return hex;
-    const normalized = hex.replace('#', '');
-    if (![3, 6].includes(normalized.length)) return hex;
-    const full = normalized.length === 3
-        ? normalized.split('').map((ch) => `${ch}${ch}`).join('')
-        : normalized;
-    const r = Number.parseInt(full.slice(0, 2), 16);
-    const g = Number.parseInt(full.slice(2, 4), 16);
-    const b = Number.parseInt(full.slice(4, 6), 16);
-    return `rgba(${r}, ${g}, ${b}, ${alpha})`;
-};
-
-const px = (value, fallback = 0) => {
-    if (typeof value === 'number') return value;
-    if (typeof value === 'string' && value.endsWith('px')) {
-        const parsed = Number.parseInt(value, 10);
-        return Number.isFinite(parsed) ? parsed : fallback;
-    }
-    return fallback;
-};
-
-const tokens = {
-    tooltipPadY: px(spacing.xs, 4),
-    tooltipPadX: px(spacing.sm, 8),
-    legendGap: px(spacing.lg, 16),
-    legendItem: px(spacing.sm, 8),
-    chartTop: px(spacing.md, 12),
-    chartBottom: px(spacing['6xl'], 64),
-};
+import EagleEyeLoader from './EagleEyeLoader';
 
 export default function DonutChartWrapper({
     data = [],
@@ -174,57 +141,22 @@ export default function DonutChartWrapper({
 
     const option = {
         backgroundColor: sidebarColors.backgroundSoft,
-        animationDuration: 650,
-        animationEasing: 'cubicOut',
-        animationDurationUpdate: 420,
         tooltip: {
             trigger: 'item',
-            confine: true,
             backgroundColor: chartColors.ui.tooltip,
             borderColor: chartColors.ui.tooltipBorder,
-            borderWidth: 1,
-            extraCssText: `border-radius:8px;box-shadow:0 10px 26px ${withAlpha(sidebarColors.background, 0.55)};white-space:nowrap;`,
             textStyle: { color: sidebarColors.textPrimary, ...fontStyles.bodySmall },
-            formatter: (param) => {
-                const name = String(param?.name ?? 'Unknown');
-                const value = Number.isFinite(param?.value) ? Number(param.value).toLocaleString() : '0';
-                const percentValue = Number(param?.percent);
-                const percentage = Number.isFinite(percentValue)
-                    ? (Number.isInteger(percentValue)
-                        ? `${percentValue}%`
-                        : `${percentValue.toFixed(2).replace(/\.0+$/, '').replace(/(\.\d*[1-9])0+$/, '$1')}%`)
-                    : '-';
-
-                return `<div style="padding:${tokens.tooltipPadY + 2}px ${tokens.tooltipPadX + 4}px;font-weight:${fontStyles.heading6?.fontWeight || 700};line-height:1.2;color:${sidebarColors.textPrimary};">
-                    ${name}: ${value} (${percentage})
-                </div>`;
-            },
         },
         legend: {
             show: showLegend,
-            type: 'scroll',   // 👈 THIS enables scroll
+            type: 'scroll',
             bottom: 0,
             left: 'center',
-            orient: 'horizontal',
-
+            icon: 'circle',
             textStyle: {
                 color: sidebarColors.textPrimary,
                 ...fontStyles.bodySmall,
             },
-
-            itemGap: tokens.legendGap,
-            itemWidth: tokens.legendItem,
-            itemHeight: tokens.legendItem,
-            icon: 'circle',
-
-            // optional improvements 👇
-            pageIconColor: sidebarColors.primary,
-            pageIconInactiveColor: sidebarColors.textSecondary,
-            pageTextStyle: {
-                color: sidebarColors.textSecondary,
-            },
-            pageButtonItemGap: 6,
-            pageButtonGap: 12,
         },
         graphic,
         series: [
@@ -232,16 +164,10 @@ export default function DonutChartWrapper({
                 type: 'pie',
                 radius: [radiusInner, radiusOuter],
                 center,
-                avoidLabelOverlap: true,
-                minAngle: 2,
-                hoverAnimation: true,
+                avoidLabelOverlap: false,
                 itemStyle: {
-                    borderRadius: 10,
                     borderColor: sidebarColors.background,
                     borderWidth: 2,
-                    shadowBlur: 12,
-                    shadowColor: withAlpha(sidebarColors.background, 0.5),
-                    shadowOffsetY: 3,
                 },
                 label: {
                     show: showLabel,
@@ -254,30 +180,15 @@ export default function DonutChartWrapper({
                     lineStyle: { color: chartColors.ui.axis },
                 },
                 emphasis: {
-                    focus: 'self',
-                    scale: true,
-                    scaleSize: 14,
-                    itemStyle: {
-                        borderColor: '#21d4ff',
-                        borderWidth: 3,
-                        shadowBlur: 28,
-                        shadowColor: withAlpha('#21d4ff', 0.6),
-                        opacity: 1,
-                    },
                     label: {
                         show: true,
-                        color: '#ffffff',
+                        fontWeight: 'bold',
                         ...fontStyles.body,
-                        fontWeight: 700,
                     },
                 },
                 data: normalizedData,
             },
         ],
-        grid: {
-            top: tokens.chartTop,
-            bottom: tokens.chartBottom,
-        },
     };
 
     const chartContent = children || (
