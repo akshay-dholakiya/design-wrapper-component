@@ -76,3 +76,6 @@ export {
   summaryTone,
   severityBadgeStyle,
 } from './theme/sidePanelTheme';
+
+// Platform module registry (Apps hub, sidebar app switchers, etc.)
+export { PLATFORM_MODULES, MODULE_CATEGORY } from './lib/platform-modules';
