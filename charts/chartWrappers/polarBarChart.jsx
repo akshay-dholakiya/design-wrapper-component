@@ -44,6 +44,7 @@ export default function PolarBarChartWrapper({
     colors = [],
     height = 400,
     showLegend = true,
+    stackBars = false,
     onClick,
 }) {
     const containerRef = useRef(null);
@@ -111,6 +112,7 @@ export default function PolarBarChartWrapper({
         name: categories[index],
         type: 'bar',
         coordinateSystem: 'polar',
+        ...(stackBars ? { stack: 'polarStack' } : {}),
         roundCap: true,
         itemStyle: { color: d.color, borderRadius: 4 },
         data: seriesData.map((_, i) => (i === index ? { value: d.value, raw: d.raw } : { value: 0 })),
