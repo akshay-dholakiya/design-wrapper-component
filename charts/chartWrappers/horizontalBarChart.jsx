@@ -265,6 +265,7 @@ export default function HorizontalBarChartWrapper({
         yAxis: {
             type: 'category',
             data: categories,
+            inverse: true,
             ...baseAxisStyle(labelStyle),
             axisTick: {
                 show: true,
