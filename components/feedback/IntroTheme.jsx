@@ -25,6 +25,20 @@ export default function IntroTheme() {
         box-shadow: 0 16px 40px rgba(0,0,0,0.45), 0 2px 8px rgba(0,0,0,0.25);
         font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
         max-width: min(320px, calc(100vw - 32px)) !important;
+        /* intro.js's 'floating' position centers the tooltip relative to a per-step
+           reference anchor built around that step's own target, not the real viewport —
+           for a target near the top/side of the page the "centered" tooltip drifts
+           toward the opposite edge. Force it here instead: !important in a stylesheet
+           beats intro.js's own inline top/left/margin, so this always wins regardless
+           of whatever position it computed internally, and it stays under this
+           element's original high-z-index ancestor (no reparenting needed). */
+        position: fixed !important;
+        top: 50% !important;
+        left: 50% !important;
+        right: auto !important;
+        bottom: auto !important;
+        margin: 0 !important;
+        transform: translate(-50%, -50%) !important;
       }
       .introjs-tooltip-title { color: ${c.textPrimary}; font-size: 14px; font-weight: 700; }
       .introjs-tooltiptext { color: ${c.textSecondary}; font-size: 12.5px; line-height: 1.6; padding: 16px 18px; }
