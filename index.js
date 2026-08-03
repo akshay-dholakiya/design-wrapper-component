@@ -8,6 +8,7 @@
 
 // Components
 export { default as Button } from './components/buttons/Button';
+export { default as IntroButton } from './components/buttons/IntroButton.jsx';
 export { default as Sidebar } from './components/navigation/Sidebar';
 export { default as RightSidebar } from './components/navigation/RightSidebar.jsx';
 export { default as BaseAccordion } from './components/layout/BaseAccordion.jsx';
