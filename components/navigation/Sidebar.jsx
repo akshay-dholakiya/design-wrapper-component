@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import { Link, useLocation } from "react-router-dom";
-import sidebarColors from "../../theme/colors";
+import { getLiveSidebarColors } from "../../theme/colors";
 import "./Sidebar.css";
 import { TOPBAR_HEIGHT, SIDEBAR_COLLAPSED_W, SIDEBAR_EXPANDED_W } from "../../lib/layout-constants";
 
@@ -100,6 +100,9 @@ const Sidebar = ({
                    showLogout = false,
                    onLogout,
                  }) => {
+  // Read theme fresh on every render — bypasses the module-level cache
+  // frozen at SSR time (see getLiveSidebarColors' own doc comment).
+  const sidebarColors = getLiveSidebarColors();
   const [open, setOpen] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(
       () => typeof document !== "undefined" && Boolean(document.fullscreenElement)

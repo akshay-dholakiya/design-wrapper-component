@@ -67,6 +67,22 @@ const sidebarColors = {
   primary:      DEFAULT_COLORS.primary,
   accent:       '#64b5f6',                     // --accent (dark) steel-blue
   primaryMuted: '#ef9a9a',
+  primaryHover: '#c62828',
+  primaryGlow: 'rgba(229,57,53,0.07)',
+  primarySoft: 'rgba(229,57,53,0.10)',
+
+  // ── SURFACE FX / AUTH PAGES / GLASS CARDS ─────────────────────
+  authPageBg: '#0f0f0f',
+  authCardBg: 'rgba(42,42,42,0.88)',
+  authCardBorder: 'rgba(229,57,53,0.28)',
+  glassSurfaceBg: 'rgba(15,15,15,0.78)',
+  glassBorder: 'rgba(255,255,255,0.07)',
+  shimmerOverlay: 'rgba(255,255,255,0.06)',
+  overlayBackdrop: 'rgba(0,0,0,0.55)',
+  modalShadow: 'rgba(0,0,0,0.45)',
+  elevatedShadow: 'rgba(0,0,0,0.45)',
+  thumbShadow: 'rgba(0,0,0,0.35)',
+  focusRing: 'rgba(229,57,53,0.15)',
 
   // ── STATUS — DANGER ──────────────────────────────────────────
   danger:       '#e53935',   // aligned with crimson primary
