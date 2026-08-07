@@ -68,6 +68,30 @@ const exitFullscreenIcon = (
     </svg>
 );
 
+const profileIcon = (
+    <svg
+        className="fullscreen-item-icon"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2.25"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        aria-hidden="true"
+    >
+      <circle cx="12" cy="8" r="4" />
+      <path d="M4 21c0-4 3.6-7 8-7s8 3 8 7" />
+    </svg>
+);
+
+// The auth app (fct-sso-app) owns /profile — every consumer of this shared
+// Sidebar (soar, ioc, edr-frontend, dashboard, fct-sso-app itself, ...)
+// links there directly rather than each re-implementing its own profile
+// page. Same subdomain scheme as the cookie domain in utils.js: local dev
+// runs on *.local.eagleyesoc.ai, everything else is the bare prod domain.
+const PROD_PROFILE_URL = "https://auth.eagleyesoc.ai/profile";
+const LOCAL_PROFILE_URL = "https://auth.local.eagleyesoc.ai/profile";
+
 const Sidebar = ({
                    menuItems = [],
                    bottomMenuItems = [],
@@ -80,6 +104,17 @@ const Sidebar = ({
   const [isFullscreen, setIsFullscreen] = useState(
       () => typeof document !== "undefined" && Boolean(document.fullscreenElement)
   );
+  // Starts at the prod URL (matches what SSR renders, since window isn't
+  // available there) and corrects to the local one client-side post-mount —
+  // reading window.location.hostname during render would mismatch the
+  // server-rendered href on local dev.
+  const [profileUrl, setProfileUrl] = useState(PROD_PROFILE_URL);
+
+  useEffect(() => {
+    if (window.location.hostname.endsWith("local.eagleyesoc.ai")) {
+      setProfileUrl(LOCAL_PROFILE_URL);
+    }
+  }, []);
 
   const handleToggle = () => {
     const newOpenState = !open;
@@ -139,6 +174,7 @@ const Sidebar = ({
 
   const resolvedBottomMenuItems = [
     ...bottomMenuItems,
+    { title: "Profile", icon: profileIcon, path: profileUrl },
     {
       title: isFullscreen ? "Exit Full Screen" : "Full Screen",
       icon: isFullscreen ? exitFullscreenIcon : fullscreenIcon,
