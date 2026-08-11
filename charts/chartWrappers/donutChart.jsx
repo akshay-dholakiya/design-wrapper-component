@@ -173,7 +173,7 @@ export default function DonutChartWrapper({
                     show: showLabel,
                     color: sidebarColors.textPrimary,
                     ...fontStyles.bodySmall,
-                    formatter: '{b}',
+                    formatter: '{b} ({c})',
                 },
                 labelLine: {
                     show: showLabel,

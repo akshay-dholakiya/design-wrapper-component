@@ -216,7 +216,7 @@ export function NightingaleChartWrapper({
                     show: true,
                     color: sidebarColors.textSecondary,
                     ...fontStyles.bodySmall,
-                    formatter: '{b}',
+                    formatter: '{b} ({c})',
                 },
                 labelLine: {
                     lineStyle: { color: withAlpha(sidebarColors.textSecondary, 0.5) },

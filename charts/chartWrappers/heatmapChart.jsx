@@ -202,10 +202,10 @@ export function HeatmapChartWrapper({
     };
 
     return (
-        <div ref={containerRef} style={{ width: '100%' }}>
+        <div ref={containerRef} style={{ width: '100%', height: resolvedHeight, minHeight: 120, display: 'flex', flexDirection: 'column' }}>
             {isLoading ? loadingComponent : !hasData ? (
                 <div style={{
-                    height: resolvedHeight,
+                    flex: 1, minHeight: 0,
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
                     color: c.textMuted, fontSize: 13, fontWeight: 500,
                 }}>
@@ -215,7 +215,7 @@ export function HeatmapChartWrapper({
                 <>
                     {/* legend strip */}
                     <div style={{
-                        display: 'flex', alignItems: 'center', gap: 8, marginBottom: 10,
+                        display: 'flex', alignItems: 'center', gap: 8, marginBottom: 10, flexShrink: 0,
                     }}>
                         <span style={{ display: 'flex', alignItems: 'center', gap: 5, flexShrink: 0 }}>
                             <span style={{
@@ -251,12 +251,14 @@ export function HeatmapChartWrapper({
                     </div>
 
                     {ready && (
-                        <ReactECharts
-                            ref={chartRef}
-                            option={option}
-                            style={{ width: '100%', height: resolvedHeight }}
-                            notMerge
-                        />
+                        <div style={{ flex: 1, minHeight: 0 }}>
+                            <ReactECharts
+                                ref={chartRef}
+                                option={option}
+                                style={{ width: '100%', height: '100%' }}
+                                notMerge
+                            />
+                        </div>
                     )}
                 </>
             )}

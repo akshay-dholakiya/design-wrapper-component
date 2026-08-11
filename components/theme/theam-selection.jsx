@@ -8,6 +8,7 @@ const themes = [
   { name: 'Vault',     bg: 'linear-gradient(135deg, #0a0f16 0%, #10b981 60%, #f59e0b 100%)',    key: 'emerald'  },
   { name: 'Void',      bg: 'linear-gradient(135deg, #000000 0%, #27262c 55%, #a78bfa 100%)',   key: 'void'     },
   { name: 'Signal',    bg: 'linear-gradient(135deg, #000000 0%, #17181c 50%, #1da1f2 100%)',   key: 'signal'   },
+  { name: 'TrendMicro',bg: 'linear-gradient(135deg, #151515 0%, #212121 50%, #578AEF 100%)',   key: 'trendmicro' },
 ];
 
 const PANEL_W = 260;

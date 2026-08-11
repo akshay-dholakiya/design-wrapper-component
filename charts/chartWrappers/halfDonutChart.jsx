@@ -180,7 +180,7 @@ export default function HalfDonutChartWrapper({
                     show: showLabel,
                     color: sidebarColors.textPrimary,
                     ...fontStyles.bodySmall,
-                    formatter: '{b}',
+                    formatter: '{b} ({c})',
                 },
                 labelLine: {
                     show: showLabel,
