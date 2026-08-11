@@ -17,6 +17,8 @@ export { default as PageLoader } from './components/loaders/PageLoader';
 export { default as UnifiedSelect } from './components/inputs/UnifiedSelect';
 export { default as AppInput } from './components/inputs/AppInput';
 export { default as StatsCard } from './components/cards/StatsCard';
+export { default as ProfileCard } from './components/profile/ProfileCard';
+export { ThemeSelection } from './components/theme/theam-selection.jsx';
 export { default as Tabs } from './components/navigation/Tabs';
 export { default as ColumnVisibilityMenu } from './components/table/ColumnVisibilityMenu';
 export { ToastProvider, useToast } from './components/feedback/toast/toastContext.jsx';
