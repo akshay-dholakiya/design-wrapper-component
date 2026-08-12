@@ -120,88 +120,72 @@ const ShieldIcon = ({ size = 17 }) => (
 
 // ─── sub-components ───────────────────────────────────────────────────────────
 
-function StatTile({ icon: Icon, label, value, color, delay }) {
-  const [hovered, setHovered] = useState(false);
+function InfoBarItem({ icon: Icon, label, value, color, isFirst, delay }) {
   const entrance = useEntrance(delay);
   const accent = color || sidebarColors.primaryFrom;
 
   return (
     <div
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
       style={{
-        position: 'relative',
-        overflow: 'hidden',
-        backgroundColor: sidebarColors.backgroundSoft,
-        border: `1px solid ${hovered ? withAlpha(accent, 0.4) : sidebarColors.border}`,
-        borderRadius: borderRadius.lg,
-        padding: `${spacing.md} ${spacing.lg}`,
-        transform: hovered ? 'translateY(-2px)' : 'translateY(0)',
-        transition: 'border-color 200ms ease, transform 200ms ease',
+        display: 'flex',
+        alignItems: 'center',
+        gap: spacing.sm,
+        flex: '1 1 200px',
+        minWidth: 0,
+        padding: `${spacing.lg} ${spacing.xl}`,
+        borderLeft: isFirst ? 'none' : `1px solid ${sidebarColors.border}`,
         ...entrance,
       }}
     >
-      <div
-        aria-hidden
-        style={{
-          position: 'absolute',
-          inset: 0,
-          opacity: 0.5,
-          pointerEvents: 'none',
-          background: `radial-gradient(circle at 100% 0%, ${withAlpha(accent, 0.13)}, transparent 60%)`,
-        }}
-      />
-      <div style={{ position: 'relative', display: 'flex', alignItems: 'center', gap: spacing.sm }}>
-        {Icon && (
-          <div
-            style={{
-              display: 'grid',
-              placeItems: 'center',
-              flexShrink: 0,
-              width: spacing['3xl'],
-              height: spacing['3xl'],
-              borderRadius: borderRadius.md,
-              color: accent,
-              backgroundColor: withAlpha(accent, 0.1),
-              border: `1px solid ${withAlpha(accent, 0.2)}`,
-            }}
-          >
-            {typeof Icon === 'function' ? <Icon size={15} /> : Icon}
-          </div>
-        )}
-        <div style={{ minWidth: 0 }}>
-          <p
-            style={{
-              ...fontStyles.caption,
-              margin: 0,
-              fontWeight: 600,
-              textTransform: 'uppercase',
-              letterSpacing: '0.06em',
-              color: sidebarColors.textSecondary,
-            }}
-          >
-            {label}
-          </p>
-          <p
-            style={{
-              ...fontStyles.body,
-              margin: '2px 0 0',
-              fontWeight: 600,
-              color: sidebarColors.textPrimary,
-              whiteSpace: 'nowrap',
-              overflow: 'hidden',
-              textOverflow: 'ellipsis',
-            }}
-          >
-            {value ?? '—'}
-          </p>
+      {Icon && (
+        <div
+          style={{
+            display: 'grid',
+            placeItems: 'center',
+            flexShrink: 0,
+            width: spacing['3xl'],
+            height: spacing['3xl'],
+            borderRadius: borderRadius.md,
+            color: accent,
+            backgroundColor: withAlpha(accent, 0.1),
+            border: `1px solid ${withAlpha(accent, 0.2)}`,
+          }}
+        >
+          {typeof Icon === 'function' ? <Icon size={15} /> : Icon}
         </div>
+      )}
+      <div style={{ minWidth: 0 }}>
+        <p
+          style={{
+            ...fontStyles.caption,
+            margin: 0,
+            fontWeight: 600,
+            textTransform: 'uppercase',
+            letterSpacing: '0.06em',
+            color: sidebarColors.textSecondary,
+          }}
+        >
+          {label}
+        </p>
+        <p
+          style={{
+            ...fontStyles.body,
+            margin: '2px 0 0',
+            fontWeight: 600,
+            color: sidebarColors.textPrimary,
+            whiteSpace: 'nowrap',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+          }}
+        >
+          {value ?? '—'}
+        </p>
       </div>
     </div>
   );
 }
 
-function AppChip({ app, delay }) {
+function AppTile({ app, delay }) {
   const [hovered, setHovered] = useState(false);
   const entrance = useEntrance(delay);
   const accent = app.color || sidebarColors.primaryFrom;
@@ -212,16 +196,17 @@ function AppChip({ app, delay }) {
       onMouseLeave={() => setHovered(false)}
       style={{
         display: 'flex',
+        flexDirection: 'column',
         alignItems: 'center',
+        justifyContent: 'center',
         gap: spacing.sm,
-        borderRadius: borderRadius.lg,
-        paddingBlock: spacing.xs,
-        paddingInlineStart: spacing.xs,
-        paddingInlineEnd: spacing.md,
+        textAlign: 'center',
+        borderRadius: borderRadius.xl,
+        padding: `${spacing.lg} ${spacing.sm}`,
         backgroundColor: sidebarColors.surface,
         border: `1px solid ${hovered ? withAlpha(accent, 0.5) : sidebarColors.border}`,
-        boxShadow: hovered ? `0 12px 24px -12px ${withAlpha(accent, 0.4)}` : 'none',
-        transform: hovered ? 'translateY(-2px)' : 'translateY(0)',
+        boxShadow: hovered ? `0 14px 28px -14px ${withAlpha(accent, 0.45)}` : 'none',
+        transform: hovered ? 'translateY(-3px)' : 'translateY(0)',
         transition: 'border-color 200ms ease, box-shadow 200ms ease, transform 200ms ease',
         ...entrance,
       }}
@@ -230,17 +215,29 @@ function AppChip({ app, delay }) {
         style={{
           display: 'grid',
           placeItems: 'center',
-          width: spacing['3xl'],
-          height: spacing['3xl'],
-          borderRadius: borderRadius.md,
+          width: '46px',
+          height: '46px',
+          borderRadius: borderRadius.lg,
           overflow: 'hidden',
           backgroundColor: withAlpha(accent, 0.15),
           boxShadow: `inset 0 0 10px ${withAlpha(accent, 0.15)}`,
         }}
       >
-        {typeof app.icon === 'function' ? app.icon(accent, 18) : app.icon}
+        {typeof app.icon === 'function' ? app.icon(accent, 20) : app.icon}
       </div>
-      <span style={{ ...fontStyles.bodySmall, fontWeight: 600, color: sidebarColors.textPrimary }}>{app.name}</span>
+      <span
+        style={{
+          ...fontStyles.bodySmall,
+          fontWeight: 600,
+          color: sidebarColors.textPrimary,
+          maxWidth: '100%',
+          overflow: 'hidden',
+          textOverflow: 'ellipsis',
+          whiteSpace: 'nowrap',
+        }}
+      >
+        {app.name}
+      </span>
     </div>
   );
 }
@@ -291,86 +288,57 @@ export default function ProfileCard({
   }
 
   return (
-    <div style={{ width: '100%', maxWidth: '960px', marginInline: 'auto', ...style }}>
+    <div style={{ width: '100%', ...style }}>
       {/* ── Hero ── */}
       <div
         style={{
           position: 'relative',
           overflow: 'hidden',
           borderRadius: borderRadius.xl,
-          padding: componentSpacing.card.comfortable,
           backgroundColor: sidebarColors.backgroundSoft,
           border: `1px solid ${sidebarColors.border}`,
           ...heroEntrance,
         }}
       >
+        {/* Cover banner */}
         <div
           aria-hidden
-          style={{
-            position: 'absolute',
-            insetInline: spacing['2xl'],
-            top: 0,
-            height: '1px',
-            pointerEvents: 'none',
-            background: `linear-gradient(90deg, transparent, ${accent}, transparent)`,
-          }}
-        />
-        <div
-          aria-hidden
-          style={{
-            position: 'absolute',
-            top: '-64px',
-            right: '-64px',
-            width: '256px',
-            height: '256px',
-            borderRadius: '50%',
-            filter: 'blur(64px)',
-            pointerEvents: 'none',
-            background: `radial-gradient(circle, ${withAlpha(sidebarColors.primaryFrom, 0.22)}, transparent 70%)`,
-          }}
-        />
-        <div
-          aria-hidden
-          style={{
-            position: 'absolute',
-            bottom: '-80px',
-            left: '-40px',
-            width: '224px',
-            height: '224px',
-            borderRadius: '50%',
-            filter: 'blur(64px)',
-            pointerEvents: 'none',
-            background: `radial-gradient(circle, ${withAlpha(sidebarColors.accent, 0.14)}, transparent 70%)`,
-          }}
-        />
-
-        <div
           style={{
             position: 'relative',
-            display: 'flex',
-            flexWrap: 'wrap',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            gap: spacing.lg,
+            height: '100px',
+            background: `linear-gradient(120deg, ${withAlpha(accent, 0.95)}, ${withAlpha(sidebarColors.primaryFrom, 0.9)} 55%, ${withAlpha(sidebarColors.primaryTo, 0.95)})`,
           }}
         >
-        <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: spacing.lg, flex: 1, minWidth: 0 }}>
-          {/* Avatar */}
           <div
             style={{
-              position: 'relative',
+              position: 'absolute',
+              inset: 0,
+              background:
+                'radial-gradient(circle at 12% 25%, rgba(255,255,255,0.18), transparent 55%), radial-gradient(circle at 88% 75%, rgba(255,255,255,0.14), transparent 50%)',
+            }}
+          />
+        </div>
+
+        <div style={{ position: 'relative', padding: `0 ${componentSpacing.card.comfortable} ${componentSpacing.card.comfortable}` }}>
+          {/* Avatar — absolutely positioned so it overlaps the banner without
+              displacing the identity/actions row below it */}
+          <div
+            style={{
+              position: 'absolute',
+              top: '-44px',
+              left: componentSpacing.card.comfortable,
               display: 'grid',
               placeItems: 'center',
-              flexShrink: 0,
-              width: '68px',
-              height: '68px',
+              width: '88px',
+              height: '88px',
               borderRadius: '50%',
               overflow: 'hidden',
-              fontSize: '26px',
+              fontSize: '30px',
               fontWeight: 700,
               color: sidebarColors.textInverse ?? '#fff',
               background: `linear-gradient(135deg, ${sidebarColors.primaryFrom}, ${sidebarColors.primaryTo})`,
-              boxShadow: `0 8px 24px -6px ${withAlpha(sidebarColors.primaryFrom, 0.55)}, 0 0 0 4px ${withAlpha(sidebarColors.primaryFrom, 0.1)}`,
+              border: `4px solid ${sidebarColors.backgroundSoft}`,
+              boxShadow: `0 10px 24px -8px ${withAlpha(sidebarColors.primaryFrom, 0.55)}`,
             }}
           >
             {avatarUrl ? (
@@ -382,12 +350,12 @@ export default function ProfileCard({
             <span
               style={{
                 position: 'absolute',
-                bottom: '-2px',
-                right: '-2px',
+                bottom: '2px',
+                right: '2px',
                 display: 'grid',
                 placeItems: 'center',
-                width: '24px',
-                height: '24px',
+                width: '20px',
+                height: '20px',
                 borderRadius: '50%',
                 background: sidebarColors.backgroundSoft,
                 border: `2px solid ${sidebarColors.backgroundSoft}`,
@@ -398,8 +366,8 @@ export default function ProfileCard({
                   position: 'relative',
                   display: 'grid',
                   placeItems: 'center',
-                  width: '12px',
-                  height: '12px',
+                  width: '10px',
+                  height: '10px',
                   borderRadius: '50%',
                   backgroundColor: isActive ? sidebarColors.success : sidebarColors.textMuted,
                 }}
@@ -419,103 +387,123 @@ export default function ProfileCard({
             </span>
           </div>
 
-          {/* Identity */}
-          <div style={{ minWidth: 0, flex: 1 }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: spacing.sm, flexWrap: 'wrap' }}>
-              <h1 style={{ ...fontStyles.heading2, margin: 0, color: sidebarColors.textPrimary }}>{username}</h1>
-              {role && (
-                <span
-                  style={{
-                    ...fontStyles.caption,
-                    fontWeight: 700,
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.06em',
-                    borderRadius: borderRadius.full,
-                    padding: `2px ${spacing.md}`,
-                    color: accent,
-                    backgroundColor: withAlpha(accent, 0.1),
-                    border: `1px solid ${withAlpha(accent, 0.25)}`,
-                  }}
-                >
-                  {roleLabel || humanizeRole(role)}
-                </span>
-              )}
-            </div>
+          <div
+            style={{
+              display: 'flex',
+              flexWrap: 'wrap',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              gap: spacing.lg,
+              paddingTop: spacing.lg,
+              paddingLeft: '104px',
+            }}
+          >
+            <div style={{ minWidth: 0, flex: 1 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: spacing.sm, flexWrap: 'wrap' }}>
+                <h1 style={{ ...fontStyles.heading2, margin: 0, color: sidebarColors.textPrimary }}>{username}</h1>
+                {/* {role && (
+                  <span
+                    style={{
+                      ...fontStyles.caption,
+                      fontWeight: 700,
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.06em',
+                      borderRadius: borderRadius.full,
+                      padding: `2px ${spacing.md}`,
+                      color: accent,
+                      backgroundColor: withAlpha(accent, 0.1),
+                      border: `1px solid ${withAlpha(accent, 0.25)}`,
+                    }}
+                  >
+                    {roleLabel || humanizeRole(role)}
+                  </span>
+                )} */}
+              </div>
 
-            <div style={{ marginTop: spacing.sm, display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: spacing.sm }}>
+              {/* Contact line — plain text, not a pill, so it reads as data rather than a control */}
               {email && (
-                <span
+                <div
                   style={{
-                    display: 'inline-flex',
+                    marginTop: spacing.xs,
+                    display: 'flex',
                     alignItems: 'center',
                     gap: spacing.xs,
-                    borderRadius: borderRadius.full,
-                    padding: `4px ${spacing.md}`,
-                    ...fontStyles.bodySmall,
                     color: sidebarColors.textSecondary,
-                    backgroundColor: sidebarColors.surface,
-                    border: `1px solid ${sidebarColors.border}`,
+                    ...fontStyles.bodyLarge,
                   }}
                 >
-                  <MailIcon /> {email}
-                </span>
+                  <MailIcon size={20} />
+                  <span style={{ overflowWrap: 'anywhere' }}>{email}</span>
+                </div>
               )}
+
               {provider && (
                 <span
                   style={{
+                    marginTop: spacing.sm,
                     display: 'inline-flex',
                     alignItems: 'center',
                     gap: spacing.xs,
                     borderRadius: borderRadius.full,
                     padding: `4px ${spacing.md}`,
-                    ...fontStyles.bodySmall,
+                    ...fontStyles.caption,
                     fontWeight: 600,
                     color: provider.color || sidebarColors.primaryFrom,
                     backgroundColor: withAlpha(provider.color || sidebarColors.primaryFrom, 0.12),
                     border: `1px solid ${withAlpha(provider.color || sidebarColors.primaryFrom, 0.3)}`,
                   }}
                 >
-                  {provider.icon || <ShieldIcon size={15} />} {provider.label}
+                  {provider.icon || <ShieldIcon size={15} />} Signed in with {provider.label}
                 </span>
               )}
             </div>
+
+            {/* Actions — vertically centered beside the identity block, aligned right */}
+            {actions.length > 0 && (
+              <div style={{ display: 'flex', flexShrink: 0, gap: spacing.sm }}>
+                {actions.map((a, i) => (
+                  <Button
+                    key={a.label ?? i}
+                    size="md"
+                    variant={a.variant || (i === actions.length - 1 ? 'primary' : 'dark')}
+                    icon={a.icon}
+                    onClick={a.onClick}
+                  >
+                    {a.label}
+                  </Button>
+                ))}
+              </div>
+            )}
           </div>
         </div>
 
-        {actions.length > 0 && (
-          <div style={{ position: 'relative', display: 'flex', flexShrink: 0, gap: spacing.sm }}>
-            {actions.map((a, i) => (
-              <Button
-                key={a.label ?? i}
-                size="sm"
-                variant={a.variant || (i === actions.length - 1 ? 'primary' : 'dark')}
-                icon={a.icon}
-                onClick={a.onClick}
-              >
-                {a.label}
-              </Button>
+        {/* Quick facts — divided info bar attached to the hero card */}
+        {stats.length > 0 && (
+          <div
+            style={{
+              position: 'relative',
+              marginTop: spacing.xl,
+              display: 'flex',
+              flexWrap: 'wrap',
+              borderTop: `1px solid ${sidebarColors.border}`,
+              backgroundColor: withAlpha(sidebarColors.surface, 0.4),
+            }}
+          >
+            {stats.map((s, i) => (
+              <InfoBarItem
+                key={s.label ?? i}
+                icon={s.icon}
+                label={s.label}
+                value={s.value}
+                color={s.color}
+                isFirst={i === 0}
+                delay={60 + i * 50}
+              />
             ))}
           </div>
         )}
-        </div>
         <style>{`@keyframes pc-ping{75%,100%{transform:scale(2);opacity:0}}`}</style>
       </div>
-
-      {/* ── Stat tiles ── */}
-      {stats.length > 0 && (
-        <div
-          style={{
-            marginTop: spacing.lg,
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
-            gap: spacing.md,
-          }}
-        >
-          {stats.map((s, i) => (
-            <StatTile key={s.label ?? i} icon={s.icon} label={s.label} value={s.value} color={s.color} delay={60 + i * 50} />
-          ))}
-        </div>
-      )}
 
       {/* ── Apps ── */}
       <div
@@ -561,9 +549,17 @@ export default function ProfileCard({
           </span>
         </div>
 
-        <div style={{ position: 'relative', marginTop: spacing.lg, display: 'flex', flexWrap: 'wrap', gap: spacing.md }}>
+        <div
+          style={{
+            position: 'relative',
+            marginTop: spacing.lg,
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fill, minmax(112px, 1fr))',
+            gap: spacing.md,
+          }}
+        >
           {apps.map((app, i) => (
-            <AppChip key={app.key ?? app.name ?? i} app={app} delay={240 + i * 40} />
+            <AppTile key={app.key ?? app.name ?? i} app={app} delay={240 + i * 40} />
           ))}
           {apps.length === 0 && (
             <p style={{ ...fontStyles.bodySmall, margin: 0, color: sidebarColors.textSecondary }}>{emptyAppsText}</p>
