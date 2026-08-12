@@ -98,6 +98,36 @@
   }
 }
 
+@keyframes ringSpin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes ringPulse {
+  0%,
+  100% {
+    transform: scale(0.9);
+    opacity: 0.3;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.8;
+  }
+}
+
+@keyframes orbit {
+  0% {
+    transform: rotate(0deg) translateX(76px) rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg) translateX(76px) rotate(-360deg);
+  }
+}
+
 /* Main loader container */
 .page-loader {
   display: flex;
@@ -132,6 +162,46 @@
   align-items: center;
   justify-content: center;
   gap: 24px;
+}
+
+/* Icon container - holds logo plus animated rings/orbit dot */
+.loader-icon {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Rotating gradient ring around the logo */
+.icon-ring-spin {
+  position: absolute;
+  inset: -12px;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  animation: ringSpin 1.6s linear infinite;
+}
+
+/* Soft pulsing outer ring */
+.icon-ring-pulse {
+  position: absolute;
+  inset: -22px;
+  border-radius: 50%;
+  border: 2px solid;
+  animation: ringPulse 2s ease-in-out infinite;
+}
+
+/* Dot orbiting around the logo */
+.icon-orbit-dot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  margin: -4px;
+  border-radius: 50%;
+  animation: orbit 2.4s linear infinite;
 }
 
 /* Logo wrapper */
@@ -225,9 +295,23 @@
 
 /* Responsive styles */
 @media (max-width: 768px) {
+  .loader-icon,
   .logo-wrapper {
     width: 100px;
     height: 100px;
+  }
+
+  .icon-ring-pulse {
+    inset: -18px;
+  }
+
+  @keyframes orbit {
+    0% {
+      transform: rotate(0deg) translateX(64px) rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg) translateX(64px) rotate(-360deg);
+    }
   }
 
   .loader-text {
@@ -241,9 +325,27 @@
 }
 
 @media (max-width: 480px) {
+  .loader-icon,
   .logo-wrapper {
     width: 80px;
     height: 80px;
+  }
+
+  .icon-ring-spin {
+    inset: -8px;
+  }
+
+  .icon-ring-pulse {
+    inset: -14px;
+  }
+
+  @keyframes orbit {
+    0% {
+      transform: rotate(0deg) translateX(52px) rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg) translateX(52px) rotate(-360deg);
+    }
   }
 
   .loader-text {
@@ -267,9 +369,16 @@
   .logo-wrapper,
   .shimmer-overlay,
   .logo-wrapper::before,
+  .icon-ring-spin,
+  .icon-ring-pulse,
+  .icon-orbit-dot,
   .loader-text,
   .loader-dots span {
     animation: none !important;
+  }
+
+  .icon-orbit-dot {
+    display: none;
   }
 
   .logo-wrapper::before {

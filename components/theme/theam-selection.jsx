@@ -8,7 +8,7 @@ const themes = [
   { name: 'Vault',     bg: 'linear-gradient(135deg, #0a0f16 0%, #10b981 60%, #f59e0b 100%)',    key: 'emerald'  },
   { name: 'Void',      bg: 'linear-gradient(135deg, #000000 0%, #27262c 55%, #a78bfa 100%)',   key: 'void'     },
   { name: 'Signal',    bg: 'linear-gradient(135deg, #000000 0%, #17181c 50%, #1da1f2 100%)',   key: 'signal'   },
-  { name: 'TrendMicro',bg: 'linear-gradient(135deg, #151515 0%, #212121 50%, #578AEF 100%)',   key: 'trendmicro' },
+  { name: 'Apex',      bg: 'linear-gradient(135deg, #151515 0%, #212121 50%, #578AEF 100%)',   key: 'trendmicro' },
 ];
 
 const PANEL_W = 260;
@@ -22,7 +22,7 @@ export const ThemeSelection = () => {
   // ── mounted guard — ensures no server/client state mismatch ───────────────
   const [mounted, setMounted] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const [selected, setSelected] = useState('ocean'); // stable SSR value
+  const [selected, setSelected] = useState('trendmicro'); // stable SSR value
   const [btnY, setBtnY] = useState(0); // stable SSR value
 
   const dragging = useRef(false);
@@ -37,7 +37,7 @@ export const ThemeSelection = () => {
   // Patch to real client values after first paint — runs only on client
   useEffect(() => {
     setMounted(true);
-    setSelected(getCookie('theme') || 'ocean');
+    setSelected(getCookie('theme') || 'trendmicro');
     const savedY = localStorage.getItem('themeBtnY');
     if (savedY !== null) {
       const parsed = parseFloat(savedY);

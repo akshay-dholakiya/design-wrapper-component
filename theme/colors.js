@@ -18,13 +18,13 @@ const themeMap = {
 
 // Safe cookie read — returns default during SSR where document is undefined
 const getThemeKey = () => {
-    if (typeof window === "undefined") return "ocean"; // SSR: EagleEye brand theme is the default
-    return getCookie("theme") || "ocean";
+    if (typeof window === "undefined") return "trendmicro"; // SSR: EagleEye brand theme is the default
+    return getCookie("theme") || "trendmicro";
 };
 
 const themeKey = getThemeKey();
 
-const theme = themeMap[themeKey] ?? themeMap['ocean']; // fallback to brand theme
+const theme = themeMap[themeKey] ?? themeMap['trendmicro']; // fallback to brand theme
 
 const sidebarColors = theme.default;
 const DEFAULT_COLORS = theme.DEFAULT_COLORS;
@@ -50,7 +50,7 @@ export default sidebarColors;
  * Bypasses the module-level cache that is frozen at SSR time.
  */
 export const getLiveSidebarColors = () => {
-    if (typeof window === "undefined") return themeMap["ocean"].default;
-    const key = getCookie("theme") || "ocean";
-    return (themeMap[key] || themeMap["ocean"]).default;
+    if (typeof window === "undefined") return themeMap["trendmicro"].default;
+    const key = getCookie("theme") || "trendmicro";
+    return (themeMap[key] || themeMap["trendmicro"]).default;
 };
