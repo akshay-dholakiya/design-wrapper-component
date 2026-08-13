@@ -119,11 +119,19 @@ export default function HalfDonutChartWrapper({
         };
     });
 
+    // Text position is derived from `center`/`radiusInner` (not hardcoded) because this is a
+    // half donut: its center sits near the bottom of the box, so the hollow it opens into
+    // spans upward from there — a fixed percentage copied from a full-circle donut misses it.
+    const centerYPct = parseFloat(center[1]) || 78;
+    const innerRadiusPct = parseFloat(radiusInner) || 62;
+    const hollowTopPct = centerYPct - innerRadiusPct / 2;
+    const hollowSpanPct = centerYPct - hollowTopPct;
+
     const graphic = centerText ? [
         {
             type: 'text',
             left: 'center',
-            top: centerSubtext ? '48%' : '54%',
+            top: `${hollowTopPct + hollowSpanPct * (centerSubtext ? 0.3 : 0.5)}%`,
             style: {
                 text: centerText,
                 font: `bold 24px ${fontStyles.body?.fontFamily || 'sans-serif'}`,
@@ -134,7 +142,7 @@ export default function HalfDonutChartWrapper({
         ...(centerSubtext ? [{
             type: 'text',
             left: 'center',
-            top: '64%',
+            top: `${hollowTopPct + hollowSpanPct * 0.75}%`,
             style: {
                 text: centerSubtext,
                 font: `11px ${fontStyles.body?.fontFamily || 'sans-serif'}`,
