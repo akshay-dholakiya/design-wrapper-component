@@ -15,6 +15,7 @@ export interface SidebarProps {
   bottomMenuItems?: SidebarMenuItem[];
   logo?: string;
   onOpenChange?: (open: boolean) => void;
+  showProfile?: boolean;
   showLogout?: boolean;
   onLogout?: () => void;
 }

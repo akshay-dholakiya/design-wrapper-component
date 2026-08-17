@@ -404,6 +404,9 @@ function CustomSelect({
       >
         <span
           style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 8,
             color: selected
               ? sidebarColors.textPrimary
               : sidebarColors.textSecondary,
@@ -414,6 +417,9 @@ function CustomSelect({
             whiteSpace: 'nowrap',
           }}
         >
+          {selected?.icon && (
+            <span style={{ display: 'inline-flex', alignItems: 'center', flexShrink: 0 }}>{selected.icon}</span>
+          )}
           {selected ? selected.label : placeholder || 'Select…'}
         </span>
         <svg
@@ -569,6 +575,9 @@ function CustomSelect({
                         d="M5 13l4 4L19 7"
                       />
                     </svg>
+                  )}
+                  {opt.icon && (
+                    <span style={{ display: 'inline-flex', alignItems: 'center', flexShrink: 0 }}>{opt.icon}</span>
                   )}
                   <span style={{ flex: 1 }}>{opt.label}</span>
                 </div>

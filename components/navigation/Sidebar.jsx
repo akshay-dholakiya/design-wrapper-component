@@ -97,6 +97,7 @@ const Sidebar = ({
                    bottomMenuItems = [],
                    logo,
                    onOpenChange,
+                   showProfile = true,
                    showLogout = false,
                    onLogout,
                  }) => {
@@ -177,7 +178,7 @@ const Sidebar = ({
 
   const resolvedBottomMenuItems = [
     ...bottomMenuItems,
-    { title: "Profile", icon: profileIcon, path: profileUrl },
+    ...(showProfile ? [{ title: "Profile", icon: profileIcon, path: profileUrl }] : []),
     {
       title: isFullscreen ? "Exit Full Screen" : "Full Screen",
       icon: isFullscreen ? exitFullscreenIcon : fullscreenIcon,
