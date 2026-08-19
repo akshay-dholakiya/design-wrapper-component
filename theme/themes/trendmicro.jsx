@@ -66,6 +66,13 @@ const sidebarColors = {
   accent:       DEFAULT_COLORS.secondary,
   primaryMuted: '#8AACF5',
 
+  // ── SURFACE FX / MODALS ──────────────────────────────────────
+  overlayBackdrop: 'rgba(0,0,0,0.55)',
+  modalShadow:     'rgba(0,0,0,0.45)',
+  elevatedShadow:  'rgba(0,0,0,0.45)',
+  thumbShadow:     'rgba(0,0,0,0.35)',
+  focusRing:       'rgba(87,138,239,0.15)',
+
   // ── STATUS — DANGER ──────────────────────────────────────────
   danger:       '#F24C4F',
   dangerDark:   '#D93638',

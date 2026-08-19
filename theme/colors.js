@@ -4,6 +4,7 @@ import * as sentinel from "./themes/sentinel.jsx";
 import * as emerald from "./themes/emerald.jsx";
 import * as signal from "./themes/signal.jsx";
 import * as trendmicro from "./themes/trendmicro.jsx";
+import * as voidTheme from "./themes/void.jsx";
 import { getCookie } from "../utils/utils.js";
 
 const themeMap = {
@@ -12,6 +13,7 @@ const themeMap = {
     ocean,
     signal,
     trendmicro,
+    void: voidTheme,
     // ── Legacy key aliases (preserves existing cookie values) ──
     theam1: ocean,
 };
