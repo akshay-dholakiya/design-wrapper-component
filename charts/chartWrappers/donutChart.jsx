@@ -27,6 +27,7 @@ export default function DonutChartWrapper({
     const containerRef = useRef(null);
     const chartRef = useRef(null);
     const [ready, setReady] = useState(false);
+    const hasData = Array.isArray(data) && data.length > 0 && typeof data[0] === 'object';
 
     useEffect(() => {
         const checkSize = () => {
@@ -60,9 +61,7 @@ export default function DonutChartWrapper({
             if (rafId !== null) cancelAnimationFrame(rafId);
             observer?.disconnect();
         };
-    }, []);
-
-    const hasData = Array.isArray(data) && data.length > 0 && typeof data[0] === 'object';
+    }, [hasData]);
 
     if (!hasData) {
         return isLoading ? loadingComponent : (

@@ -26,6 +26,7 @@ export default function AreaChartWrapper({
     yAxisFields = null,
     colorMap = {},
     height = 400,
+    grid = { left: 8, right: 12, top: 12, bottom: 8, containLabel: true },
     onClick,
 }) {
     const containerRef = useRef(null);
@@ -101,6 +102,8 @@ export default function AreaChartWrapper({
 
     const option = {
         backgroundColor: sidebarColors.backgroundSoft,
+
+        grid,
 
         tooltip: { trigger: 'axis' },
 
