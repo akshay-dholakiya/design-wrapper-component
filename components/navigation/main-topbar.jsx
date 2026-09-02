@@ -39,6 +39,7 @@ const getBreadcrumbs = (p, labels) => {
  * @param {{
  *   routeLabels?:  Record<string, string>,
  *   pathname?:     string,
+ *   subtitle?:     import("react").ReactNode,
  *   leftContent?:  import("react").ReactNode,
  *   rightContent?: import("react").ReactNode,
  *   slots?:        Array<{
@@ -53,6 +54,7 @@ const getBreadcrumbs = (p, labels) => {
 export const MainTopbar = ({
   routeLabels  = {},
   pathname,
+  subtitle,
   leftContent,
   rightContent,
   slots        = [],   // ← NEW: generic, optional, default empty
@@ -101,29 +103,37 @@ export const MainTopbar = ({
               {dashboardName === "Home" ? "Home" : `${dashboardName} `}
             </h1>
 
-            <div
-              className="flex items-center gap-2 mt-1 min-h-[18px]"
-              style={{ visibility: visibleBreadcrumbs.length > 1 ? "visible" : "hidden" }}
-            >
-              {visibleBreadcrumbs.map((crumb, i, arr) => (
-                <div key={i} className="flex items-center gap-2">
-                  <span
-                    style={{
-                      ...fontStyles.label,
-                      color:
-                        i === arr.length - 1
-                          ? colors.primaryFrom
-                          : colors.textSecondary,
-                    }}
-                  >
-                    {crumb}
-                  </span>
-                  {i < arr.length - 1 && (
-                    <span style={{ color: colors.textSecondary, fontSize: "12px" }}>›</span>
-                  )}
-                </div>
-              ))}
-            </div>
+            {subtitle ? (
+              <div className="mt-1 min-h-[18px]">
+                <span style={{ ...fontStyles.bodySmall, color: colors.textSecondary }}>
+                  {subtitle}
+                </span>
+              </div>
+            ) : (
+              <div
+                className="flex items-center gap-2 mt-1 min-h-[18px]"
+                style={{ visibility: visibleBreadcrumbs.length > 1 ? "visible" : "hidden" }}
+              >
+                {visibleBreadcrumbs.map((crumb, i, arr) => (
+                  <div key={i} className="flex items-center gap-2">
+                    <span
+                      style={{
+                        ...fontStyles.label,
+                        color:
+                          i === arr.length - 1
+                            ? colors.primaryFrom
+                            : colors.textSecondary,
+                      }}
+                    >
+                      {crumb}
+                    </span>
+                    {i < arr.length - 1 && (
+                      <span style={{ color: colors.textSecondary, fontSize: "12px" }}>›</span>
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* Slot: leftContent — UNCHANGED */}
