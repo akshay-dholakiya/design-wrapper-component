@@ -4,6 +4,14 @@ import {ToastContainer} from "./toast.jsx";
 
 const ToastContext = createContext(null);
 
+// Lets non-React code (e.g. the axios response interceptor) raise a toast
+// without a hook — set to the live `toast` callback while a ToastProvider
+// is mounted, a no-op before/after that.
+let emitToast = () => {};
+export function toastFromOutsideReact(opts) {
+    emitToast(opts);
+}
+
 export function ToastProvider({ children }) {
     const [toasts, setToasts] = useState([]);
     const idRef = useRef(0);
@@ -15,6 +23,7 @@ export function ToastProvider({ children }) {
             setToasts((prev) => prev.filter((t) => t.id !== id));
         }, duration);
     }, []);
+    emitToast = toast;
 
     const dismiss = useCallback((id) => {
         setToasts((prev) => prev.filter((t) => t.id !== id));

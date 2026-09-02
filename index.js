@@ -21,7 +21,7 @@ export { default as ProfileCard } from './components/profile/ProfileCard';
 export { ThemeSelection } from './components/theme/theam-selection.jsx';
 export { default as Tabs } from './components/navigation/Tabs';
 export { default as ColumnVisibilityMenu } from './components/table/ColumnVisibilityMenu';
-export { ToastProvider, useToast } from './components/feedback/toast/toastContext.jsx';
+export { ToastProvider, useToast, toastFromOutsideReact } from './components/feedback/toast/toastContext.jsx';
 
 // Color Tokens
 export {

@@ -131,6 +131,14 @@ export const SiemIcon = (color, size = iconSize) => (
   </svg>
 );
 
+export const CspmIcon = (color, size = iconSize) => (
+  <svg width={size} height={size} viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect width="56" height="56" rx="14" fill="#EAFBF3"/>
+    <path d="M18 34C13.6 34 10 30.4 10 26C10 21.8 13.3 18.4 17.4 18.1C18.9 14 22.7 11 27.3 11C32.9 11 37.5 15.3 38 20.7C41.5 21.4 44 24.4 44 28C44 32 40.9 35 37 35H18V34Z" fill="#38C793"/>
+    <path d="M25.5 30L28 32.5L33 26.5" stroke="#0B6B4B" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+);
+
 export const UEBAIcon = (color, size = iconSize) => (
   <svg width={size} height={size} viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
     <rect width="56" height="56" rx="14" fill="#EAF3FE"/>
