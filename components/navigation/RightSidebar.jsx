@@ -27,14 +27,20 @@ const closeIcon = (
 );
 
 const RightSidebar = forwardRef(function RightSidebar(
-  { title, subtitle, children, width = 420,footer },
+  { title, subtitle, children, width = 420, footer, onClose },
   ref
 ) {
   const [open, setOpen] = useState(false);
   const colors = getLiveSidebarColors();
 
   const openPanel = useCallback(() => setOpen(true), []);
-  const closePanel = useCallback(() => setOpen(false), []);
+  // Consumers that mount this component conditionally on their own state (rather than
+  // keeping it always-mounted and toggling via ref) need to hear about a backdrop/Escape/
+  // close-button dismissal too, or their state and this panel's visibility drift apart.
+  const closePanel = useCallback(() => {
+    setOpen(false);
+    onClose?.();
+  }, [onClose]);
 
   useImperativeHandle(
     ref,

@@ -1,7 +1,9 @@
 .right-sidebar-root {
   position: fixed;
   inset: 0;
-  z-index: 9999;
+  /* Must outrank every other overlay in the app (attack-path graph modal peaks at
+     999999) so the sidebar always lands on top regardless of what's already open. */
+  z-index: 1000000;
   pointer-events: none;
 }
 
