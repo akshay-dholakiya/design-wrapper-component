@@ -3,6 +3,7 @@ import {
   useCallback,
   useEffect,
   useImperativeHandle,
+  useRef,
   useState,
 } from "react";
 import { createPortal } from "react-dom";
@@ -27,14 +28,28 @@ const closeIcon = (
 );
 
 const RightSidebar = forwardRef(function RightSidebar(
-  { title, subtitle, children, width = 420,footer },
+  { title, subtitle, children, width = 420, footer, onClose },
   ref
 ) {
   const [open, setOpen] = useState(false);
   const colors = getLiveSidebarColors();
+  const bodyRef = useRef(null);
 
-  const openPanel = useCallback(() => setOpen(true), []);
-  const closePanel = useCallback(() => setOpen(false), []);
+  // Callers reuse an already-open sidebar for new content (e.g. jumping between
+  // related assets/findings) by calling open() again rather than remounting —
+  // reset scroll each time so the new detail lands at the top, not wherever the
+  // previous content had scrolled to.
+  const openPanel = useCallback(() => {
+    setOpen(true);
+    bodyRef.current?.scrollTo(0, 0);
+  }, []);
+  // Consumers that mount this component conditionally on their own state (rather than
+  // keeping it always-mounted and toggling via ref) need to hear about a backdrop/Escape/
+  // close-button dismissal too, or their state and this panel's visibility drift apart.
+  const closePanel = useCallback(() => {
+    setOpen(false);
+    onClose?.();
+  }, [onClose]);
 
   useImperativeHandle(
     ref,
@@ -104,7 +119,7 @@ const RightSidebar = forwardRef(function RightSidebar(
             {closeIcon}
           </button>
         </header>
-        <div className="right-sidebar-body">{children}</div>
+        <div className="right-sidebar-body" ref={bodyRef}>{children}</div>
         {footer && (
             <div className="right-sidebar-footer">{footer}</div>
         )}
