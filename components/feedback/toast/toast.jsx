@@ -1,44 +1,46 @@
 import React, { useEffect, useState } from "react";
-import { getLiveSidebarColors ,sidebarColors} from "@design-pattern/theme/colors.js";
+import { getLiveSidebarColors } from "@design-pattern/theme/colors.js";
 
-const TOAST_CFG = {
-    info:    { accent: sidebarColors.info, bg: "rgba(14,165,233,0.08)",  border: "rgba(14,165,233,0.22)",  icon: <InfoIcon /> },
-    success: { accent: sidebarColors.success, bg: "rgba(16,185,129,0.08)",  border: "rgba(16,185,129,0.22)",  icon: <CheckIcon /> },
-    warning: { accent: sidebarColors.warning, bg: "rgba(245,158,11,0.08)",  border: "rgba(245,158,11,0.22)",  icon: <WarnIcon /> },
-    error:   { accent: sidebarColors.error, bg: "rgba(239,68,68,0.08)",   border: "rgba(239,68,68,0.22)",   icon: <ErrorIcon /> },
-};
+function toastConfig(colors) {
+    return {
+        info:    { accent: colors.info,    bg: "rgba(14,165,233,0.08)", border: "rgba(14,165,233,0.22)", icon: <InfoIcon color={colors.info} /> },
+        success: { accent: colors.success, bg: "rgba(16,185,129,0.08)", border: "rgba(16,185,129,0.22)", icon: <CheckIcon color={colors.success} /> },
+        warning: { accent: colors.warning, bg: "rgba(245,158,11,0.08)", border: "rgba(245,158,11,0.22)", icon: <WarnIcon color={colors.warning} /> },
+        error:   { accent: colors.danger,  bg: "rgba(239,68,68,0.08)",  border: "rgba(239,68,68,0.22)",  icon: <ErrorIcon color={colors.danger} /> },
+    };
+}
 
-function CheckIcon() {
+function CheckIcon({ color }) {
     return (
         <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-            <circle cx="7" cy="7" r="6.5" stroke={sidebarColors.success} strokeWidth="1.2" />
-            <path d="M4 7l2.2 2.2L10 5" stroke={sidebarColors.success} strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+            <circle cx="7" cy="7" r="6.5" stroke={color} strokeWidth="1.2" />
+            <path d="M4 7l2.2 2.2L10 5" stroke={color} strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
     );
 }
-function ErrorIcon() {
+function ErrorIcon({ color }) {
     return (
         <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-            <circle cx="7" cy="7" r="6.5" stroke={sidebarColors.error} strokeWidth="1.2" />
-            <path d="M4.5 4.5l5 5M9.5 4.5l-5 5" stroke={sidebarColors.error} strokeWidth="1.4" strokeLinecap="round" />
+            <circle cx="7" cy="7" r="6.5" stroke={color} strokeWidth="1.2" />
+            <path d="M4.5 4.5l5 5M9.5 4.5l-5 5" stroke={color} strokeWidth="1.4" strokeLinecap="round" />
         </svg>
     );
 }
-function WarnIcon() {
+function WarnIcon({ color }) {
     return (
         <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-            <path d="M7 1.5L12.8 12H1.2L7 1.5Z" stroke={sidebarColors.warning} strokeWidth="1.2" strokeLinejoin="round" />
-            <path d="M7 5.5v3" stroke={sidebarColors.warning} strokeWidth="1.4" strokeLinecap="round" />
-            <circle cx="7" cy="10" r="0.6" fill={sidebarColors.warning} />
+            <path d="M7 1.5L12.8 12H1.2L7 1.5Z" stroke={color} strokeWidth="1.2" strokeLinejoin="round" />
+            <path d="M7 5.5v3" stroke={color} strokeWidth="1.4" strokeLinecap="round" />
+            <circle cx="7" cy="10" r="0.6" fill={color} />
         </svg>
     );
 }
-function InfoIcon() {
+function InfoIcon({ color }) {
     return (
         <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-            <circle cx="7" cy="7" r="6.5" stroke={sidebarColors.info} strokeWidth="1.2" />
-            <path d="M7 6.5v4" stroke={sidebarColors.info} strokeWidth="1.4" strokeLinecap="round" />
-            <circle cx="7" cy="4.5" r="0.65" fill={sidebarColors.info} />
+            <circle cx="7" cy="7" r="6.5" stroke={color} strokeWidth="1.2" />
+            <path d="M7 6.5v4" stroke={color} strokeWidth="1.4" strokeLinecap="round" />
+            <circle cx="7" cy="4.5" r="0.65" fill={color} />
         </svg>
     );
 }
@@ -47,7 +49,7 @@ function ToastItem({ id, message, title, type = "info", duration = 4000, onDismi
     const [visible, setVisible] = useState(false);
     const [progress, setProgress] = useState(100);
     const colors = getLiveSidebarColors();
-    const s = TOAST_CFG[type] ?? TOAST_CFG.info;
+    const s = toastConfig(colors)[type] ?? toastConfig(colors).info;
 
     useEffect(() => {
         const t = setTimeout(() => setVisible(true), 10);
