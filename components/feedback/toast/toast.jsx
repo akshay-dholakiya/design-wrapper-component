@@ -92,7 +92,7 @@ function ToastItem({ id, message, title, type = "info", duration = 4000, onDismi
                 opacity: visible ? 1 : 0,
                 transition: "transform 0.28s cubic-bezier(0.34,1.3,0.64,1), opacity 0.22s ease",
                 pointerEvents: "auto",
-                zIndex: 999999 - stackIndex,
+                zIndex: 1000001 - stackIndex,
                 overflow: "hidden",
             }}
         >
@@ -175,7 +175,7 @@ export function ToastContainer({ toasts, onDismiss }) {
                 flexDirection: "column",
                 gap: 7,
                 alignItems: "flex-end",
-                zIndex: 999999,
+                zIndex: 1000001,
                 pointerEvents: "none",
             }}
         >
