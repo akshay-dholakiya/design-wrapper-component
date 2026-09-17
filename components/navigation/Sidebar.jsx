@@ -4,6 +4,8 @@ import { Link, useLocation } from "react-router-dom";
 import { getLiveSidebarColors } from "../../theme/colors";
 import "./Sidebar.css";
 import { TOPBAR_HEIGHT, SIDEBAR_COLLAPSED_W, SIDEBAR_EXPANDED_W } from "../../lib/layout-constants";
+import eagleyeFullLogo from "../../assets/eagleye-full.png";
+import eagleyeHalfLogo from "../../assets/eagleye-half.png";
 
 const isExternalLink = (path = "") => /^https?:\/\//i.test(path);
 
@@ -95,7 +97,6 @@ const LOCAL_PROFILE_URL = "https://auth.local.eagleyesoc.ai/profile";
 const Sidebar = ({
                    menuItems = [],
                    bottomMenuItems = [],
-                   logo,
                    onOpenChange,
                    showProfile = true,
                    showLogout = false,
@@ -196,7 +197,7 @@ const Sidebar = ({
       >
         {/* Logo */}
         <div className={`sidebar-logo ${open ? "expanded" : "collapsed"}`}>
-          {logo && <img src={logo} alt="logo" />}
+          <img src={open ? eagleyeFullLogo : eagleyeHalfLogo} alt="logo" />
         </div>
 
         {/* Menu */}

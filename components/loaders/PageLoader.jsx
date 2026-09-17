@@ -1,7 +1,7 @@
 import React from 'react';
 import sidebarColors from '../../theme/colors.js';
 import './PageLoader.css';
-import logoImage from '../../assets/logo.jpg';
+import logoImage from '../../assets/eagleye-half.png';
 
 /**
  * PageLoader Component
