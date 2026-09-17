@@ -197,7 +197,10 @@ const Sidebar = ({
       >
         {/* Logo */}
         <div className={`sidebar-logo ${open ? "expanded" : "collapsed"}`}>
-          <img src={open ? eagleyeFullLogo : eagleyeHalfLogo} alt="logo" />
+          {(() => {
+            const activeLogo = open ? eagleyeFullLogo : eagleyeHalfLogo;
+            return <img src={activeLogo?.src || activeLogo} alt="logo" />;
+          })()}
         </div>
 
         {/* Menu */}
