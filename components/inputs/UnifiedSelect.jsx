@@ -85,7 +85,9 @@ const MENU_BASE = {
   borderRadius: borderRadius.lg,
   boxShadow: `0 16px 40px -8px rgba(0,0,0,0.5), 0 0 0 1px ${sidebarColors.primaryFrom}`,
   overflow: 'hidden',
-  zIndex: 9999,
+  // Menu portals to document.body as a sibling of RightSidebar (z-index 1000000,
+  // see RightSidebar.css) — must outrank it or the sidebar covers the menu.
+  zIndex: 1000001,
 };
 
 const OPTION_BASE = {
