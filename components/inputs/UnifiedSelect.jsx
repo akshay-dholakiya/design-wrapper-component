@@ -483,6 +483,7 @@ function CustomSelect({
             >
               <input
                 ref={searchRef}
+                autoFocus
                 type="text"
                 value={search}
                 onChange={(e) => {
@@ -530,7 +531,7 @@ function CustomSelect({
               const isHighlighted = idx === highlighted;
               return (
                 <div
-                  key={opt.value}
+                  key={`${opt.value}-${idx}`}
                   data-option
                   role="option"
                   aria-selected={isSelected}
