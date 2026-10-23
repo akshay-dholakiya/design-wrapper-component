@@ -65,6 +65,11 @@ const sidebarColors = {
   primary:      DEFAULT_COLORS.primary,
   accent:       DEFAULT_COLORS.secondary,
   primaryMuted: '#8AACF5',
+  primaryHover: '#3E6FE0',
+  primaryGlow:  'rgba(87,138,239,0.07)',
+  authPageBg:   '#0a0a0a',
+  authCardBg:   'rgba(10,10,10,0.88)',
+  authCardBorder: 'rgba(87,138,239,0.28)',
 
   // ── SURFACE FX / MODALS ──────────────────────────────────────
   overlayBackdrop: 'rgba(0,0,0,0.55)',
