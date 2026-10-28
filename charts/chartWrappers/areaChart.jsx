@@ -27,6 +27,8 @@ export default function AreaChartWrapper({
     colorMap = {},
     height = 400,
     grid = { left: 8, right: 12, top: 12, bottom: 8, containLabel: true },
+    showGridLines = true,
+    showPoints = false,
     onClick,
 }) {
     const containerRef = useRef(null);
@@ -73,7 +75,8 @@ export default function AreaChartWrapper({
             name: field,
             type: 'line',
             smooth: true,
-            showSymbol: false,
+            showSymbol: showPoints,
+            symbolSize: 7,
 
             data: data.map(d => Number(d[field]) || 0),
 
@@ -114,6 +117,7 @@ export default function AreaChartWrapper({
 
         yAxis: {
             type: 'value',
+            splitLine: { show: showGridLines },
         },
 
         series,
